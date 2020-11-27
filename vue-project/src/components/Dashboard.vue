@@ -22,6 +22,7 @@
 import DashboardHeader from './share/DashboardHeader.vue'
 import DashboardAside from './share/DashboardAside.vue'
 import LiveLesson from './LiveLesson.vue'
+import LectureInfo from './LectureInfo.vue'
 
 export default {
   name: "Dashboard",
