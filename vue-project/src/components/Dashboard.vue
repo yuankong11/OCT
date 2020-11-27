@@ -126,6 +126,7 @@
       </el-aside>
       <el-main>
         <Live-lesson />
+        <LectureInfo />
         <Homework />
         <Resource
       /></el-main>
@@ -171,13 +172,15 @@
 import Homework from './Homework.vue'
 import Resource from './Resource.vue'
 import LiveLesson from './LiveLesson.vue'
+import LectureInfo from './LectureInfo.vue'
 
 export default {
   name: "Dashboard",
   components: {
     Homework,
     Resource,
-    LiveLesson
+    LiveLesson,
+    LectureInfo
   },
   methods: {
     get_bodyHeight () {//动态获取浏览器高度
