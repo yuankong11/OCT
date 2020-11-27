@@ -1,36 +1,31 @@
 <template>
-  <el-container>
-    <el-header><span>所有作业</span></el-header>
-    <el-main>
-      <el-table
-        stripe
-        :data="tableData"
-        height="500"
-        border
-        :default-sort="{ prop: 'ddl', order: 'descending' }"
-        style="width: 100%"
-      >
-        <el-table-column prop="workName" label="作业" width="100">
-        </el-table-column>
-        <el-table-column prop="courseName" label="课程" width="120" sortable>
-        </el-table-column>
-        <el-table-column prop="ddl" label="截止日期" witdth="100" sortable>
-        </el-table-column>
-        <el-table-column prop="status" label="提交状态" width="140" sortable>
-        </el-table-column>
-        <el-table-column label="操作" width="80">
-          <template slot-scope="scope">
-            <el-button
-              size="mini"
-              @click="handleEdit(scope.$index, scope.row)"
-              icon="el-icon-edit"
-            >
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-main>
-  </el-container>
+  <el-table
+    stripe
+    :data="tableData"
+    height="500"
+    border
+    :default-sort="{ prop: 'ddl', order: 'descending' }"
+    style="width: 100%"
+  >
+    <el-table-column prop="workName" label="作业" width="100">
+    </el-table-column>
+    <el-table-column prop="courseName" label="课程" width="120" sortable>
+    </el-table-column>
+    <el-table-column prop="ddl" label="截止日期" witdth="100" sortable>
+    </el-table-column>
+    <el-table-column prop="status" label="提交状态" width="140" sortable>
+    </el-table-column>
+    <el-table-column label="操作" width="80">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          @click="handleEdit(scope.$index, scope.row)"
+          icon="el-icon-edit"
+        >
+        </el-button>
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script>
@@ -39,7 +34,7 @@ export default {
   props: {
     handleEdit: Function,
   },
-  data() {
+  data () {
     return {
       dialogVisible: true,
       tableData: [
@@ -86,7 +81,7 @@ export default {
           status: "未提交",
         },
       ],
-    };
+    }
   },
   methods: {
     // handleEdit(index, row) {

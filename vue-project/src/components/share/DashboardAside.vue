@@ -1,0 +1,130 @@
+<template>
+  <el-aside width="200px" style="overflow: hidden">
+    <el-menu
+      :data="leftMenuData"
+      class="el-menu-vertical-demo"
+      @open="handleOpen"
+      @close="handleClose"
+      :collapse="isCollapse"
+    >
+      <el-menu-item index="1" @click="toHomework">
+        <i class="el-icon-edit"></i>
+        <span slot="title">作业</span>
+      </el-menu-item>
+      <!-- <el-submenu index="1">
+            <template slot="title">
+              <i class="el-icon-edit"></i>
+              <span slot="title">作业</span>
+            </template>
+            <el-menu-item-group>
+              <span slot="title">分组一</span>
+              <el-menu-item index="1-1">选项1</el-menu-item>
+              <el-menu-item index="1-2">选项2</el-menu-item>
+            </el-menu-item-group>
+            <el-menu-item-group title="分组2">
+              <el-menu-item index="1-3">选项3</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu> -->
+      <el-menu-item index="2" @click="toResource">
+        <i class="el-icon-folder-opened"></i>
+        <span slot="title">资源</span>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <i class="el-icon-date"></i>
+        <span slot="title">日程</span>
+      </el-menu-item>
+      <el-menu-item index="4">
+        <i class="el-icon-finished"></i>
+        <span slot="title">事项</span>
+      </el-menu-item>
+      <el-menu-item index="5" @click="toLiveLesson">
+        <i class="el-icon-data-analysis"></i>
+        <span slot="title">讲座</span>
+      </el-menu-item>
+      <el-menu-item index="6">
+        <i class="el-icon-video-camera"></i>
+        <span slot="title">直播</span>
+      </el-menu-item>
+    </el-menu>
+  </el-aside>
+</template>
+
+
+<style>
+.el-aside {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
+</style>
+
+
+<script>
+import LiveLesson from '../LiveLesson.vue'
+import Homework from '../Homework.vue'
+import Resource from '../Resource.vue'
+
+export default {
+  name: "DashboardAside",
+  components: {
+    Homework,
+    Resource,
+    LiveLesson
+  },
+  methods: {
+    get_bodyHeight () {//动态获取浏览器高度
+      const that = this
+      window.onresize = () => {
+        return (() => {
+          window.fullHeight = document.documentElement.clientHeight
+          that.fullHeight = window.fullHeight
+        })()
+      }
+    },
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    handleOpen (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    handleClose (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    toHomework (e) {
+      this.$router.push({ name: "Homework" })
+    },
+    toResource (e) {
+      this.$router.push({ name: "Resource" })
+    },
+    toLiveLesson (e) {
+      this.$router.push({ name: "LiveLesson" })
+    }
+  },
+  watch: {
+    fullHeight (val) {//监控浏览器高度变化
+      if (!this.timer) {
+        this.fullHeight = val
+        this.timer = true
+        let that = this
+        setTimeout(function () {
+          that.timer = false
+        }, 400)
+      }
+    }
+  },
+  mounted () {
+    this.get_bodyHeight()
+  },
+  data () {
+    return {
+      circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+      fullHeight: document.documentElement.clientHeight,
+      leftMenuData: [{
+        isCollapse: true
+      }]
+    }
+  }
+}
+</script>

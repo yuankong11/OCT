@@ -1,29 +1,24 @@
 <template>
-  <el-container>
-    <el-header><span>新的作业</span></el-header>
-    <el-main>
-      <el-table
-        stripe
-        :data="tableData"
-        height="250"
-        border
-        :default-sort="{ prop: 'ddl', order: 'descending' }"
-        style="width: 100%"
-      >
-        <el-table-column prop="workName" label="作业" width="180">
-        </el-table-column>
-        <el-table-column prop="courseName" label="课程" width="180">
-        </el-table-column>
-        <el-table-column prop="ddl" label="截止日期" witdth="180" sortable>
-        </el-table-column>
-      </el-table>
-    </el-main>
-  </el-container>
+  <el-table
+    stripe
+    :data="tableData"
+    height="250"
+    border
+    :default-sort="{ prop: 'ddl', order: 'descending' }"
+    style="width: 100%"
+  >
+    <el-table-column prop="workName" label="作业" width="180">
+    </el-table-column>
+    <el-table-column prop="courseName" label="课程" width="180">
+    </el-table-column>
+    <el-table-column prop="ddl" label="截止日期" witdth="180" sortable>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       tableData: [
         {
@@ -37,7 +32,7 @@ export default {
           ddl: "2020-12-22"
         },
       ],
-    };
+    }
   },
 };
 </script>

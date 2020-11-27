@@ -3,7 +3,7 @@
     <el-table
       ref="multipleTable"
       :data="tableData"
-      style="width: 100%;margin-bottom: 20px;"
+      style="width: 100%; margin-bottom: 20px"
       row-key="id"
       border
       default-expand-all
@@ -21,21 +21,23 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handlePreview(scope.$index, scope.row)" icon="el-icon-view"
-            ></el-button
-          >
+          <el-button
+            size="mini"
+            @click="handlePreview(scope.$index, scope.row)"
+            icon="el-icon-view"
+          ></el-button>
           <el-button
             size="mini"
             type="success"
-            @click="handleFavor(scope.$index, scope.row)" icon="el-icon-star-off"
-            ></el-button
-          >
+            @click="handleFavor(scope.$index, scope.row)"
+            icon="el-icon-star-off"
+          ></el-button>
           <el-button
             size="mini"
             type="primary"
-            @click="handleDownload(scope.$index, scope.row)" icon="el-icon-download"
-            ></el-button
-          >
+            @click="handleDownload(scope.$index, scope.row)"
+            icon="el-icon-download"
+          ></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -46,9 +48,10 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
-  data() {
+  data () {
     return {
       tableData: [
         {
@@ -90,24 +93,24 @@ export default {
         },
       ],
       multipleSelection: [],
-    };
+    }
   },
   methods: {
-    toggleSelection(rows) {
+    toggleSelection (rows) {
       if (rows) {
         rows.forEach((row) => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
+          this.$refs.multipleTable.toggleRowSelection(row)
+        })
       } else {
-        this.$refs.multipleTable.clearSelection();
+        this.$refs.multipleTable.clearSelection()
       }
     },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
+    handleSelectionChange (val) {
+      this.multipleSelection = val
     },
-    handleFavor() {},
-    handleDownload() {},
-    handlePreview() {},
+    handleFavor () { },
+    handleDownload () { },
+    handlePreview () { },
   },
 };
 </script>
