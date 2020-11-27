@@ -29,19 +29,19 @@
         <i class="el-icon-folder-opened"></i>
         <span slot="title">资源</span>
       </el-menu-item>
-      <el-menu-item index="3">
+      <el-menu-item index="3" @click="toCalendar">
         <i class="el-icon-date"></i>
         <span slot="title">日程</span>
       </el-menu-item>
-      <el-menu-item index="4">
+      <el-menu-item index="4" @click="toTodo">
         <i class="el-icon-finished"></i>
         <span slot="title">事项</span>
       </el-menu-item>
-      <el-menu-item index="5" @click="toLiveLesson">
+      <el-menu-item index="5" @click="toLectureInfo">
         <i class="el-icon-data-analysis"></i>
         <span slot="title">讲座</span>
       </el-menu-item>
-      <el-menu-item index="6">
+      <el-menu-item index="6" @click="toLiveLesson">
         <i class="el-icon-video-camera"></i>
         <span slot="title">直播</span>
       </el-menu-item>
@@ -63,15 +63,21 @@
 
 <script>
 import LiveLesson from '../LiveLesson.vue'
+import LectureInfo from '../LectureInfo.vue'
 import Homework from '../Homework.vue'
 import Resource from '../Resource.vue'
+import Calendar from '../Calendar.vue'
+import Todo from '../Todo.vue'
 
 export default {
   name: "DashboardAside",
   components: {
     Homework,
     Resource,
-    LiveLesson
+    LiveLesson,
+    LectureInfo,
+    Calendar,
+    Todo
   },
   methods: {
     get_bodyHeight () {//动态获取浏览器高度
@@ -100,6 +106,15 @@ export default {
     },
     toLiveLesson (e) {
       this.$router.push({ name: "LiveLesson" })
+    },
+    toLectureInfo (e) {
+      this.$router.push({ name: "LectureInfo" })
+    },
+    toCalendar (e) {
+      this.$router.push({ name: "Calendar" })
+    },
+    toTodo (e) {
+      this.$router.push({ name: "Todo" })
     }
   },
   watch: {
@@ -119,7 +134,6 @@ export default {
   },
   data () {
     return {
-      circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
       fullHeight: document.documentElement.clientHeight,
       leftMenuData: [{
         isCollapse: true

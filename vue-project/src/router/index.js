@@ -4,8 +4,9 @@ import Dashboard from '@/components/Dashboard'
 import Homework from '@/components/Homework'
 import Resource from '@/components/Resource'
 import LiveLesson from '@/components/LiveLesson'
-// import Schedule from '@/components/Schedule'
-// import Todo from '@/components/Todo'
+import LectureInfo from '@/components/LectureInfo.vue'
+import Calendar from '@/components/Calendar'
+import Todo from '@/components/Todo'
 
 
 Vue.use(Router)
@@ -32,15 +33,20 @@ export default new Router({
       name: 'LiveLesson',
       component: LiveLesson
     },
-    // {
-    //   path: '/schedule',
-    //   name: 'Schedule',
-    //   component: Schedule
-    // },
-    // {
-    //   path: '/todo',
-    //   name: 'Todo',
-    //   component: Todo
-    // }
+    {
+      path: '/lectureInfo',
+      name: 'LectureInfo',
+      component: LectureInfo
+    },
+    {
+      path: '/calendar',
+      name: 'Calendar',
+      component: Calendar
+    },
+    {
+      path: '/todo',
+      name: 'Todo',
+      component: Todo
+    }
   ]
 })

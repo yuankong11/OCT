@@ -1,20 +1,22 @@
 <template>
-  <div id="Resource">
-    <el-container>
-      <el-aside width="240">
-        <el-container>
-          <el-header>New？？？</el-header>
-          <el-main
-            >收藏夹？？？
+  <el-container id="Resource">
+    <el-header class="resource-header">资源</el-header>
+    <el-main>
+      <el-row :gutter="20">
+        <el-col :span="6">
+          <el-card class="box-card">
+            <div slot="header">
+              <span>最新的资源</span>
+            </div>
             <Favorites />
-          </el-main>
-        </el-container>
-      </el-aside>
-      <el-main>
-        <files />
-      </el-main>
-    </el-container>
-  </div>
+          </el-card>
+        </el-col>
+        <el-col :span="18">
+          <el-card class="box-card"><Files /> </el-card>
+        </el-col>
+      </el-row>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -38,5 +40,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.resource-header {
+  background-color: #e9eef3;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
 }
 </style>
