@@ -1,0 +1,26 @@
+{
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  // 保存时自动格式化代码
+  "editor.formatOnSave": true,
+  // eslint配置项，保存时自动修复错误
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+
+  // 让vetur使用vs自带的js格式化工具，以便在函数前面加个空格
+  "vetur.format.defaultFormatter.js": "vscode-typescript",
+  "javascript.format.semicolons": "remove",
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  // 指定 *.vue 文件的格式化工具为vetur
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
+  // 指定 *.js 文件的格式化工具为vscode自带
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  // 默认使用prettier格式化支持的文件
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
