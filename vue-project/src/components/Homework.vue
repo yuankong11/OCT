@@ -1,6 +1,6 @@
 <template>
   <el-container id="Homework">
-    <el-header class="homework">作业</el-header>
+    <el-header class="homework-header">作业</el-header>
     <el-main>
       <el-row :gutter="20">
         <el-col :span="12">
@@ -12,7 +12,7 @@
           </el-card>
         </el-col>
         <el-col :span="12">
-          <el-card class="box-card">
+          <el-card class="box-card" style="margin-bottom: 18px">
             <div slot="header">
               <span>未完成的作业</span>
             </div>
@@ -28,7 +28,7 @@
           </el-card>
         </el-col>
         <el-col :span="24">
-          <el-card class="box-card">
+          <el-card class="box-card" style="margin-bottom: 18px">
             <div slot="header">
               <span>New</span>
             </div>
@@ -70,5 +70,11 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.homework-header {
+  background-color: #E9EEF3;
+  color: #333;
+  line-height: 60px;
+  text-align: center;
 }
 </style>

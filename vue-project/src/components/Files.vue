@@ -55,20 +55,6 @@ export default {
     return {
       tableData: [
         {
-          id: 1,
-          course: "课程A",
-          fileName: "课件1.pdf",
-          uploadDate: "2020-10-01",
-          size: "5M",
-        },
-        {
-          id: 2,
-          course: "课程A",
-          fileName: "课件2.pdf",
-          uploadDate: "2020-10-15",
-          size: "10M",
-        },
-        {
           id: 3,
           course: "课程B",
           fileName: "课外阅读资料",

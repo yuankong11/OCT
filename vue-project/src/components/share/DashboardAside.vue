@@ -62,8 +62,8 @@
 
 
 <script>
-import LiveLesson from '../LiveLesson.vue'
-import LectureInfo from '../LectureInfo.vue'
+import LiveLesson from '../LiveLesson/LiveLesson.vue'
+import LectureInfo from '../LectureInfo/LectureInfo.vue'
 import Homework from '../Homework.vue'
 import Resource from '../Resource.vue'
 import Calendar from '../Calendar.vue'
