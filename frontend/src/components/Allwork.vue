@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  name: "Workpad",
+  name: "Allwork",
   props: {
     handleEdit: Function,
   },

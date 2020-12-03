@@ -69,6 +69,7 @@
 
 <script>
 export default {
+  name: 'Workpad',
   data() {
     return {
       dialogTableVisible: false,

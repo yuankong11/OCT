@@ -28,6 +28,7 @@
 
 <script>
 export default {
+  name: 'Sorted',
   data () {
     return {
       tableData: [

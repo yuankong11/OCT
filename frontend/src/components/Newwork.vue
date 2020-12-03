@@ -18,6 +18,7 @@
 
 <script>
 export default {
+  name: 'Newwork',
   data () {
     return {
       tableData: [

@@ -2,6 +2,7 @@
   <el-container id="Homework">
     <el-header class="homework-header">作业</el-header>
     <el-main>
+      <Workpad />
       <el-row :gutter="20">
         <el-col :span="12">
           <el-card class="box-card">
@@ -27,14 +28,6 @@
             <Allwork :handleEdit="handleEdit" />
           </el-card>
         </el-col>
-        <el-col :span="24">
-          <el-card class="box-card" style="margin-bottom: 18px">
-            <div slot="header">
-              <span>New</span>
-            </div>
-            <Workpad />
-          </el-card>
-        </el-col>
       </el-row>
     </el-main>
   </el-container>
@@ -56,7 +49,8 @@ export default {
   },
   methods: {
     handleEdit () {
-      this.$children[1].dialogTableVisible = true
+      console.log(this) 
+      this.$children[0].$children[1].$children[0].dialogTableVisible = true
     }
   },
 };
