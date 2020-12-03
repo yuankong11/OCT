@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     handleEdit () {
-      console.log(this) 
+      // console.log(this) 
       this.$children[0].$children[1].$children[0].dialogTableVisible = true
     }
   },
