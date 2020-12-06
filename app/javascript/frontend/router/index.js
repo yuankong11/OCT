@@ -15,37 +15,37 @@ export default new Router({
   mode: "history",
   routes: [
     {
-      path: '/',
+      path: '/frontend/dashboard',
       name: 'Dashboard',
       component: Dashboard
     },
     {
-      path: '/homework',
+      path: '/frontend/homework',
       name: 'Homework',
       component: Homework
     },
     {
-      path: '/resource',
+      path: '/frontend/resource',
       name: 'Resource',
       component: Resource
     },
     {
-      path: '/live_lesson',
+      path: '/frontend/live_lesson',
       name: 'LiveLesson',
       component: LiveLesson
     },
     {
-      path: '/lecture_info',
+      path: '/frontend/lecture_info',
       name: 'LectureInfo',
       component: LectureInfo
     },
     {
-      path: '/calendar',
+      path: '/frontend/calendar',
       name: 'Calendar',
       component: Calendar
     },
     {
-      path: '/todo',
+      path: '/frontend/todo',
       name: 'Todo',
       component: Todo
     }

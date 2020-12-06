@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-    root 'dashboard#show'
-    get 'lecture_info', to: 'lecture_info#show'
+    root 'frontend#home'
+    get 'frontend/*path', to: 'frontend#show'
 end
