@@ -39,6 +39,10 @@ export default {
           course: '模式识别与机器学习',
           room: '201',
         },
+        {
+          course: window.testa,
+          room: window.testb,
+        },
       ],
     }
   }
