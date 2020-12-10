@@ -24,8 +24,8 @@
 </style>
 
 <script>
-import CurrentLesson from './CurrentLesson.vue'
-import CollecttedLesson from './CollecttedLesson.vue'
+import CurrentLesson from '../components/LiveLesson/CurrentLesson'
+import CollecttedLesson from '../components/LiveLesson/CollecttedLesson.vue'
 
 export default {
   components: { CurrentLesson, CollecttedLesson },

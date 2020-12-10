@@ -34,10 +34,10 @@
 </template>
 
 <script>
-import Newwork from "./Newwork.vue"
-import Sorted from "./Sorted.vue"
-import Workpad from "./Workpad.vue"
-import Allwork from "./Allwork"
+import Newwork from "../components/Homework/Newwork"
+import Sorted from "../components/Homework/Sorted"
+import Workpad from "../components/Homework/Workpad"
+import Allwork from "../components/Homework/Allwork"
 
 export default {
   name: "Homework",
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     handleEdit () {
-      // console.log(this) 
+      // console.log(this)
       this.$children[0].$children[1].$children[0].dialogTableVisible = true
     }
   },
@@ -66,7 +66,7 @@ export default {
   margin-top: 60px;
 }
 .homework-header {
-  background-color: #E9EEF3;
+  background-color: #e9eef3;
   color: #333;
   line-height: 60px;
   text-align: center;

@@ -1,36 +1,23 @@
 <template>
   <div class="error-page">
-    <b-container>
-      <div class="errorContainer mx-auto">
+    <el-container>
+      <el-main class="errorContainer mx-auto">
         <h1 class="errorCode">404</h1>
-        <p class="errorInfo">
-            Opps, it seems that this page does not exist.
-        </p>
-        <p class="errorHelp mb-3">
-            If you are sure it should, search for it.
-        </p>
-        <b-form>
-          <b-form-group>
-            <b-form-input class="input-no-border" type="text" placeholder="Search Pages" />
-          </b-form-group>
-          <router-link tag="a" to="/app/extra/search">
-            <b-button class="errorBtn" type="submit" variant="success">
-                Search <i class="la la-search ml-xs" />
-            </b-button>
-          </router-link>
-        </b-form>
-      </div>
-      <footer class="pageFooter">
-        2019 &copy; Sing App Vue Admin Dashboard Template.
-      </footer>
-    </b-container>
+        <p class="errorInfo">Opps, it seems that this page does not exist.</p>
+      </el-main>
+      <el-footer class="pageFooter">
+        2020 &copy; OCT: A Better SEP - Made by Hongbin Zeng, Zhenyu Lei,
+        Lianwei Yu, Huimin Ye.
+      </el-footer>
+    </el-container>
   </div>
 </template>
 
 <script>
+import OCTFooter from '../components/LayoutComponents/OCTFooter'
+
 export default {
   name: 'ErrorPage',
+  components: { OCTFooter }
 };
 </script>
-
-<style src="./Error.scss" lang="scss" scoped />

@@ -62,15 +62,15 @@
 
 
 <script>
-import LiveLesson from '../LiveLesson/LiveLesson.vue'
-import LectureInfo from '../LectureInfo/LectureInfo.vue'
-import Homework from '../Homework.vue'
-import Resource from '../Resource.vue'
-import Calendar from '../Calendar.vue'
-import Todo from '../Todo.vue'
+import LiveLesson from '../../pages/LiveLesson.vue'
+import LectureInfo from '../../pages/LectureInfo.vue'
+import Homework from '../../pages/Homework.vue'
+import Resource from '../../pages/Resource.vue'
+import Calendar from '../../pages/Calendar.vue'
+import Todo from '../../pages/Todo.vue'
 
 export default {
-  name: "DashboardAside",
+  name: "Sidebar",
   components: {
     Homework,
     Resource,

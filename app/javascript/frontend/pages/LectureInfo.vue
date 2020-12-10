@@ -25,8 +25,8 @@
 </style>
 
 <script>
-import ScienceLecture from './ScienceLecture.vue'
-import HumanityLecture from './HumanityLecture.vue'
+import ScienceLecture from '../components/LectureInfo/ScienceLecture'
+import HumanityLecture from '../components/LectureInfo/HumanityLecture.vue'
 
 export default {
   components: { ScienceLecture, HumanityLecture },

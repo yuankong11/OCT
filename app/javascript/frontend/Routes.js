@@ -7,8 +7,8 @@ import Layout from './pages/Layout'
 import Dashboard from './pages/Dashboard'
 import Homework from './pages/Homework'
 import Resource from './pages/Resource'
-import LiveLesson from './pages/LiveLesson/LiveLesson'
-import LectureInfo from './pages/LectureInfo/LectureInfo'
+import LiveLesson from './pages/LiveLesson'
+import LectureInfo from './pages/LectureInfo'
 import Calendar from './pages/Calendar'
 import Todo from './pages/Todo'
 
@@ -70,5 +70,10 @@ export default new Router({
         }
       ],
     },
+    {
+      // 会匹配所有路径
+      path: '*',
+      component: ErrorPage
+    }
   ]
 })

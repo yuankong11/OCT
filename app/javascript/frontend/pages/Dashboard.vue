@@ -1,36 +1,28 @@
 <template>
-  <el-container :style="'height:' + fullHeight + 'px;'">
-    <el-header :height="'60'">
-      <Dashboard-header />
-    </el-header>
-    <el-container :style="'height:' + fullHeight - 60 + 'px;'">
-      <Dashboard-aside />
-      <el-main>
-        <el-row :gutter="20">
-          <el-col :span="24">
-            <el-card style="height: 320px; margin-bottom: 18px">
-              <div slot="header">
-                <Files />
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-card style="height: 320px">
-              <div slot="header">新的作业</div>
-              <Newwork />
-            </el-card>
-          </el-col>
-          <el-col :span="12">
-            <el-card style="height: 320px">
-              <CurrentLesson />
-            </el-card>
-          </el-col>
-        </el-row>
-      </el-main>
-    </el-container>
-  </el-container>
+  <el-main>
+    <el-row :gutter="20">
+      <el-col :span="24">
+        <el-card style="height: 320px; margin-bottom: 18px">
+          <div slot="header">
+            <Files />
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <el-card style="height: 320px">
+          <div slot="header">新的作业</div>
+          <Newwork />
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card style="height: 320px">
+          <CurrentLesson />
+        </el-card>
+      </el-col>
+    </el-row>
+  </el-main>
 </template>
 
 <style>
@@ -40,17 +32,13 @@ body {
 </style>
 
 <script>
-import DashboardHeader from './share/DashboardHeader.vue'
-import DashboardAside from './share/DashboardAside.vue'
-import CurrentLesson from './LiveLesson/CurrentLesson.vue'
-import Newwork from './Newwork.vue'
-import Files from './Files.vue'
+import CurrentLesson from '../components/LiveLesson/CurrentLesson'
+import Newwork from '../components/Homework/Newwork.vue'
+import Files from '../components/LessonResource/Files.vue'
 
 export default {
   name: "Dashboard",
   components: {
-    DashboardHeader,
-    DashboardAside,
     CurrentLesson,
     Newwork,
     Files

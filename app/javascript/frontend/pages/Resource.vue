@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import Favorites from './Favorites.vue'
-import Files from './Files.vue'
+import Favorites from '../components/LessonResource/Favorites'
+import Files from '../components/LessonResource/Files.vue'
 
 export default {
   name: 'Resource',
