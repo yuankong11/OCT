@@ -1,17 +1,18 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import router from '../frontend/router'
 
-import Frontend from '../frontend/Frontend.vue'
+import store from './store'
+import router from '../frontend/Routes'
+import App from '../frontend/App.vue'
 
 Vue.use(ElementUI)
-Vue.component(Frontend)
+Vue.component(App)
 
 document.addEventListener('DOMContentLoaded', () => {
     const app = new Vue({
         router,
-        render: h => h(Frontend)
+        render: h => h(App)
     }).$mount()
     document.body.appendChild(app.$el)
 
