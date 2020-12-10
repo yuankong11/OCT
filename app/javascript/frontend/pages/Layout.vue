@@ -11,8 +11,8 @@
         <router-view />
       </transition>
       <el-footer class="pageFooter">
-        2020 &copy; OCT: A Better SEP - Made by Hongbin Zeng, Zhenyu Lei,
-        Lianwei Yu, Huimin Ye.
+        2020 &copy; OCT: A Better SEP - Made by Hongbin Zeng, Lianwei Yu, Huimin
+        Ye, Zhengyu Lei.
       </el-footer>
     </el-container>
   </el-container>

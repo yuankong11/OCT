@@ -6,8 +6,8 @@
         <p class="errorInfo">Opps, it seems that this page does not exist.</p>
       </el-main>
       <el-footer class="pageFooter">
-        2020 &copy; OCT: A Better SEP - Made by Hongbin Zeng, Zhenyu Lei,
-        Lianwei Yu, Huimin Ye.
+        2020 &copy; OCT: A Better SEP - Made by Hongbin Zeng, Lianwei Yu, Huimin
+        Ye, Zhengyu Lei.
       </el-footer>
     </el-container>
   </div>
