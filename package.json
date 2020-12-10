@@ -12,7 +12,8 @@
     "vue-calendar-component": "^2.8.2",
     "vue-loader": "^15.9.5",
     "vue-router": "^3.4.9",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.12",
+    "vuedraggable": "^2.24.3"
   },
   "version": "0.1.0",
   "devDependencies": {

@@ -1,26 +1,56 @@
 <template>
   <el-main>
-    <el-row :gutter="20">
-      <el-col :span="24">
+    <!-- <el-row :gutter="20">
+          <el-col :span="24">
+            <el-card style="height: 320px; margin-bottom: 18px">
+              <div slot="header">
+                <Files />
+              </div>
+            </el-card>
+          </el-col>
+        </el-row> -->
+    <draggable class="list-group" :list="list1" group="cards">
+      <el-row
+        :gutter="20"
+        class="list-group-item"
+        v-for="element in list1"
+        :key="element.component"
+      >
         <el-card style="height: 320px; margin-bottom: 18px">
           <div slot="header">
-            <Files />
+            <keep-alive>
+              <component v-bind:is="element.component"></component>
+            </keep-alive>
           </div>
         </el-card>
-      </el-col>
-    </el-row>
+      </el-row>
+    </draggable>
     <el-row :gutter="20">
-      <el-col :span="12">
-        <el-card style="height: 320px">
-          <div slot="header">新的作业</div>
-          <Newwork />
-        </el-card>
-      </el-col>
-      <el-col :span="12">
-        <el-card style="height: 320px">
-          <CurrentLesson />
-        </el-card>
-      </el-col>
+      <draggable class="list-group" :list="list2" group="cards">
+        <el-col
+          :span="12"
+          class="list-group-item"
+          v-for="element in list2"
+          :key="element.component"
+        >
+          <el-card style="height: 320px">
+            <keep-alive>
+              <component v-bind:is="element.component"></component>
+            </keep-alive>
+          </el-card>
+        </el-col>
+      </draggable>
+      <!-- <el-col :span="12"> -->
+      <!-- <el-card style="height: 320px"> -->
+      <!-- <div slot="header">新的作业</div>
+              <Newwork /> -->
+      <!-- </el-card>
+          </el-col> -->
+      <!-- <el-col :span="12">
+            <el-card style="height: 320px">
+              <CurrentLesson />
+            </el-card>
+          </el-col> -->
     </el-row>
   </el-main>
 </template>
@@ -35,13 +65,14 @@ body {
 import CurrentLesson from '../components/LiveLesson/CurrentLesson'
 import Newwork from '../components/Homework/Newwork.vue'
 import Files from '../components/LessonResource/Files.vue'
-
+import draggable from 'vuedraggable'
 export default {
   name: "Dashboard",
   components: {
     CurrentLesson,
     Newwork,
-    Files
+    Files,
+    draggable,
   },
   methods: {
     get_bodyHeight () {//动态获取浏览器高度
@@ -97,7 +128,23 @@ export default {
       menuData: [{
         activeIndex: '1',
         activeIndex2: '1'
-      }]
+      }],
+      list1: [
+        {
+          id: 0,
+          component: 'Files'
+        },
+      ],
+      list2: [
+        {
+          id: 0,
+          component: 'Newwork'
+        },
+        {
+          id: 1,
+          component: 'CurrentLesson'
+        }
+      ]
     }
   }
 }

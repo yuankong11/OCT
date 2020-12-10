@@ -44,6 +44,7 @@ export default {
           room: window.testb,
         },
       ],
+      title: "正在直播", 
     }
   }
 }
