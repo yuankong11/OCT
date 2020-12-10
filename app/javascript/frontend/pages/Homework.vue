@@ -2,7 +2,7 @@
   <el-container id="Homework">
     <el-header class="homework-header">作业</el-header>
     <el-main>
-      <Workpad />
+      <Workpad ref="workpad"/>
       <el-row :gutter="20">
         <el-col :span="12">
           <el-card class="box-card">
@@ -50,7 +50,7 @@ export default {
   methods: {
     handleEdit () {
       // console.log(this)
-      this.$children[0].$children[1].$children[0].dialogTableVisible = true
+      this.$refs.workpad.dialogTableVisible = true
     }
   },
 };
