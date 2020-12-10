@@ -8,7 +8,6 @@ import LectureInfo from '../components/LectureInfo/LectureInfo.vue'
 import Calendar from '../components/Calendar'
 import Todo from '../components/Todo'
 
-
 Vue.use(Router)
 
 export default new Router({
