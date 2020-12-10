@@ -52,7 +52,7 @@ module FrontendHelper
       @password = password
       @certer = certer 
       @screenshot_path = IMAGE_PATH + 'screenshot' + @postfix + '.png' 
-      @certcode_path = IMAGE_PATH + 'certcode' + @postfix '.png'
+      @certcode_path = IMAGE_PATH + 'certcode' + @postfix + '.png'
 
       options = Selenium::WebDriver::Chrome::Options.new 
       options.add_argument('--no-sandbox')
