@@ -78,6 +78,7 @@ export default {
           ],
         },
       ],
+      title: "文件",
       multipleSelection: [],
     }
   },

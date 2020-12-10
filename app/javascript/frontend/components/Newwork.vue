@@ -33,6 +33,7 @@ export default {
           ddl: "2020-12-22"
         },
       ],
+      title: '新的作业',
     }
   },
 };

@@ -59,12 +59,29 @@
       ><el-button class="right-menu-icons right-tools" type="text"
         ><i class="el-icon-video-camera"></i
       ></el-button>
-      <el-button
+      <!-- <el-button
         class="right-menu-icons"
         type="text"
         @click="handleRightSubMenu"
         ><i class="el-icon-menu"></i
-      ></el-button>
+      ></el-button> -->
+
+      <el-dropdown trigger="click">
+        <el-button class="right-menu-icons el-dropdown-link" type="text">
+          <i class="el-icon-menu" />
+        </el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <span>Tools: </span>
+          </el-dropdown-item>
+          <draggable class="list-group" :list="list1" group="cards">
+            <el-dropdown-item class="list-group-item" v-for="element in list1" :key="element.component">
+              <span>{{ element.component }}</span>
+            </el-dropdown-item>
+          </draggable>
+        </el-dropdown-menu>
+      </el-dropdown>
+
       <el-button class="right-menu-icons" type="text"
         ><i class="el-icon-refresh"></i
       ></el-button>
@@ -103,9 +120,13 @@
 
 
 <script>
+import draggable from 'vuedraggable'
 
 export default {
   name: "DashboardHeader",
+  components: {
+    draggable
+  },
   methods: {
     get_bodyHeight () {//动态获取浏览器高度
       const that = this
@@ -126,7 +147,7 @@ export default {
       console.log(key, keyPath)
     },
     handleRightSubMenu () {
-      isRightSubMenuCollapse = !isRightSubMenuCollapse
+      isRightSubMenuCollapse = !isRightSubMenuCollapse;
     }
   },
   watch: {
@@ -157,7 +178,8 @@ export default {
       menuData: [{
         activeIndex: '1',
         activeIndex2: '1'
-      }]
+      }],
+      list1: [],
     }
   }
 }
