@@ -1,38 +1,26 @@
 <template>
-  <el-table
-    stripe
-    :data="tableData"
-    height="500"
-    border
-    :default-sort="{ prop: 'ddl', order: 'descending' }"
-    style="width: 100%"
-  >
-    <el-table-column prop="workName" label="作业" width="180">
-    </el-table-column>
-    <el-table-column prop="courseName" label="课程" width="180" sortable>
-    </el-table-column>
-    <el-table-column prop="ddl" label="截止日期" witdth="180" sortable>
-    </el-table-column>
-    <el-table-column label="操作">
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          @click="handleEdit(scope.$index, scope.row)"
-          icon="el-icon-edit"
-        >
-        </el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+<el-table stripe :data="tableData" :default-sort="{ prop: 'ddl', order: 'descending' }" style="width: 100%">
+  <el-table-column prop="workName" label="作业">
+  </el-table-column>
+  <el-table-column prop="courseName" label="课程" sortable>
+  </el-table-column>
+  <el-table-column prop="ddl" label="截止日期" sortable>
+  </el-table-column>
+  <el-table-column label="操作">
+    <template slot-scope="scope">
+      <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" icon="el-icon-edit">
+      </el-button>
+    </template>
+  </el-table-column>
+</el-table>
 </template>
 
 <script>
 export default {
   name: 'Sorted',
-  data () {
+  data() {
     return {
-      tableData: [
-        {
+      tableData: [{
           workName: "第一次作业",
           courseName: "软件工程",
           ddl: "2020-10-24",
