@@ -17,4 +17,10 @@ class FrontendController < ApplicationController
         @courses = spider.get_courses
         spider.quit
     end
+
+    def tasks
+        @tasks_all = Task.all
+
+    end
+
 end

@@ -45,6 +45,10 @@
         <i class="el-icon-video-camera"></i>
         <span slot="title">直播</span>
       </el-menu-item>
+      <el-menu-item index="7" @click="toDatatest">
+        <i class="el-icon-video-camera"></i>
+        <span slot="title">数据测试</span>
+      </el-menu-item>
     </el-menu>
   </el-aside>
 </template>
@@ -68,7 +72,7 @@ import Homework from '../../pages/Homework.vue'
 import Resource from '../../pages/Resource.vue'
 import Calendar from '../../pages/Calendar.vue'
 import Todo from '../../pages/Todo.vue'
-
+import Datatest from '../../pages/Datatest.vue'
 export default {
   name: "Sidebar",
   components: {
@@ -77,7 +81,8 @@ export default {
     LiveLesson,
     LectureInfo,
     Calendar,
-    Todo
+    Todo,
+    Datatest,
   },
   methods: {
     get_bodyHeight () {//动态获取浏览器高度
@@ -115,6 +120,10 @@ export default {
     },
     toTodo (e) {
       this.$router.push({ name: "Todo" })
+    },
+    toDatatest (e) {
+      this.$router.push({ name: "Datatest" })
+
     }
   },
   watch: {

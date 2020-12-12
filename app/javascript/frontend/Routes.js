@@ -11,7 +11,7 @@ import LiveLesson from './pages/LiveLesson'
 import LectureInfo from './pages/LectureInfo'
 import Calendar from './pages/Calendar'
 import Todo from './pages/Todo'
-
+import Datatest from './pages/Datatest'
 
 Vue.use(Router)
 
@@ -67,7 +67,12 @@ export default new Router({
           path: 'todo',
           name: 'Todo',
           component: Todo
-        }
+        },
+        {
+          path: '/datatest',
+          name: 'Datatest',
+          component: Datatest,
+        },
       ],
     },
     {
