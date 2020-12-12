@@ -2,7 +2,7 @@ class FrontendController < ApplicationController
     include FrontendHelper
 
     def home
-        redirect_to '/frontend/dashboard'
+        redirect_to '/app/dashboard'
     end
 
     def show
@@ -13,8 +13,8 @@ class FrontendController < ApplicationController
     def courses
         certer = Certer.new("Milky2020", "lzy19980424")
         spider = Spider.new("leizhengyu16@mails.ucas.ac.cn", "lzy19980424", :chrome, certer)
-        spider.login_sep 
-        @courses = spider.get_courses 
-        spider.quit 
-    end 
+        spider.login_sep
+        @courses = spider.get_courses
+        spider.quit
+    end
 end

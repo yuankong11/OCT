@@ -19,20 +19,20 @@ export default new Router({
   mode: "history",
   routes: [
     {
-      path: '/login',
-      name: 'Login',
-      component: Login,
-    },
-    {
-      path: '/error',
-      name: 'Error',
-      component: ErrorPage,
-    },
-    {
       path: '/app',
       name: 'Layout',
       component: Layout,
       children: [
+        {
+          path: '/login',
+          name: 'Login',
+          component: Login,
+        },
+        {
+          path: '/error',
+          name: 'Error',
+          component: ErrorPage,
+        },
         {
           path: 'dashboard',
           name: 'Dashboard',
