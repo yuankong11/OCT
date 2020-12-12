@@ -69,7 +69,7 @@ export default new Router({
           component: Todo
         },
         {
-          path: '/datatest',
+          path: 'datatest',
           name: 'Datatest',
           component: Datatest,
         },
