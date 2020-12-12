@@ -11,6 +11,7 @@ import LiveLesson from './pages/LiveLesson'
 import LectureInfo from './pages/LectureInfo'
 import Calendar from './pages/Calendar'
 import Todo from './pages/Todo'
+import AnotherCalendar from './pages/AnotherCalendar'
 
 
 Vue.use(Router)
@@ -67,6 +68,11 @@ export default new Router({
           path: 'todo',
           name: 'Todo',
           component: Todo
+        },
+        {
+          path: 'anotherCalendar',
+          name: 'AnotherCalendar',
+          component: AnotherCalendar
         }
       ],
     },

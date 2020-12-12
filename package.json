@@ -13,10 +13,15 @@
     "vue-loader": "^15.9.5",
     "vue-router": "^3.4.9",
     "vue-template-compiler": "^2.6.12",
-    "vuedraggable": "^2.24.3"
+    "vuedraggable": "^2.24.3",
+    "vuetify": "^2.3.21",
+    "vuetify-loader": "^1.6.0"
   },
   "version": "0.1.0",
   "devDependencies": {
+    "deepmerge": "^4.2.2",
+    "sass": "^1.30.0",
+    "sass-loader": "^10.1.0",
     "webpack-dev-server": "^3.11.0"
   }
 }

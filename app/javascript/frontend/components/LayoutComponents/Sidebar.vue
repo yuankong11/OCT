@@ -45,6 +45,10 @@
         <i class="el-icon-video-camera"></i>
         <span slot="title">直播</span>
       </el-menu-item>
+      <el-menu-item index="7" @click="toAnotherCalendar">
+        <i class="el-icon-date"></i>
+        <span slot="title">另一个日程</span>
+      </el-menu-item>
     </el-menu>
   </el-aside>
 </template>
@@ -115,7 +119,10 @@ export default {
     },
     toTodo (e) {
       this.$router.push({ name: "Todo" })
-    }
+    },
+    toAnotherCalendar (e) {
+      this.$router.push({ name: "AnotherCalendar" })
+    },
   },
   watch: {
     fullHeight (val) {//监控浏览器高度变化
