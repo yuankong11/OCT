@@ -25,12 +25,12 @@ export default new Router({
       component: Layout,
       children: [
         {
-          path: '/login',
+          path: 'login',
           name: 'Login',
           component: Login,
         },
         {
-          path: '/error',
+          path: 'error',
           name: 'Error',
           component: ErrorPage,
         },
