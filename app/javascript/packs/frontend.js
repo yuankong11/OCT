@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         render: h => h(App),
     }).$mount()
     document.body.appendChild(app.$el)
+    router.push(window.postfix)
 
     console.log(app)
 })

@@ -2,6 +2,7 @@
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
   // 保存时自动格式化代码
   "editor.formatOnSave": true,
   // eslint配置项，保存时自动修复错误
