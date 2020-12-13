@@ -49,12 +49,12 @@ export default new Router({
           component: Resource
         },
         {
-          path: 'live_lesson',
+          path: 'live-lesson',
           name: 'LiveLesson',
           component: LiveLesson
         },
         {
-          path: 'lecture_info',
+          path: 'lecture-info',
           name: 'LectureInfo',
           component: LectureInfo
         },

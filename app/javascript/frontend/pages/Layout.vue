@@ -1,16 +1,19 @@
 <template>
-  <el-container :style="'height:' + fullHeight + 'px;'">
+  <el-container
+    :class="[{ root: true }]"
+    :style="'height:' + fullHeight + 'px;'"
+  >
     <Sidebar />
     <el-container class="content" :style="'height:' + fullHeight - 60 + 'px;'">
       <!-- header必须和container在一个文件里，否则会布局错误。 -->
-      <el-header :height="'60'">
+      <el-header class="layout-header" :height="'60'">
         <Header />
       </el-header>
       <BreadcrumbHistory />
       <transition name="router-animation">
         <router-view />
       </transition>
-      <el-footer class="pageFooter">
+      <el-footer class="layout-footer">
         2020 &copy; OCT: A Better SEP - Made by Hongbin Zeng, Lianwei Yu, Huimin
         Ye, Zhengyu Lei.
       </el-footer>
@@ -22,7 +25,7 @@
 // import { createNamespacedHelpers } from 'vuex'
 // const { mapState, mapActions } = createNamespacedHelpers('layout')
 
-import Sidebar from '../components/LayoutComponents/Sidebar'
+import Sidebar from '../components/LayoutComponents/Sidebar/Sidebar'
 import Header from '../components/LayoutComponents/Header'
 import BreadcrumbHistory from '../components/LayoutComponents/BreadcrumbHistory'
 
@@ -66,11 +69,4 @@ export default {
 };
 </script>
 
-<style>
-.el-header {
-  text-align: center;
-  padding: 0px;
-  min-width: 900px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-}
-</style>
+<style src="../styles/Layout.scss" lang="scss" />

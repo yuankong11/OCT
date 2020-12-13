@@ -20,3 +20,5 @@ export default {
   },
 };
 </script>
+
+<style src="./styles/App.scss" lang="scss" />
