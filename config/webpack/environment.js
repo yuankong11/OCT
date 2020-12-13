@@ -14,6 +14,6 @@ const resolver = {
 
 environment.loaders.prepend('sass', style)
 environment.loaders.prepend('vue', vue)
-nvironment.plugins.prepend('VuetifyLoaderPlugin', new VuetifyLoaderPlugin())
+environment.plugins.prepend('VuetifyLoaderPlugin', new VuetifyLoaderPlugin())
 environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin())
 module.exports = environment
