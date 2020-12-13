@@ -1,6 +1,8 @@
-module CoursesSpider
-  SEP_URL = 'http://sep.ucas.ac.cn'
+module CourseSpider
+  include SpiderBase
+
   SAKAI_URL = SEP_URL + '/portal/site/16/801'
+
   def get_courses
     @dr.get SEP_URL
     @dr.get SAKAI_URL
@@ -24,5 +26,5 @@ module CoursesSpider
     end.select do |site|
       site =~ find_data_site_id
     end
-    end
+  end
 end

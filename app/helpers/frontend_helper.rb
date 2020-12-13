@@ -101,5 +101,10 @@ module FrontendHelper
       img.crop(geo)
       img.write(output)
     end
+
+    include CourseSpider
+    include ResourceSpider
+    include LessonSpider
+    include LectureSpider
   end
 end
