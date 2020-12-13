@@ -12,6 +12,7 @@ import LectureInfo from './pages/LectureInfo'
 import Calendar from './pages/Calendar'
 import Todo from './pages/Todo'
 import Datatest from './pages/Datatest'
+import AnotherCalendar from './pages/AnotherCalendar'
 
 Vue.use(Router)
 
@@ -72,6 +73,11 @@ export default new Router({
           path: 'datatest',
           name: 'Datatest',
           component: Datatest,
+        },
+        {
+          path: 'anotherCalendar',
+          name: 'AnotherCalendar',
+          component: AnotherCalendar,
         },
       ],
     },
