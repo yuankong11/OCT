@@ -1,6 +1,6 @@
 const { environment } = require('@rails/webpacker')
 const { VueLoaderPlugin } = require('vue-loader')
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
+const { VuetifyLoaderPlugin } = require('vuetify-loader')
 const vue = require('./loaders/vue')
 const style = require('./loaders/style')
 
@@ -25,6 +25,6 @@ environment.loaders.prepend('sass', style)
 environment.loaders.prepend('vue', vue)
 environment.plugins.prepend('VuetifyLoaderPlugin', new VuetifyLoaderPlugin())
 environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin())
-// environment.config.merge(resolver)
+environment.config.merge(resolver)
 
 module.exports = environment

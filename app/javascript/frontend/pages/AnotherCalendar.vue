@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-app>
     <v-sheet
       tile
       height="54"
@@ -61,6 +62,7 @@
         @change="getEvents"
       ></v-calendar>
     </v-sheet>
+    </v-app>
   </div>
 </template>
 
