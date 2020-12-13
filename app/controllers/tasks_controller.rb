@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
 
+  skip_before_action :verify_authenticity_token, :only => [:create]
+
   def index
     @task_all = Task.all
     render json: @task_all
