@@ -18,8 +18,9 @@
         </el-col>
 
         <el-col :span="6">
-          <el-card class="box-card"> <!-- <Minicalendar /> --></el-card></el-col
-        >
+          <el-card class="box-card">
+            <Minicalendar /> </el-card
+        ></el-col>
 
         <el-col :span="6">
           <el-card class="box-card">

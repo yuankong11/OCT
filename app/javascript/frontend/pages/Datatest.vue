@@ -55,7 +55,7 @@ export default {
       )
     },
     append () {
-      var uid = this.todolist[this.todolist.length - 1]["id"] + 1
+      //var uid = this.todolist[this.todolist.length - 1]["id"] + 1
       this.$http.post('/tasks', { title: this.input, done: false }).then(
         (res) => {
           this.todolist = res.data
