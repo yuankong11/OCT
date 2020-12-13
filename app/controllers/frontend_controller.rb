@@ -6,10 +6,7 @@ class FrontendController < ApplicationController
   end
 
   def show
-    @testa = '传递测试1'
-    @testb = '传递测试2'
     @postfix = params[:postfix]
-    puts @postfix
   end
 
   def courses
