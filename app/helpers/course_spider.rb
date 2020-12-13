@@ -13,8 +13,6 @@ module CourseSpider
       @dr.find_element(:xpath, "//*[contains(@href,'anotherUser')]").click
     rescue Selenium::WebDriver::Error::NoSuchElementError => e
 
-    else
-
     ensure
 
     end
