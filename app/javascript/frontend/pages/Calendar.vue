@@ -10,7 +10,7 @@
         </el-col>
         <el-col :span="6">
           <el-card class="box-card">
-            <Minicalendar />
+            <!-- <Minicalendar /> -->
           </el-card>
         </el-col>
         <el-col :span="6">

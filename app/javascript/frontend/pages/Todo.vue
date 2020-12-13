@@ -18,13 +18,8 @@
         </el-col>
 
         <el-col :span="6">
-          <el-card class="box-card"
-            ><Calendar
-              ref="Calendar"
-              :markDate="arr2"
-              v-on:changeMonth="changeDate"
-            ></Calendar> </el-card
-        ></el-col>
+          <el-card class="box-card"> <!-- <Minicalendar /> --></el-card></el-col
+        >
 
         <el-col :span="6">
           <el-card class="box-card">

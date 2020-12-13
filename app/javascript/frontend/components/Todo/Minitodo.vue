@@ -1,11 +1,11 @@
-<template>
+template>
   <el-tabs v-model="activeName" @tab-click="handleClick">
     <el-tab-pane label="今日任务" name="first">
       <el-input
         placeholder="回车添加待办事项"
         class="todoinput"
         @keyup.enter.native="add"
-        v-model="newtodo.title"
+        v-model="newtodo.content"
       ></el-input>
       <el-row
         v-for="(item, index) in todolist"
@@ -99,9 +99,6 @@
 
 <script>
 export default {
-  mounted: function () {
-    this.fetch_all()
-  },
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
@@ -109,19 +106,11 @@ export default {
     add: function () {
       if (this.newtodo.content) {
         this.todolist.push(this.newtodo)
-        this.newtodo = { title: "", done: false }
+        this.newtodo = { content: "", done: false }
       }
     },
     del: function (index) {
       this.todolist.splice(index, 1)
-    },
-    fetch_all: function () {
-      this.$http.get('/tasks').then((response) => {
-        console.log(response.data)
-        document.write(response.data)
-      }, (response) => {
-        console.log("error")
-      })
     },
   },
   data () {
@@ -131,7 +120,33 @@ export default {
         content: "",
         done: false,
       },
-      todolist: window.tasks_all,
+      todolist: [
+        {
+          content: "早上起床",
+          done: true,
+        },
+        {
+          content: "洗漱",
+          done: true,
+        },
+        {
+          content: "吃早饭",
+          done: true,
+        },
+        {
+          content: "上高级软件工程",
+          done: false,
+        },
+        {
+          content: "课后讨论",
+          done: false,
+        },
+        {
+          content: "完成作业",
+          done: false,
+        },
+      ],
+
     }
   },
   watch: {

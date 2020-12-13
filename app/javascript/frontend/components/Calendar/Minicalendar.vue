@@ -1,9 +1,5 @@
 <template>
-  <Calendar
-    ref="Calendar"
-    :markDate="arr2"
-    v-on:changeMonth="changeDate"
-  ></Calendar>
+  <Calendar ref="Calendar"></Calendar>
 </template>
 
 <style>
