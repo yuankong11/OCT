@@ -8,7 +8,6 @@ export default {
   created () {
     const currentPath = this.$router.history.current.path
     console.log(currentPath)
-    this.$router.push("/app/dashboard")
 
     // if (window.localStorage.getItem("authenticated") === "false") {
     //   this.$router.push("/login");
