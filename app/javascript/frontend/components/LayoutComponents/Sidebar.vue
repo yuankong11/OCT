@@ -48,7 +48,8 @@
       <el-menu-item index="7" @click="toDatatest">
         <i class="el-icon-video-camera"></i>
         <span slot="title">数据测试</span>
-      <el-menu-item index="7" @click="toAnotherCalendar">
+      </el-menu-item>
+      <el-menu-item index="8" @click="toAnotherCalendar">
         <i class="el-icon-date"></i>
         <span slot="title">另一个日程</span>
       </el-menu-item>
@@ -76,6 +77,7 @@ import Resource from '../../pages/Resource.vue'
 import Calendar from '../../pages/Calendar.vue'
 import Todo from '../../pages/Todo.vue'
 import Datatest from '../../pages/Datatest.vue'
+import AnotherCalendar from '../../pages/AnotherCalendar'
 export default {
   name: "Sidebar",
   components: {
@@ -86,6 +88,7 @@ export default {
     Calendar,
     Todo,
     Datatest,
+    AnotherCalendar,
   },
   methods: {
     get_bodyHeight () {//动态获取浏览器高度
