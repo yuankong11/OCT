@@ -1,12 +1,18 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
+import Vuetify from 'vuetify/lib'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueResource from 'vue-resource'
 import Vuetify from 'vuetify/lib'
 import 'vuetify/dist/vuetify.min.css'
 // import store from './store'
+// import 'vuetify/dist/vuetify.min.css'
+// import 'material-design-icons-iconfont/dist/material-design-icons.css'
+
+// import store from './store'
 import router from '../frontend/Routes'
 import App from '../frontend/App.vue'
+
 Vue.use(Vuetify)
 Vue.use(ElementUI)
 Vue.use(VueResource)
