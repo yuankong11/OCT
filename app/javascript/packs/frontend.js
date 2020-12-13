@@ -16,7 +16,7 @@ Vue.component(App)
 document.addEventListener('DOMContentLoaded', () => {
     const app = new Vue({
         router,
-        vuetify: new Vuetify({}),
+        vuetify: new Vuetify(),
         render: h => h(App),
     }).$mount()
     document.body.appendChild(app.$el)
