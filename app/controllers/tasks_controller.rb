@@ -22,6 +22,7 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task = Task.all.find(params[:id])
     if @task.update(task_params)
       render json: @task
     end
