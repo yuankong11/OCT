@@ -152,7 +152,7 @@ module FrontendHelper
 
     include CourseSpider
     include ResourceSpider
-    include LessonSpider
-    include LiveLectureSpider
+    include LiveLessonSpider
+    include LectureSpider
   end
 end

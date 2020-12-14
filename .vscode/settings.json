@@ -23,5 +23,6 @@
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   // 默认使用prettier格式化支持的文件
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "vue3snippets.enable-compile-vue-file-on-did-save-code": true
 }
