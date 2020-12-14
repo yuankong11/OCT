@@ -21,13 +21,29 @@
                   type="primary"
                   icon="el-icon-edit"
                   circle
-                  @click="edit(item.id)"
+                  @click="dialogVisible = true"
                 ></el-button>
               </el-tooltip>
+              <el-dialog title="编辑" :visible.sync="dialogVisible">
+                <el-form>
+                  <el-form-item label="新的任务名称："
+                    ><!-- :label-width="formLabelWidth"> -->
+                    <el-input v-model="item.title" autocomplete="off"></el-input>
+                  </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisible = false">取 消</el-button>
+                  <el-button
+                    type="primary"
+                    @click="update(item.id, item.done, item.title)"
+                    >确 定</el-button
+                  >
+                </div>
+              </el-dialog>
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="修改该事项"
+                content="完成该事项"
                 placement="right"
               >
                 <el-button
@@ -61,7 +77,7 @@
 <style>
 .done {
   text-decoration: line-through;
-  color: rgb(85, 90, 96);
+  color: rgb(60, 114, 179);
 }
 </style>
 <script>
@@ -95,37 +111,26 @@ export default {
         }
       );
     },
-    edit(iid, ddone) {
-      this.$prompt("请输入新的任务名称", "编辑", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        inputPlaceholder: "例如：追番",
-      })
-        .then(({ value }) => {
-          this.update(iid, ddone, title);
-          this.$message({
-            type: "success",
-            message: "成功修改任务为: " + value,
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "取消输入",
-          });
-        });
-    },
     update(iid, ddone, titlename) {
       this.$http.put(`/tasks/${iid}`, { title: titlename, done: ddone }).then(
         (res) => {
-          console.log("请求处理成功");
-          console.log(res);
+          //console.log("请求处理成功");
+          //console.log(res);
           // this.todolist = this.todolist.filter((task) => task.id !== iid)
           this.fetchAll();
+          this.$notify({
+            title: "成功",
+            message: "成功修改任务为: " + titlename,
+            type: "success",
+          });
         },
         (res) => {
-          console.log(res);
-          console.log("请求处理失败");
+          //console.log(res);
+          //onsole.log("请求处理失败");
+          this.$notify.error({
+            title: "错误",
+            message: "任务修改失败",
+          });
         }
       );
     },
@@ -145,6 +150,8 @@ export default {
     return {
       input: "",
       todolist: null,
+      dialogVisible: false,
+      //formLabelWidth: "160px",
     };
   },
 };
