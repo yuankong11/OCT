@@ -1,3 +1,3 @@
-module LessonSpider
+module LiveLessonSpider
   include SpiderBase
 end
