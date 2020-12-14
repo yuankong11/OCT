@@ -47,7 +47,7 @@ export default {
         (res) => {
           console.log('请求处理成功')
           console.log(res)
-          this.todolist = res.data
+          this.todolist = this.todolist.filter((task) => task.id !== iid)
         },
         (res) => {
           console.log(res)
@@ -59,7 +59,7 @@ export default {
       //var uid = this.todolist[this.todolist.length - 1]["id"] + 1
       this.$http.post('/tasks', { title: this.input, done: false }).then(
         (res) => {
-          this.todolist = res.data
+          this.fetch_all()
         },
         (res) => {
           console.log('请求处理失败')
