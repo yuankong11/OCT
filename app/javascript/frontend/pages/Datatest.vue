@@ -28,10 +28,10 @@
 <script>
 export default {
   created: function () {
-    this.fetch_all()
+    this.fetchAll()
   },
   methods: {
-    fetch_all () {
+    fetchAll () {
       this.$http.get('/tasks').then(
         (res) => {
           this.todolist = res.data
@@ -47,7 +47,8 @@ export default {
         (res) => {
           console.log('请求处理成功')
           console.log(res)
-          this.todolist = this.todolist.filter((task) => task.id !== iid)
+          // this.todolist = this.todolist.filter((task) => task.id !== iid)
+          this.fetchAll()
         },
         (res) => {
           console.log(res)
@@ -59,7 +60,7 @@ export default {
       //var uid = this.todolist[this.todolist.length - 1]["id"] + 1
       this.$http.post('/tasks', { title: this.input, done: false }).then(
         (res) => {
-          this.fetch_all()
+          this.fetchAll()
         },
         (res) => {
           console.log('请求处理失败')
