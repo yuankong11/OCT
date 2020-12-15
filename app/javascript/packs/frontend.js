@@ -15,17 +15,17 @@ Vue.use(ElementUI)
 Vue.use(VueResource)
 Vue.component(App)
 
-router.beforeEach((to, from, next) => {
-    if (to.path === '/app/login') {
-        sessionStorage.removeItem('user')
-    }
-    var user = sessionStorage.getItem('user')
-    if (!user && to.path !== '/app/login') {
-        next({ path: '/app/login' })
-    } else {
-        next()
-    }
-})
+// router.beforeEach((to, from, next) => {
+//     if (to.path === '/app/login') {
+//         sessionStorage.removeItem('user')
+//     }
+//     var user = sessionStorage.getItem('user')
+//     if (!user && to.path !== '/app/login') {
+//         next({ path: '/app/login' })
+//     } else {
+//         next()
+//     }
+// })
 
 document.addEventListener('DOMContentLoaded', () => {
     const app = new Vue({

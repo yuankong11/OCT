@@ -11,8 +11,7 @@ class TasksController < ApplicationController
   def show
     @task = Task.all.find(params[:id])
     render json: @task
-    end
-
+  end
 
   def create
     @task = Task.new(task_params)

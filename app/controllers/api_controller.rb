@@ -7,6 +7,11 @@ class ApiController < ApplicationController
     send(params[:function])
   end
 
+  def module_function_dispatch
+    t = eval("#{params[:module]}.new")
+    t.send(params[:function])
+  end
+
   def courses
     @courses = spider.get_courses
     spider.quit
