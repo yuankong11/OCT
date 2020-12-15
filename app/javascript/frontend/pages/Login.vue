@@ -58,7 +58,8 @@ export default {
   },
   methods: {
     login () {
-      this.$http.get("/api/login").then(
+      var loginInfo = {username: this.loginForm.username, password: this.loginForm.password}
+      this.$http.put("/api/login", loginInfo).then(
         (res) => {
           this.logining = false
           if(res.bodyText == "success") {

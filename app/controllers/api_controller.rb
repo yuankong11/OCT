@@ -1,4 +1,6 @@
 class ApiController < ApplicationController
+  protect_from_forgery :only => [:login]
+
   include ApiHelper
 
   def function_dispatch
@@ -12,7 +14,7 @@ class ApiController < ApplicationController
 
   def login
     certer = Certer.new("Milky2020", "lzy19980424")
-    spider = Spider.new("leizhengyu16@mails.ucas.ac.cn", "lzy19980424", :chrome, certer)
+    spider = Spider.new(params[:username], params[:password], :chrome, certer)
     if spider.login_sep == :success
       render json: "success"
     else
