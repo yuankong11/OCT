@@ -40,7 +40,7 @@ module FrontendHelper
     require 'mini_magick'
 
     SEP_URL = 'http://sep.ucas.ac.cn'
-    SAKAI_URL = SEP_URL + '/portal/site/16/801'
+    COURSES_URL = SEP_URL + '/portal/site/16/801'
     APPSTORE_URL = SEP_URL + '/appStore'
     IMAGE_PATH = './app/assets/images/'
 

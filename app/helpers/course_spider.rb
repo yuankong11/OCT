@@ -1,11 +1,11 @@
 module CourseSpider
   include SpiderBase
 
-  SAKAI_URL = SEP_URL + '/portal/site/16/801'
+  COURSES_URL = SEP_URL + '/portal/site/16/801'
 
   def get_courses
     @dr.get SEP_URL
-    @dr.get SAKAI_URL
+    @dr.get COURSES_URL
 
     @dr.find_element(:id, "loginUser").click
 
