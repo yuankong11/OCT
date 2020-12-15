@@ -5,6 +5,7 @@
   "files.trimTrailingWhitespace": true,
   // 保存时自动格式化代码
   "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "modifications",
   // eslint配置项，保存时自动修复错误
   "editor.codeActionsOnSave": {
     "source.fixAll": true
