@@ -1,4 +1,4 @@
-import isScreen from '@/core/screenHelper';
+import isScreen from '../helpers/screenHelper'
 
 export default {
   namespaced: true,
@@ -11,50 +11,50 @@ export default {
     chatNotificationPopover: false,
   },
   mutations: {
-    toggleSidebar(state) {
-      const nextState = !state.sidebarStatic;
+    toggleSidebar (state) {
+      const nextState = !state.sidebarStatic
 
-      localStorage.sidebarStatic = nextState;
-      state.sidebarStatic = nextState;
+      localStorage.sidebarStatic = nextState
+      state.sidebarStatic = nextState
 
       if (!nextState && (isScreen('lg') || isScreen('xl'))) {
-        state.sidebarClose = true;
+        state.sidebarClose = true
       }
     },
-    switchSidebar(state, value) {
+    switchSidebar (state, value) {
       if (value) {
-        state.sidebarClose = value;
+        state.sidebarClose = value
       } else {
-        state.sidebarClose = !state.sidebarClose;
+        state.sidebarClose = !state.sidebarClose
       }
     },
-    handleSwipe(state, e) {
+    handleSwipe (state, e) {
       if ('ontouchstart' in window) {
         if (e.direction === 4) {
-          state.sidebarClose = false;
+          state.sidebarClose = false
         }
 
         if (e.direction === 2 && !state.sidebarClose) {
-          state.sidebarClose = true;
+          state.sidebarClose = true
         }
       }
     },
-    changeSidebarActive(state, index) {
-      state.sidebarActiveElement = index;
+    changeSidebarActive (state, index) {
+      state.sidebarActiveElement = index
     },
   },
   actions: {
-    toggleSidebar({ commit }) {
-      commit('toggleSidebar');
+    toggleSidebar ({ commit }) {
+      commit('toggleSidebar')
     },
-    switchSidebar({ commit }, value) {
-      commit('switchSidebar', value);
+    switchSidebar ({ commit }, value) {
+      commit('switchSidebar', value)
     },
-    handleSwipe({ commit }, e) {
-      commit('handleSwipe', e);
+    handleSwipe ({ commit }, e) {
+      commit('handleSwipe', e)
     },
-    changeSidebarActive({ commit }, index) {
-      commit('changeSidebarActive', index);
+    changeSidebarActive ({ commit }, index) {
+      commit('changeSidebarActive', index)
     },
   },
-};
+}

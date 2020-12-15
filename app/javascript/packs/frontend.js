@@ -4,9 +4,9 @@ import Vuetify from 'vuetify/lib'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueResource from 'vue-resource'
 // import 'vuetify/dist/vuetify.min.css'
-// import store from './store'
 // import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
+import store from '../frontend/store'
 import router from '../frontend/Routes'
 import App from '../frontend/App.vue'
 
@@ -18,6 +18,7 @@ Vue.component(App)
 document.addEventListener('DOMContentLoaded', () => {
     const app = new Vue({
         router,
+        store,
         vuetify: new Vuetify(),
         render: h => h(App),
     }).$mount()
