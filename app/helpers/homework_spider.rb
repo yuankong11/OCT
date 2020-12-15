@@ -1,3 +1,3 @@
-module ResourceSpider
+module HomeworkSpider
   include CourseSpider
 end

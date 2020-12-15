@@ -149,7 +149,7 @@ module ApiHelper
       @cert_saved = true
     end
 
-    include CourseSpider
+    include HomeworkSpider
     include ResourceSpider
     include LiveLessonSpider
     include LectureSpider
