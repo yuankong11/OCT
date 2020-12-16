@@ -133,12 +133,20 @@ module ApiHelper
     end
 
     def img_location_str(img_element)
+      resolution_scale = 1
+
+      if RUBY_PLATFORM =~ /darwin/
+        resolution_scale = 2
+      else
+        resolution_scale = 1
+      end
+
       location = img_element.location
       size = img_element.size
-      width = size.width.to_i# * 2
-      height = size.height.to_i# * 2
-      x = location.x.to_i# * 2
-      y = location.y.to_i# * 2
+      width = size.width.to_i * resolution_scale
+      height = size.height.to_i * resolution_scale
+      x = location.x.to_i * resolution_scale
+      y = location.y.to_i * resolution_scale
       return "#{width}x#{height}+#{x}+#{y}"
     end
 
