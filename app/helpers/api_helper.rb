@@ -26,7 +26,7 @@ module ApiHelper
       tempfile = open(image_url)
       if has_head
         head = 'data:image/' + format + ';base64,'
-      elsif
+      else
         head = ''
       end
       image_base64 = Base64.encode64(File.read(tempfile))
