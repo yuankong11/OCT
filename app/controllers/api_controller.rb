@@ -19,8 +19,7 @@ class ApiController < ApplicationController
   end
 
   def login
-    certer = Certer.new("Milky2020", "lzy19980424")
-    spider = Spider.new(params[:username], params[:password], :chrome, certer)
+    spider = Spider.new(params[:username], params[:password])
     if spider.login_sep == :success
       session[:username] = params[:username]
       @@map[session[:username]] = spider

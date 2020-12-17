@@ -1,165 +1,47 @@
 module ApiHelper
-  class Certer
-    require 'http'
-
-    TT_URL = 'http://api.ttshitu.com/base64'
-
-    def initialize(username, password)
-      @username = username
-      @password = password
-    end
-
-    def get_code(image_url)
-      base64 = image_to_base64(image_url, "png", false)
-      data = {
-        "username": @username,
-        "password": @password,
-        "image": base64,
-        "typeid": 1001
-      }
-
-      response = HTTP.post(TT_URL, :json => data)
-      return JSON.parse(response.body)["data"]["result"]
-    end
-
-    def image_to_base64(image_url, format, has_head)
-      tempfile = open(image_url)
-      if has_head
-        head = 'data:image/' + format + ';base64,'
-      else
-        head = ''
-      end
-      image_base64 = Base64.encode64(File.read(tempfile))
-      tempfile.close
-      return (head + image_base64).delete("\n")
-    end
-  end
-
   class Spider
-    require 'selenium-webdriver'
-    require 'mini_magick'
-
-    SEP_URL = 'http://sep.ucas.ac.cn'
-    APPSTORE_URL = SEP_URL + '/appStore'
-    IMAGE_PATH = './app/assets/images/'
-
-    attr_accessor :screenshot_path, :certcode_path
-
-    def initialize(username, password, browser, certer)
-      @postfix = (rand * 100).to_i.to_s
-      @username = username
-      @password = password
-      @certer = certer
-      @screenshot_path = IMAGE_PATH + 'screenshot' + @postfix + '.png'
-      @certcode_path = IMAGE_PATH + 'certcode' + @postfix + '.png'
-
-      options = Selenium::WebDriver::Chrome::Options.new
-      options.add_argument('--no-sandbox')
-      options.add_argument('--disable-dev-shm-usage')
-      options.headless!
-
-      @dr = Selenium::WebDriver.for(browser, options: options)
-      @dr.manage.window.maximize
-    end
-
-    def login_sep
-      @dr.get SEP_URL
-
-      @dr.find_element(:id, "userName").send_key(@username)
-      @dr.find_element(:id, "pwd").send_key(@password)
-
-      if need_certcode?
-        cert_img = @dr.find_element(:id, "code")
-        geo = img_location_str(cert_img)
-        @dr.save_screenshot(@screenshot_path)
-        @screenshot_saved = true
-        shave(@screenshot_path, @certcode_path, geo)
-        code = @certer.get_code(@certcode_path)
-
-        @dr.find_element(:xpath, "//*[contains(@name, 'certCode')]").send_key(code)
-        if @screenshot_saved
-          File.delete(@screenshot_path)
-        end
-        if @cert_saved
-          File.delete(@certcode_path)
-        end
-      end
-
-      @dr.find_element(:id, "sb").click
-
-      return login_status
-    end
-
-    def need_certcode?
-      begin
-        @dr.find_element(:xpath, "//*[contains(@name, 'certCode')]")
-        need = true
-      rescue Selenium::WebDriver::Error::NoSuchElementError => e
-        need = false
-      ensure
-
-      end
-      return need
-    end
-
-    def logout
-      if login_status == :success
-        @dr.get APPSTORE_URL
-        @dr.find_element(:class, "icon-off").click
-        return :success
-      else
-        return :not_login_yet
-      end
-    end
-
-    def login_status
-      if @dr.current_url =~ /appStore/
-        return :success
-      else
-        begin
-          error_message = @dr.find_element(:class, "alert-error").text
-        rescue Selenium::WebDriver::Error::NoSuchElementError => e
-          error_message = :not_login_yet
-        ensure
-
-        end
-        return error_message
-      end
-    end
-
-    def quit
-      logout
-      @dr.quit
-    end
-
-    def img_location_str(img_element)
-      resolution_scale = 1
-
-      if RUBY_PLATFORM =~ /darwin/
-        resolution_scale = 2
-      else
-        resolution_scale = 1
-      end
-
-      location = img_element.location
-      size = img_element.size
-      width = size.width.to_i * resolution_scale
-      height = size.height.to_i * resolution_scale
-      x = location.x.to_i * resolution_scale
-      y = location.y.to_i * resolution_scale
-      return "#{width}x#{height}+#{x}+#{y}"
-    end
-
-    def shave(input, output, geo)
-      img = MiniMagick::Image.open(input)
-      img.crop(geo)
-      img.write(output)
-      @cert_saved = true
-    end
+    require 'mechanize'
 
     include HomeworkSpider
     include ResourceSpider
     include LiveLessonSpider
     include LectureSpider
+
+    def initialize(username, password)
+      @username = username
+      @password = password
+      @agent = Mechanize.new
+      @agent.user_agent_alias = 'Mac Safari'
+      @agent.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      @agent.redirect_ok = :all
+    end
+
+    def login_sep
+      query = {
+        'username' => @username,
+        'password' => @password,
+        'remember' => 'undefined'
+      }
+      res = @agent.post(LOGIN_URL_S, query, HEADER)
+      if JSON.parse(res.body)["f"]
+        msg = JSON.parse(res.body)["msg"]
+        @identity = msg.scan(/Identity=(.*?)$/)[0]
+        return :success
+      else
+        return :fail
+      end
+    end
+
+    def logout
+
+    end
+
+    def login_status
+
+    end
+
+    def quit
+      logout
+    end
   end
 end

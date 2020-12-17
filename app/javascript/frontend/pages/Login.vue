@@ -46,8 +46,8 @@ export default {
     return {
       logining: false,
       loginForm: {
-        username: 'leizhengyu16@mails.ucas.ac.cn',
-        password: 'lzy19980424',
+        username: '',
+        password: '',
       },
       rules: {
         username: [{ required: true, message: '请输入你的SEP账号', trigger: 'blur' }],
