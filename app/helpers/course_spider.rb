@@ -1,6 +1,13 @@
 module CourseSpider
   include SpiderBase
 
+  # 返回一个 Hash，包含 code, link, title, id 四个数据，都是 String 类型，例如
+  # {
+  #   "code"=>"178206",
+  #   "link"=>"https://course.ucas.ac.cn/portal/site/178206",
+  #   "title"=>"中国特色社会主义理论与实践研究（西区）20-21秋季",
+  #   "id"=>"030500MGB001H-21"
+  # }
   def get_courses
     params = {
       "Identity" => @identity,
@@ -20,10 +27,16 @@ module CourseSpider
     end
 
     find_data_site_id = /site\/(\d{6})$/
-    codes = res.links
-      .map { |link| link.href }
-      .select { |link| link =~ find_data_site_id }
-      .map { |link| link.scan(/(\d{6})/)[0][0] }
-    return codes
+    course_infos = res.links
+      .select { |link| link.href =~ find_data_site_id }
+      .map { |link|
+        {
+          "code" => link.href.scan(/\d{6}/)[0],
+          "link" => link.href,
+          "title" => link.attributes['title'],
+          "id" => link.text.scan(/[a-zA-Z0-9-]{10,20}/)[0]
+        }
+      }
+    return course_infos
   end
 end
