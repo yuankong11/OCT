@@ -1,33 +1,43 @@
 <template>
-  <el-container id="Resource">
-    <el-header class="resource-header">资源</el-header>
-    <el-main>
-      <el-row :gutter="20">
-        <el-col :span="6">
-          <el-card class="box-card">
-            <div slot="header">
-              <span>最新的资源</span>
-            </div>
-            <Favorites />
-          </el-card>
-        </el-col>
-        <el-col :span="18">
-          <el-card class="box-card"><Files /> </el-card>
-        </el-col>
-      </el-row>
-    </el-main>
-  </el-container>
+<v-app>
+  <v-btn color="primary" elevation="2" @click="refresh">点我刷新</v-btn>
+  <v-treeview :items="courses" item-key="name"></v-treeview>
+</v-app>
 </template>
 
 <script>
-import Favorites from '../components/LessonResource/Favorites'
-import Files from '../components/LessonResource/Files.vue'
 
 export default {
   name: 'Resource',
   components: {
-    Files,
-    Favorites
+  },
+  created() {
+    this.refresh();
+  },
+  data() {
+    return {
+      courses: []
+    }
+  },
+  methods: {
+    refresh() {
+      this.$http.get("/api/courses").then(
+        (res) => {
+          console.log(res.data);
+          this.courses = res.data.map((x) => {
+            // x['name'] = x['title'];
+            return x;
+          });
+        },
+        (res) => {
+          //console.log("请求处理失败");
+          this.$notify.error({
+            title: "错误",
+            message: "获取任务失败",
+          });
+        }
+      )
+    }
   }
 }
 </script>
