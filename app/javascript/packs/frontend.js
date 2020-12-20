@@ -5,6 +5,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import VueResource from 'vue-resource'
 // import 'vuetify/dist/vuetify.min.css'
 // import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import '@mdi/font/css/materialdesignicons.css'
 
 import store from '../frontend/store'
 import router from '../frontend/Routes'
@@ -31,7 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const app = new Vue({
         router,
         store,
-        vuetify: new Vuetify(),
+        vuetify: new Vuetify({
+            icons: {
+                iconfont: 'mdi',
+            }
+        }),
         render: h => h(App),
     }).$mount()
     document.body.appendChild(app.$el)

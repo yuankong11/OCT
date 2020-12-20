@@ -1,16 +1,14 @@
 <template>
 <v-app>
-  <v-btn color="primary" elevation="2" @click="refresh">点我刷新</v-btn>
+  <v-btn icon color="green" elevation="2" @click="refresh"><v-icon>mdi-cached</v-icon></v-btn>
   <v-treeview :items="courses" item-key="name"></v-treeview>
 </v-app>
 </template>
 
 <script>
-
 export default {
   name: 'Resource',
-  components: {
-  },
+  components: {},
   created() {
     this.refresh();
   },
@@ -25,7 +23,6 @@ export default {
         (res) => {
           console.log(res.data);
           this.courses = res.data.map((x) => {
-            // x['name'] = x['title'];
             return x;
           });
         },
