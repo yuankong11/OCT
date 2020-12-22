@@ -18,6 +18,10 @@ class ApiController < ApplicationController
     render json: @@map[session[:username]].get_courses
   end
 
+  def resources
+    render json: @@map[session[:username]].get_resources
+  end
+
   def login
     spider = Spider.new(params[:username], params[:password])
     if spider.login_sep == :success

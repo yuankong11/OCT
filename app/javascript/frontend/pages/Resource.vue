@@ -1,7 +1,13 @@
 <template>
 <v-app>
-  <v-btn icon color="green" elevation="2" @click="refresh"><v-icon>mdi-cached</v-icon></v-btn>
-  <v-treeview :items="courses" item-key="name"></v-treeview>
+  <v-btn icon color="green" elevation="2" @click="refresh">
+    <v-icon>mdi-cached</v-icon>
+  </v-btn>
+  <v-sheet class="pa-4 primary lighten-2">
+    <v-text-field v-model="search" label="Search Company Directory" dark flat solo-inverted hide-details clearable clear-icon="mdi-close-circle-outline"></v-text-field>
+    <v-checkbox v-model="caseSensitive" dark hide-details label="Case sensitive search"></v-checkbox>
+  </v-sheet>
+  <v-treeview :items="resources" item-key="name" rounded hoverable selectable :search="search" :filter="filter"></v-treeview>
 </v-app>
 </template>
 
@@ -14,17 +20,23 @@ export default {
   },
   data() {
     return {
-      courses: []
+      resources: [],
+      search: null,
     }
+  },
+  computed: {
+    filter() {
+      return this.caseSensitive ?
+        (item, search, textKey) => item[textKey].indexOf(search) > -1 :
+        undefined
+    },
   },
   methods: {
     refresh() {
-      this.$http.get("/api/courses").then(
+      this.$http.get("/api/resources").then(
         (res) => {
           console.log(res.data);
-          this.courses = res.data.map((x) => {
-            return x;
-          });
+          this.resources = res.data;
         },
         (res) => {
           //console.log("请求处理失败");

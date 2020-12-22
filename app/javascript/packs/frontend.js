@@ -4,7 +4,7 @@ import Vuetify from 'vuetify/lib'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueResource from 'vue-resource'
 // import 'vuetify/dist/vuetify.min.css'
-// import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
 
 import store from '../frontend/store'
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         store,
         vuetify: new Vuetify({
             icons: {
-                iconfont: 'mdi',
+                iconfont: 'md',
             }
         }),
         render: h => h(App),
