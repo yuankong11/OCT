@@ -42,8 +42,9 @@ export default {
           //console.log("请求处理失败");
           this.$notify.error({
             title: "错误",
-            message: "获取任务失败",
+            message: "请重新登录",
           });
+          this.$router.push('/app/login');
         }
       )
     }

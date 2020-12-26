@@ -19,7 +19,8 @@ class ApiController < ApplicationController
   end
 
   def resources
-    render json: @@map[session[:username]].get_resources
+    spider = @@map[session[:username]]
+    render json: spider.get_resources
   end
 
   def login
