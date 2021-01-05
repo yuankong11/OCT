@@ -1,5 +1,6 @@
 class ApiController < ApplicationController
   protect_from_forgery :only => [:login]
+  before_action :check_logged_in, only: [:courses, :resources, :file]
 
   @@map = Hash.new
 
@@ -14,13 +15,31 @@ class ApiController < ApplicationController
     t.send(params[:function])
   end
 
+  def check_logged_in
+    if @@map[session[:username]] && @@map[session[:username]].logged_in?
+    else
+      raise StandardError
+    end
+  end
+
+  def file
+    file_name = params[:name]
+    file_url = params[:address]
+    path = "./app/assets/resources/" + file_url
+    @@map[session[:username]].download_file(file_url, path)
+    # File.open(path, 'rb') do |f|
+    #   send_data(f.read, :filename => file_name, :disposition => :inline, :stream => false)
+    # end
+    send_file(path, :filename => file_name)
+    # File.delete(path)
+  end
+
   def courses
     render json: @@map[session[:username]].get_courses
   end
 
   def resources
-    spider = @@map[session[:username]]
-    render json: spider.get_resources
+    render json: @@map[session[:username]].get_resources
   end
 
   def login

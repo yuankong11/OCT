@@ -1,14 +1,38 @@
 <template>
-<v-app>
-  <v-btn icon color="green" elevation="2" @click="refresh">
-    <v-icon>mdi-cached</v-icon>
-  </v-btn>
-  <v-sheet class="pa-4 primary lighten-2">
-    <v-text-field v-model="search" label="Search Company Directory" dark flat solo-inverted hide-details clearable clear-icon="mdi-close-circle-outline"></v-text-field>
-    <v-checkbox v-model="caseSensitive" dark hide-details label="Case sensitive search"></v-checkbox>
-  </v-sheet>
-  <v-treeview :items="resources" item-key="name" rounded hoverable selectable :search="search" :filter="filter"></v-treeview>
-</v-app>
+<el-container>
+  <el-header>
+    <el-card>
+      <el-button type="success" icon="el-icon-refresh" @click="refresh">刷新</el-button>
+    </el-card>
+  </el-header>
+  <el-main>
+    <el-card>
+      <el-input placeholder="输入关键字进行过滤" v-model="filterText">
+      </el-input>
+    </el-card>
+    <el-card>
+      <el-tree v-loading="loading" node-key="name" :expand-on-click-node="false" class="filter-tree" :filter-node-method="filterNode" ref="resourceTree" :data="resources" :props="defaultProps" @node-click="handleNodeClick">
+        <span class="custom-tree-node" slot-scope="{ node, data }">
+          <span>{{ node.label }}</span>
+          <span>
+            <!-- <el-link icon="el-icon-download" href="node.link" target="_blank"></el-link> -->
+            <el-button size="mini" @click="handlePreview(data)" icon="el-icon-view"></el-button>
+            <!-- <el-button
+            size="mini"
+            type="success"
+            @click="handleFavor()"
+            icon="el-icon-star-off"
+          ></el-button> -->
+            <el-button size="mini" type="primary" @click="handleDownload(data)" icon="el-icon-download"></el-button>
+          </span>
+          <span>
+            XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          </span>
+        </span>
+      </el-tree>
+    </el-card>
+  </el-main>
+</el-container>
 </template>
 
 <script>
@@ -18,28 +42,40 @@ export default {
   created() {
     this.refresh();
   },
+  watch: {
+    filterText(val) {
+      this.$refs.resourceTree.filter(val);
+    }
+  },
   data() {
     return {
       resources: [],
-      search: null,
+      filterText: '',
+      defaultProps: {
+        children: 'children',
+        label: 'name'
+      },
+      loading: true
     }
   },
-  computed: {
-    filter() {
-      return this.caseSensitive ?
-        (item, search, textKey) => item[textKey].indexOf(search) > -1 :
-        undefined
-    },
-  },
+  computed: {},
   methods: {
+    handleNodeClick() {
+
+    },
+    filterNode(value, data) {
+      if (!value) return true;
+      return data.name.indexOf(value) !== -1;
+    },
     refresh() {
+      this.loading = true;
       this.$http.get("/api/resources").then(
         (res) => {
           console.log(res.data);
           this.resources = res.data;
+          this.loading = false;
         },
         (res) => {
-          //console.log("请求处理失败");
           this.$notify.error({
             title: "错误",
             message: "请重新登录",
@@ -47,7 +83,35 @@ export default {
           this.$router.push('/app/login');
         }
       )
-    }
+    },
+    // handleFavor () { },
+    handleDownload(file) {
+      this.$http.get("/api/file", {
+        params: {
+          name: file.name,
+          address: file.address
+        },
+        responseType: 'arraybuffer',
+      }).then(
+        (res) => {
+          // console.log(res.data);
+          // window.open(res.data);
+          const binaryData = [];
+          binaryData.push(res.data);
+          //获取blob链接
+          this.pdfUrl = window.URL.createObjectURL(new Blob(binaryData, { type: 'application/pdf' }));
+          window.open(this.pdfUrl);
+        },
+        (res) => {
+          this.$notify.error({
+            title: "错误",
+            message: "请重新登录",
+          });
+          this.$router.push('/app/login');
+        }
+      )
+    },
+    handlePreview(file) {}
   }
 }
 </script>
@@ -67,5 +131,14 @@ export default {
   color: #333;
   text-align: center;
   line-height: 60px;
+}
+
+.custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
 }
 </style>

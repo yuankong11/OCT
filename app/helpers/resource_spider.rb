@@ -13,6 +13,13 @@ module ResourceSpider
     end
   end
 
+  def download_file(url, path)
+    unless File.exist?(path)
+      get_courses
+      @agent.get(url).save(path)
+    end
+  end
+
   # 按课程 code 获取该课程所有的资源并形成一个数组
   def get_resources_from_course(course_code)
     course_link = RESOURCE_URL_S + course_code
@@ -22,6 +29,9 @@ module ResourceSpider
   end
 
   # 对特定地址的目录获取资源并形成数组
+  # name: 资源名称
+  # address: 地址
+  # children: 子资源
   def get_resources_from_url(url)
     res = @agent.get(url)
     file_infos = res.links
@@ -38,4 +48,6 @@ module ResourceSpider
       end
     return file_infos
   end
+
+  private :get_resources_from_course, :get_resources_from_url
 end

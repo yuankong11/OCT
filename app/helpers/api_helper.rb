@@ -37,12 +37,16 @@ module ApiHelper
     end
 
     def logged_in?
-      params = {
-        "Identity" => @identity,
-        "roleId" => 801
-      }
-      res = @agent.get(LOGIN_COURSE_URL_S, params, ONESTOP_URL_S, HEADER)
-      return res.title != "SEP 教育业务接入平台"
+      if defined? @identity
+        params = {
+          "Identity" => @identity,
+          "roleId" => 801
+        }
+        res = @agent.get(LOGIN_COURSE_URL_S, params, ONESTOP_URL_S, HEADER)
+        return res.title != "SEP 教育业务接入平台"
+      else
+        return false
+      end
     end
 
     def quit
