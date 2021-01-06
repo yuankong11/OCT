@@ -94,13 +94,14 @@ export default {
         responseType: 'arraybuffer',
       }).then(
         (res) => {
-          // console.log(res.data);
-          // window.open(res.data);
-          const binaryData = [];
-          binaryData.push(res.data);
-          //获取blob链接
-          this.pdfUrl = window.URL.createObjectURL(new Blob(binaryData, { type: 'application/pdf' }));
-          window.open(this.pdfUrl);
+          const url = window.URL.createObjectURL(new Blob([res.data]));
+          const link = document.createElement('a');
+          link.style.display = 'none';
+          link.href = url;
+          link.setAttribute('download', file.name);
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
         },
         (res) => {
           this.$notify.error({
@@ -111,7 +112,29 @@ export default {
         }
       )
     },
-    handlePreview(file) {}
+    handlePreview(file) {
+      this.$http.get("/api/file", {
+        params: {
+          name: file.name,
+          address: file.address
+        },
+        responseType: 'arraybuffer',
+      }).then(
+        (res) => {
+          const pdfUrl = window.URL.createObjectURL(new Blob([res.data], {
+            type: 'application/pdf'
+          }));
+          window.open(pdfUrl);
+        },
+        (res) => {
+          this.$notify.error({
+            title: "错误",
+            message: "请重新登录",
+          });
+          this.$router.push('/app/login');
+        }
+      )
+    }
   }
 }
 </script>

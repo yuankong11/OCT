@@ -27,11 +27,7 @@ class ApiController < ApplicationController
     file_url = params[:address]
     path = "./app/assets/resources/" + file_url
     @@map[session[:username]].download_file(file_url, path)
-    # File.open(path, 'rb') do |f|
-    #   send_data(f.read, :filename => file_name, :disposition => :inline, :stream => false)
-    # end
     send_file(path, :filename => file_name)
-    # File.delete(path)
   end
 
   def courses
