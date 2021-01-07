@@ -1,6 +1,6 @@
 class ApiController < ApplicationController
+  # before_action :check_logged_in, only: [:courses, :resources, :file, :files]
   protect_from_forgery :only => [:login]
-  before_action :check_logged_in, only: [:courses, :resources, :file, :files]
 
   @@map = Hash.new
 
@@ -17,13 +17,14 @@ class ApiController < ApplicationController
 
   def check_logged_in
     if @@map[session[:username]] && @@map[session[:username]].logged_in?
-      puts "---------------------\nOK\n---------------------------"
+      # Nothing to do here
     else
       raise StandardError
     end
   end
 
   def file
+    check_logged_in
     file_name = params[:name]
     file_url = params[:address]
     path = from_url_to_path(file_url)
@@ -33,6 +34,7 @@ class ApiController < ApplicationController
 
   def files
     require 'zip'
+    check_logged_in
     urls = params[:address]
     spider = @@map[session[:username]]
     stream = Zip::OutputStream.write_buffer do |zos|
@@ -49,17 +51,13 @@ class ApiController < ApplicationController
     send_data(data, :filename => "tmp.zip", :type => "application/zip", :disposition => "attachment")
   end
 
-  def from_url_to_path(url)
-    resource_path = "./app/assets/resources/"
-    return (resource_path + URI.decode(url)).gsub("https://course.ucas.ac.cn/access/content/group/", "")
-  end
-  private :from_url_to_path
-
   def courses
+    check_logged_in
     render json: @@map[session[:username]].get_courses
   end
 
   def resources
+    check_logged_in
     render json: @@map[session[:username]].get_resources
   end
 

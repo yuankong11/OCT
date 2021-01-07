@@ -1,4 +1,9 @@
 module ApiHelper
+  def from_url_to_path(url)
+    resource_path = "./app/assets/resources/"
+    return (resource_path + URI.decode(url)).gsub("https://course.ucas.ac.cn/access/content/group/", "")
+  end
+
   class Spider
     require 'mechanize'
 

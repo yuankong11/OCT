@@ -1,16 +1,28 @@
 <template>
 <v-app>
-  <v-content>
+  <v-content class="text-left">
     <v-btn icon @click="refresh()">
       <v-icon>mdi-cached</v-icon>
     </v-btn>
     <v-btn icon @click="handleDownloadZip()">
       <v-icon>mdi-download</v-icon>
     </v-btn>
+    <v-btn v-show="downloading">
+      正在下载，请稍后...
+      <v-icon @click="downloading = false" color="green">
+        mdi-close
+      </v-icon>
+    </v-btn>
+    <v-btn v-show="emptytree" color="orange">
+      请勾选需要下载的文件
+      <v-icon @click="emptytree = false">
+        mdi-close
+      </v-icon>
+    </v-btn>
     <v-sheet class="pa-4 primary lighten-2">
       <v-text-field v-model="filterText" label="输入关键字进行过滤" dark flat solo-inverted hide-details clearable clear-icon="mdi-close-circle-outline"></v-text-field>
     </v-sheet>
-    <v-treeview v-loading="loading" selectable class="text-left" v-model="tree" :filter="filter" :search="filterText" :open="initiallyOpen" :items="resources" activatable item-key="address" open-on-click>
+    <v-treeview v-loading="loading" selectable v-model="tree" :filter="filter" :search="filterText" :open="initiallyOpen" :items="resources" activatable item-key="address" open-on-click>
       <template v-slot:prepend="{ item, open }">
         <v-icon v-if="item.file == 'folder'">
           {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
@@ -69,6 +81,8 @@ export default {
       resources: [],
       filterText: '',
       loading: true,
+      downloading: false,
+      emptytree: false,
     }
   },
   name: 'Resource',
@@ -90,7 +104,10 @@ export default {
     handleDownloadZip() {
       const files = this.tree;
       console.log(files);
-      if (files.length !== 0) {
+      if (files.length === 0) {
+        this.emptytree = true;
+      } else {
+        this.downloading = true;
         this.$http.get("/api/files", {
           params: {
             address: files
@@ -106,6 +123,7 @@ export default {
             document.body.appendChild(link);
             link.click();
             link.remove();
+            this.downloading = false;
           },
           (res) => {
             this.$notify.error({
@@ -143,6 +161,7 @@ export default {
     },
     // handleFavor () { },
     handleDownload(file) {
+      this.downloading = true;
       this.$http.get("/api/file", {
         params: {
           name: file.name,
@@ -159,6 +178,7 @@ export default {
           document.body.appendChild(link);
           link.click();
           link.remove();
+          this.downloading = false;
         },
         (res) => {
           this.$notify.error({
