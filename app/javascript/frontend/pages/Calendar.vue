@@ -2,16 +2,16 @@
   <el-container>
     <el-header class="calendar-header">日程管理</el-header>
     <el-main>
-      <el-row :gutter="20">
-        <el-col :span="17">
+      <el-row :gutter="18">
+        <el-col :span="18">
           <el-card class="box-card-cal">
             <Timetable />
           </el-card>
         </el-col>
-        <el-col :span="6">
-          <Minicalendar />
+        <el-col :span="5">
+            <Minicalendar />
         </el-col>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-card class="box-card">
             <Minitodo />
           </el-card>

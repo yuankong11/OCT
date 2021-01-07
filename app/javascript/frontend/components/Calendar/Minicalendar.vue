@@ -1,18 +1,15 @@
 <template>
   <v-app>
-    <div>
-      <v-row justify="center">
-        <v-col sm>
+      <v-row justify="center" :span="1">
+        <v-col>
           <v-date-picker
-            full-width
-            elevation="15"
+            elevation="3"
             v-model="date2"
             :event-color="(date) => (date[9] % 2 ? 'red' : 'yellow')"
             :events="functionEvents"
           ></v-date-picker>
         </v-col>
       </v-row>
-    </div>
   </v-app>
 </template>
 

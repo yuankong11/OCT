@@ -1,163 +1,142 @@
-template>
-  <el-tabs v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane label="今日任务" name="first">
-      <el-input
-        placeholder="回车添加待办事项"
-        class="todoinput"
-        @keyup.enter.native="add"
-        v-model="newtodo.content"
-      ></el-input>
-      <el-row
-        v-for="(item, index) in todolist"
-        class="list-row"
-        v-bind:key="item.id"
+<template>
+<v-app>
+  <v-container style="max-width: 500px">
+    <v-text-field
+      v-model="newTask"
+      label="What are you working on?"
+      solo
+      @keydown.enter="create"
+    >
+      <template v-slot:append>
+        <v-fade-transition>
+          <v-icon
+            v-if="newTask"
+            @click="create"
+          >
+            add_circle
+          </v-icon>
+        </v-fade-transition>
+      </template>
+    </v-text-field>
+
+    <h2 class="display-1 success--text pl-4">
+      Tasks:&nbsp;
+      <v-fade-transition leave-absolute>
+        <span :key="`tasks-${tasks.length}`">
+          {{ tasks.length }}
+        </span>
+      </v-fade-transition>
+    </h2>
+
+    <v-divider class="mt-4"></v-divider>
+
+    <v-row
+      class="my-1"
+      align="center"
+    >
+      <strong class="mx-4 info--text text--darken-2">
+        Remaining: {{ remainingTasks }}
+      </strong>
+
+      <v-divider vertical></v-divider>
+
+      <strong class="mx-4 success--text text--darken-2">
+        Completed: {{ completedTasks }}
+      </strong>
+
+      <v-spacer></v-spacer>
+
+      <v-progress-circular
+        :value="progress"
+        class="mr-2"
+      ></v-progress-circular>
+    </v-row>
+
+    <v-divider class="mb-4"></v-divider>
+
+    <v-card v-if="tasks.length > 0">
+      <v-slide-y-transition
+        class="py-0"
+        group
+        tag="v-list"
       >
-        <el-col
-          :xs="2"
-          :sm="1"
-          :md="1"
-          :lg="1"
-          :xl="1"
-          class="check"
-          :class="{
-            red: !todolist[index].done,
-            green: todolist[index].done,
-          }"
-        >
-          <el-checkbox size="mini" v-model="item.done"></el-checkbox>
-        </el-col>
-        <el-col :xs="20" :sm="22" :md="22" :lg="22" :xl="22">
-          <input
-            type="text"
-            v-model="item.content"
-            class="ipcont"
-            :class="{ done: todolist[index].done }"
-          />
-        </el-col>
-        <el-col :xs="2" :sm="1" :md="1" :lg="1" :xl="1" class="close">
-          <i class="el-icon-close" @click="del(index)"></i>
-        </el-col>
-      </el-row>
-    </el-tab-pane>
-    <el-tab-pane label="重要" name="second">重要</el-tab-pane>
-    <el-tab-pane label="已计划日程" name="third">已计划日程</el-tab-pane>
-    <el-tab-pane label="自定义" name="fourth">自定义</el-tab-pane>
-  </el-tabs>
+        <template v-for="(task, i) in tasks">
+          <v-divider
+            v-if="i !== 0"
+            :key="`${i}-divider`"
+          ></v-divider>
+
+          <v-list-item :key="`${i}-${task.text}`">
+            <v-list-item-action>
+              <v-checkbox
+                v-model="task.done"
+                :color="task.done && 'grey' || 'primary'"
+              >
+                <template v-slot:label>
+                  <div
+                    :class="task.done && 'grey--text' || 'primary--text'"
+                    class="ml-4"
+                    v-text="task.text"
+                  ></div>
+                </template>
+              </v-checkbox>
+            </v-list-item-action>
+
+            <v-spacer></v-spacer>
+
+            <v-scroll-x-transition>
+              <v-icon
+                v-if="task.done"
+                color="success"
+              >
+                mdi-check
+              </v-icon>
+            </v-scroll-x-transition>
+          </v-list-item>
+        </template>
+      </v-slide-y-transition>
+    </v-card>
+  </v-container>
+  </v-app>
 </template>
 
-<style>
-.todoinput {
-  margin-bottom: 40px;
-}
-
-.list-row {
-  height: 40px;
-  background-color: #fbfbfb;
-  margin-bottom: 5px;
-}
-
-.check {
-  text-align: center;
-  line-height: 40px;
-}
-
-.red {
-  border-left: #ef5f65 2px solid;
-}
-
-.green {
-  border-left: #b9e1dc 2px solid;
-}
-
-.ipcont {
-  width: 90%;
-  margin-top: 8px;
-  border: 0;
-  line-height: 24px;
-  background-color: transparent;
-  font-size: 16px;
-  color: #756c83;
-}
-
-.close {
-  text-align: center;
-  line-height: 40px;
-}
-
-.el-icon-close {
-  cursor: pointer;
-}
-
-.el-icon-close:hover {
-  color: #ef5f65;
-}
-
-.done {
-  text-decoration: line-through;
-}
-</style>
-
 <script>
-export default {
-  methods: {
-    handleClick (tab, event) {
-      console.log(tab, event)
-    },
-    add: function () {
-      if (this.newtodo.content) {
-        this.todolist.push(this.newtodo)
-        this.newtodo = { content: "", done: false }
-      }
-    },
-    del: function (index) {
-      this.todolist.splice(index, 1)
-    },
-  },
-  data () {
-    return {
-      activeName: "first",
-      newtodo: {
-        content: "",
-        done: false,
-      },
-      todolist: [
+  export default {
+    data: () => ({
+      tasks: [
         {
-          content: "早上起床",
-          done: true,
-        },
-        {
-          content: "洗漱",
-          done: true,
-        },
-        {
-          content: "吃早饭",
-          done: true,
-        },
-        {
-          content: "上高级软件工程",
           done: false,
+          text: 'Foobar',
         },
         {
-          content: "课后讨论",
           done: false,
-        },
-        {
-          content: "完成作业",
-          done: false,
+          text: 'Fizzbuzz',
         },
       ],
+      newTask: null,
+    }),
 
-    }
-  },
-  watch: {
-    todolist: {
-      handler (items) {
-        save(items)
+    computed: {
+      completedTasks () {
+        return this.tasks.filter(task => task.done).length
       },
-      // 深度监听：属性值的变化{{ todolist.length -  donenum}}  已完成：{{ donenum }}
-      // 给所有属性添加监听器，开销较大
-      deep: true,
+      progress () {
+        return this.completedTasks / this.tasks.length * 100
+      },
+      remainingTasks () {
+        return this.tasks.length - this.completedTasks
+      },
     },
-  },
-}
+
+    methods: {
+      create () {
+        this.tasks.push({
+          done: false,
+          text: this.newTask,
+        })
+
+        this.newTask = null
+      },
+    },
+  }
 </script>
