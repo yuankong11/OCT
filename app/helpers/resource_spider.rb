@@ -8,7 +8,8 @@ module ResourceSpider
       {
         "name" => course["name"],
         "address" => course["link"],
-        "children" => get_resources_from_course(course["code"])
+        "children" => get_resources_from_course(course["code"]),
+        "file" => "folder"
       }
     end
   end
@@ -32,6 +33,7 @@ module ResourceSpider
   # name: 资源名称
   # address: 地址
   # children: 子资源
+  # file: 文件格式
   def get_resources_from_url(url)
     res = @agent.get(url)
     file_infos = res.links
@@ -43,6 +45,11 @@ module ResourceSpider
         }
         if link.href =~ /\/$/
           file_info["children"] = get_resources_from_url(url + link.href)
+          file_info["file"] = "folder"
+        elsif postfixs = link.text.scan(/\.(\w+)$/)[0]
+          file_info["file"] = postfixs[0]
+        else
+          file_info["file"] = "unknown"
         end
         file_info
       end

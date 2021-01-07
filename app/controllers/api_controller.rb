@@ -1,6 +1,6 @@
 class ApiController < ApplicationController
   protect_from_forgery :only => [:login]
-  before_action :check_logged_in, only: [:courses, :resources, :file]
+  before_action :check_logged_in, only: [:courses, :resources, :file, :files]
 
   @@map = Hash.new
 
@@ -17,6 +17,7 @@ class ApiController < ApplicationController
 
   def check_logged_in
     if @@map[session[:username]] && @@map[session[:username]].logged_in?
+      puts "---------------------\nOK\n---------------------------"
     else
       raise StandardError
     end
@@ -25,10 +26,34 @@ class ApiController < ApplicationController
   def file
     file_name = params[:name]
     file_url = params[:address]
-    path = "./app/assets/resources/" + file_url
+    path = from_url_to_path(file_url)
     @@map[session[:username]].download_file(file_url, path)
     send_file(path, :filename => file_name)
   end
+
+  def files
+    require 'zip'
+    urls = params[:address]
+    spider = @@map[session[:username]]
+    stream = Zip::OutputStream.write_buffer do |zos|
+      file_objs = urls.each do |url|
+        name = URI.decode(url.scan(/\/([^\/]*?)$/)[0][0])
+        path = from_url_to_path(url)
+        spider.download_file(url, path)
+        zos.put_next_entry(name)
+        zos.print(File.read(path))
+      end
+    end
+    stream.rewind
+    data = stream.read
+    send_data(data, :filename => "tmp.zip", :type => "application/zip", :disposition => "attachment")
+  end
+
+  def from_url_to_path(url)
+    resource_path = "./app/assets/resources/"
+    return (resource_path + URI.decode(url)).gsub("https://course.ucas.ac.cn/access/content/group/", "")
+  end
+  private :from_url_to_path
 
   def courses
     render json: @@map[session[:username]].get_courses

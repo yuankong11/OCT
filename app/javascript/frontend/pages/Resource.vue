@@ -1,42 +1,76 @@
 <template>
-<el-container>
-  <el-header>
-    <el-card>
-      <el-button type="success" icon="el-icon-refresh" @click="refresh">刷新</el-button>
-    </el-card>
-  </el-header>
-  <el-main>
-    <el-card>
-      <el-input placeholder="输入关键字进行过滤" v-model="filterText">
-      </el-input>
-    </el-card>
-    <el-card>
-      <el-tree v-loading="loading" node-key="name" :expand-on-click-node="false" class="filter-tree" :filter-node-method="filterNode" ref="resourceTree" :data="resources" :props="defaultProps" @node-click="handleNodeClick">
-        <span class="custom-tree-node" slot-scope="{ node, data }">
-          <span>{{ node.label }}</span>
-          <span>
-            <!-- <el-link icon="el-icon-download" href="node.link" target="_blank"></el-link> -->
-            <el-button size="mini" @click="handlePreview(data)" icon="el-icon-view"></el-button>
-            <!-- <el-button
-            size="mini"
-            type="success"
-            @click="handleFavor()"
-            icon="el-icon-star-off"
-          ></el-button> -->
-            <el-button size="mini" type="primary" @click="handleDownload(data)" icon="el-icon-download"></el-button>
-          </span>
-          <span>
-            XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-          </span>
-        </span>
-      </el-tree>
-    </el-card>
-  </el-main>
-</el-container>
+<v-app>
+  <v-content>
+    <v-btn icon @click="refresh()">
+      <v-icon>mdi-cached</v-icon>
+    </v-btn>
+    <v-btn icon @click="handleDownloadZip()">
+      <v-icon>mdi-download</v-icon>
+    </v-btn>
+    <v-sheet class="pa-4 primary lighten-2">
+      <v-text-field v-model="filterText" label="输入关键字进行过滤" dark flat solo-inverted hide-details clearable clear-icon="mdi-close-circle-outline"></v-text-field>
+    </v-sheet>
+    <v-treeview v-loading="loading" selectable class="text-left" v-model="tree" :filter="filter" :search="filterText" :open="initiallyOpen" :items="resources" activatable item-key="address" open-on-click>
+      <template v-slot:prepend="{ item, open }">
+        <v-icon v-if="item.file == 'folder'">
+          {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+        </v-icon>
+        <v-icon v-else-if="files.hasOwnProperty(item.file)">
+          {{ files[item.file] }}
+        </v-icon>
+        <v-icon v-else>
+          {{ files["unknown"] }}
+        </v-icon>
+      </template>
+      <template v-slot:append="{ item }">
+        <v-btn v-if="item.file != 'folder'" icon @click="handlePreview(item)">
+          <v-icon>
+            mdi-eye
+          </v-icon>
+        </v-btn>
+        <v-btn v-if="item.file != 'folder'" icon @click="handleDownload(item)">
+          <v-icon>
+            mdi-download
+          </v-icon>
+        </v-btn>
+        <span>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+      </template>
+    </v-treeview>
+  </v-content>
+  <v-footer>
+  </v-footer>
+</v-app>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      initiallyOpen: ['public'],
+      files: {
+        html: 'mdi-language-html5',
+        js: 'mdi-nodejs',
+        json: 'mdi-code-json',
+        md: 'mdi-language-markdown',
+        pdf: 'mdi-file-pdf',
+        png: 'mdi-file-image',
+        txt: 'mdi-file-document',
+        xls: 'mdi-file-excel',
+        xlsx: 'mdi-file-excel',
+        doc: 'mdi-file-word',
+        docx: 'mdi-file-word',
+        ppt: 'mdi-file-powerpoint',
+        pptx: 'mdi-file-powerpoint',
+        zip: 'mdi-folder-zip',
+        rar: 'mdi-folder-zip',
+        unknown: 'mdi-file-document',
+      },
+      tree: [],
+      resources: [],
+      filterText: '',
+      loading: true,
+    }
+  },
   name: 'Resource',
   components: {},
   created() {
@@ -47,19 +81,42 @@ export default {
       this.$refs.resourceTree.filter(val);
     }
   },
-  data() {
-    return {
-      resources: [],
-      filterText: '',
-      defaultProps: {
-        children: 'children',
-        label: 'name'
-      },
-      loading: true
-    }
+  computed: {
+    filter() {
+      return (item, search, textKey) => item[textKey].indexOf(search) > -1;
+    },
   },
-  computed: {},
   methods: {
+    handleDownloadZip() {
+      const files = this.tree;
+      console.log(files);
+      if (files.length !== 0) {
+        this.$http.get("/api/files", {
+          params: {
+            address: files
+          },
+          responseType: 'arraybuffer',
+        }).then(
+          (res) => {
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            const link = document.createElement('a');
+            link.style.display = 'none';
+            link.href = url;
+            link.setAttribute('download', 'tmp.zip');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+          },
+          (res) => {
+            this.$notify.error({
+              title: "错误",
+              message: "请重新登录",
+            });
+            this.$router.push('/app/login');
+          }
+        )
+      }
+    },
     handleNodeClick() {
 
     },
@@ -134,34 +191,7 @@ export default {
           this.$router.push('/app/login');
         }
       )
-    }
+    },
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-.resource-header {
-  background-color: #e9eef3;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
-}
-
-.custom-tree-node {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 14px;
-  padding-right: 8px;
-}
-</style>
