@@ -30,7 +30,7 @@ class ApiController < ApplicationController
   def file
     file_name = params[:name]
     file_url = params[:address]
-    path = from_url_to_path(file_url)
+    path = FileRecord.path_to_full_path(FileRecord.address_to_path(file_url))
     current_spider.download_file(file_url, path)
     send_file(path, :filename => file_name)
   end

@@ -34,7 +34,8 @@ class FileRecord < ApplicationRecord
   def self.record_to_hash(f, records)
     info = {
       "name" => f.name,
-      "address" => f.address
+      "address" => f.address,
+      "unread" => f.unread
     }
     if f.has_children
       info["children"] = records.select do |r|
@@ -52,8 +53,6 @@ class FileRecord < ApplicationRecord
   end
 
   def self.child?(cpath, ppath)
-    puts cpath
-    puts ppath
     if cpath.index(ppath) == 0
       return (cpath.gsub(ppath, "") =~ /[^\/]+\/?$/) == 0
     else

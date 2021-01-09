@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <v-content>
-    <v-card :max-width="width" :max-height="height">
+    <v-card :max-width="width">
       <v-row>
         <v-col>
           <v-btn outlined color="blue" v-show="!treeIsEmpty" @click="handleDownloadZip()">
