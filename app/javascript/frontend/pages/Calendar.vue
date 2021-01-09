@@ -1,32 +1,36 @@
 <template>
-  <v-app>
-    <v-container fluid>
-      <v-row class="calendar-main">
-        <v-card class="box-card-cal">
-          <Timetable />
-        </v-card>
-        </v-col>
-        <v-col>
-          <v-card class="box-card">
-            <Minicalendar />
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card class="box-card">
+  <el-container>
+    <el-header class="calendar-header">日程管理</el-header>
+    <el-main>
+      <el-row :gutter="20">
+        <el-col :span="22">
+        <el-col :span="18">
+          <el-card class="box-card-cal">
+            <div slot="header">
+              <span>日程表</span>
+            </div>
+            <Timetable />
+          </el-card>
+        </el-col>
+        <el-col :span="6">
+          <el-card class="box-card" :body-style="{ padding: '0px' }">
+          <Minicalendar />
+          </el-card>
+        </el-col>
+        <el-col :span="6">
+          <el-card class="box-card" :body-style="{ padding: '0px' }">
             <Minitodo />
-          </v-card>
-      </v-row>
-    </v-container>
-  </v-app>
+          </el-card>
+        </el-col>
+        </el-col>
+      </el-row>
+    </el-main>
+  </el-container>
 </template>
 
 <style>
-  .calendar-main {
-    height: 850px;
-  }
-
   .box-card-cal {
-    height: 850px;
+    height: 810px;
   }
 
   .calendar-header {
@@ -37,9 +41,16 @@
   }
 
   .box-card {
-    height: 425px;
+    height: 400px;
   }
-
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 0px;
+}
 </style>
 
 <script>

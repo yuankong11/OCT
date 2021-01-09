@@ -1,12 +1,14 @@
 <template>
-      <v-container fluid>
+<v-app>
+      <v-container fluid style="padding:0px;">
           <v-date-picker
-            elevation="3"
+            full-width
             v-model="date2"
             :event-color="(date) => (date[9] % 2 ? 'red' : 'yellow')"
             :events="functionEvents"
           ></v-date-picker>
       </v-container>
+      </v-app>
 </template>
 
 <style>

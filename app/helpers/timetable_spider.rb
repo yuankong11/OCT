@@ -1,6 +1,3 @@
-require 'icalendar'
-require 'openuri'
-
 module TimetableSpider
   include SpiderBase
 
@@ -16,15 +13,5 @@ module TimetableSpider
       ics_schedl = @agent.click(main_schdl.link_with(:text => "发布（私有）"))
       ics_url = ics_schedl.link_with(:href => /^https:\/\//).text
       return ics_url
-      end
-  end
-
-  def save_ics_to_user
-    if !get_ics_url?
-      return false
-    else
-
     end
-  end
-  def ics_analyze
   end

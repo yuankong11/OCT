@@ -2,30 +2,34 @@
   <el-container>
     <el-header class="todo-header">Todo任务管理</el-header>
     <el-main>
-      <el-row :gutter="30">
-        <el-col :span="17">
-          <el-card class="box-card-todo" padding="20px">
+      <el-row :gutter="20">
+        <el-col :span="22">
+          <el-col :span="18">
+          <el-card class="box-card-todo">
             <div slot="header">
               <span>Todo List</span>
             </div>
-            <el-col :span="5">
+            <el-col :span="6">
               <Sidemenu />
             </el-col>
-            <el-col :span="19">
+            <el-col :span="17">
               <Todolist />
             </el-col>
           </el-card>
         </el-col>
 
         <el-col :span="6">
-          <el-card class="box-card">
-            <Minicalendar /> </el-card
-        ></el-col>
+          <el-card class="box-card" :body-style="{ padding: '0px' }">
+            <Minicalendar />
+            </el-card>
+
+          </el-col>
 
         <el-col :span="6">
-          <el-card class="box-card">
+          <el-card class="box-card" :body-style="{ padding: '0px' }">
             <Minitodo />
           </el-card>
+        </el-col>
         </el-col>
       </el-row>
     </el-main>
@@ -41,30 +45,16 @@
 }
 
 .box-card {
-  margin-bottom: 18px;
+  height: 400px;
 }
 .box-card-todo {
-  height: 760px;
-}
-
-.wh_container >>> .wh_content_all {
-  background-color: #ffffff !important;
-  border: 1px solid #dfe0e6;
-  width: 600px;
-  border-radius: 6px;
-}
-.wh_container {
-  margin: 0px !important;
-}
-
-.wh_container >>> .wh_item_date {
-  color: #211d48;
+  height: 810px;
 }
 </style>
 
 <script>
 /* eslint-disable */
-import Calendar from "vue-calendar-component"
+  import Minicalendar from '../components/Calendar/Minicalendar'
 import Minitodo from "../components/Todo/Minitodo"
 import Sidemenu from "../components/Todo/Sidemenu"
 import Todolist from "../components/Todo/Todolist"
@@ -78,7 +68,7 @@ export default {
     }
   },
   components: {
-    Calendar,
+    Minicalendar,
     Minitodo,
     Sidemenu,
     Todolist

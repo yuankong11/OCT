@@ -1,4 +1,8 @@
+require 'icalendar'
+require 'openuri'
+
 class ApiController < ApplicationController
+
   # before_action :check_logged_in, only: [:courses, :resources, :file, :files]
   protect_from_forgery :only => [:login]
 
@@ -56,6 +60,21 @@ class ApiController < ApplicationController
 
   def resources
     render json: current_spider.get_resources
+  end
+
+
+  def save_ics_to_user
+    # 把每个人的ics链接存放到模型中方便之后读取
+  end
+
+  def ics_analyze
+    ics_url = get_ics_url
+    if ics_url.nil?
+      return false
+    else
+      cal = Icalendar.parse(open(ics_url).read).first
+      return cal.events
+    end
   end
 
   def login

@@ -1,6 +1,6 @@
 <!-- 周视图 -->
 <template>
-  <v-app>
+  <v-app :class="card">
     <v-sheet height="64">
       <v-toolbar flat>
         <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
@@ -79,6 +79,12 @@
     <!--<el-calendar v-model="value"> </el-calendar> -->
   </v-app>
 </template>
+
+<style scoped>
+.card {
+  margin-top: 0px;
+}
+</style>
 
 <script>
   export default {
