@@ -60,10 +60,6 @@ class ApiController < ApplicationController
     render json: current_spider.get_courses
   end
 
-  def resources
-    render json: current_spider.get_resources
-  end
-
   def timetable
     #puts current_user
     @user = User.find_by(email: current_user)
