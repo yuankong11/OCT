@@ -20,8 +20,8 @@ class ApiController < ApplicationController
       raise StandardError, "current_spider not found #1"
     elsif @@user_hash_map[session[:username]].nil?
       raise StandardError, "current_spider not found #2"
-    # elsif @@user_hash_map[session[:username]].logged_in?
-    #   raise StandardError, "current_spider not found #3"
+    elsif @@user_hash_map[session[:username]].logged_in?
+      raise StandardError, "current_spider not found #3"
     end
     return @@user_hash_map[session[:username]]
   end

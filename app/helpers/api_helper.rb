@@ -37,6 +37,7 @@ module ApiHelper
     include ResourceSpider
     include LiveLessonSpider
     include LectureSpider
+    include TimetableSpider
 
     def initialize(username, password)
       @username = username
