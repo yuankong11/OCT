@@ -47,10 +47,60 @@ export default {
     Workpad,
     Allwork
   },
+  created() {
+    this.refresh();
+  },
+  data() {
+    return {
+      initiallyOpen: ['public'],
+      files: {
+        html: 'mdi-language-html5',
+        js: 'mdi-nodejs',
+        json: 'mdi-code-json',
+        md: 'mdi-language-markdown',
+        pdf: 'mdi-file-pdf',
+        png: 'mdi-file-image',
+        txt: 'mdi-file-document',
+        xls: 'mdi-file-excel',
+        xlsx: 'mdi-file-excel',
+        doc: 'mdi-file-word',
+        docx: 'mdi-file-word',
+        ppt: 'mdi-file-powerpoint',
+        pptx: 'mdi-file-powerpoint',
+        zip: 'mdi-folder-zip',
+        rar: 'mdi-folder-zip',
+        unknown: 'mdi-file-document',
+      },
+      tree: [],
+      homeworkArray: [],
+      loading: true,
+      downloading: false,
+    }
+  },
   methods: {
     handleEdit () {
       // console.log(this)
       this.$refs.workpad.dialogTableVisible = true
+    },
+    refresh() {
+      this.loading = true;
+      this.$http.get("/api/homework").then(
+        (res) => {
+          console.log(res.data);
+          this.resources = res.data;
+          this.loading = false;
+        },
+        (res) => {
+          this.redirectToLogin();
+        }
+      )
+    },
+    redirectToLogin() {
+      this.$notify.error({
+        title: "错误",
+        message: "请重新登录",
+      });
+      this.$router.push('/app/login');
     }
   },
 };
