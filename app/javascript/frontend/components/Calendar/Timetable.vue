@@ -49,6 +49,11 @@
     <v-sheet height="600">
       <v-calendar ref="calendar" v-model="focus" color="primary" :events="events" :event-color="getEventColor"
         :type="type" @click:event="showEvent" @click:more="viewDay" @click:date="viewDay" @change="updateRange">
+        <div v-if="type!='month'"></div>
+        <template v-slot:day-body="{ date, week }">
+          <div class="v-current-time" :class="{ first: date === week[0].date }" :style="{ top: nowY }"></div>
+        </template>
+        </div>
       </v-calendar>
       <v-menu v-model="selectedOpen" :close-on-content-click="false" :activator="selectedElement" offset-x>
         <v-card color="grey lighten-4" min-width="350px" flat>
@@ -80,23 +85,45 @@
   </v-app>
 </template>
 
-<style scoped>
+
+<style lang="scss">
 .card {
-  margin-top: 0px;
+    margin-top: 0px;
+  }
+
+.v-current-time {
+  height: 2px;
+  background-color: #ea4335;
+  position: absolute;
+  left: -1px;
+  right: 0;
+  pointer-events: none;
+
+  &.first::before {
+    content: '';
+    position: absolute;
+    background-color: #ea4335;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-top: -5px;
+    margin-left: -6.5px;
+  }
 }
 </style>
-
 <script>
   export default {
     data: () => ({
       focus: '',
-      type: 'month',
+      type: 'week',
       typeToLabel: {
         month: 'Month',
         week: 'Week',
         day: 'Day',
         '4day': '4 Days',
       },
+      value: '',
+      ready: false,
       selectedEvent: {},
       selectedElement: null,
       selectedOpen: false,
@@ -104,10 +131,33 @@
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
       names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
     }),
+    computed: {
+      cal () {
+        return this.ready ? this.$refs.calendar : null
+      },
+      nowY () {
+        return this.cal ? this.cal.timeToY(this.cal.times.now) + 'px' : '-10px'
+      },
+    },
     mounted() {
       this.$refs.calendar.checkChange()
+      this.ready = true
+      this.scrollToTime()
+      this.updateTime()
     },
     methods: {
+      getCurrentTime () {
+        return this.cal ? this.cal.times.now.hour * 60 + this.cal.times.now.minute : 0
+      },
+      scrollToTime () {
+        const time = this.getCurrentTime()
+        const first = Math.max(0, time - (time % 30) - 30)
+
+        this.cal.scrollToTime(first)
+      },
+      updateTime () {
+        setInterval(() => this.cal.updateTimes(), 60 * 1000)
+      },
       viewDay({
         date
       }) {
