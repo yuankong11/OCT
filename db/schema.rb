@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_09_113209) do
+ActiveRecord::Schema.define(version: 2021_01_09_114047) do
 
   create_table "c_calendars", force: :cascade do |t|
     t.string "summary"
@@ -19,6 +19,18 @@ ActiveRecord::Schema.define(version: 2021_01_09_113209) do
     t.datetime "dtend"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "file_records", force: :cascade do |t|
+    t.string "path"
+    t.string "name"
+    t.boolean "has_children"
+    t.boolean "unread"
+    t.boolean "course"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_file_records_on_user_id"
   end
 
   create_table "tasklists", force: :cascade do |t|
@@ -51,4 +63,5 @@ ActiveRecord::Schema.define(version: 2021_01_09_113209) do
     t.string "timetable_ics"
   end
 
+  add_foreign_key "file_records", "users"
 end

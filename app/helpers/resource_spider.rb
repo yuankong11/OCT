@@ -7,9 +7,10 @@ module ResourceSpider
     get_courses.map do |course|
       {
         "name" => course["name"],
-        "address" => course["link"],
+        # "address" => course["address"] + '/',
+        "address" => RESOURCE_URL_S + course["code"] + '/',
         "children" => get_resources_from_course(course["code"]),
-        "file" => "folder"
+        "file" => "course"
       }
     end
   end
@@ -25,7 +26,6 @@ module ResourceSpider
   def get_resources_from_course(course_code)
     course_link = RESOURCE_URL_S + course_code
     file_infos = get_resources_from_url(course_link + '/')
-
     return file_infos
   end
 

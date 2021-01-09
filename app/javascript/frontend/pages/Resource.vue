@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <v-content>
-    <v-card max-width="1000">
+    <v-card :max-width="width" :max-height="height">
       <v-row>
         <v-col>
           <v-btn outlined color="blue" v-show="!treeIsEmpty" @click="handleDownloadZip()">
@@ -24,38 +24,38 @@
       </v-row>
       <v-row>
         <v-col>
-      <v-sheet class="pa-4 primary lighten-2">
-        <v-text-field v-model="filterText" label="输入关键字进行过滤" dark flat solo-inverted hide-details clearable></v-text-field>
-      </v-sheet>
+          <v-sheet class="pa-4 primary lighten-2">
+            <v-text-field v-model="filterText" label="输入关键字进行过滤" dark flat solo-inverted hide-details clearable></v-text-field>
+          </v-sheet>
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-        <v-treeview class="text-left" v-loading="loading" selectable v-model="tree" :filter="filter" :search="filterText" :open="initiallyOpen" :items="resources" activatable item-key="address" open-on-click>
-          <template v-slot:prepend="{ item, open }">
-            <v-icon v-if="item.file == 'folder'">
-              {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
-            </v-icon>
-            <v-icon v-else-if="files.hasOwnProperty(item.file)">
-              {{ files[item.file] }}
-            </v-icon>
-            <v-icon v-else>
-              {{ files["unknown"] }}
-            </v-icon>
-          </template>
-          <template v-slot:append="{ item }">
-            <v-btn v-if="item.file != 'folder'" icon @click="handlePreview(item)">
-              <v-icon>
-                mdi-eye
+          <v-treeview dense class="text-left" v-loading="loading" selectable v-model="tree" :filter="filter" :search="filterText" :open="initiallyOpen" :items="resources" activatable item-key="address" open-on-click>
+            <template v-slot:prepend="{ item, open }">
+              <v-icon v-if="item.file == 'folder' || item.file == 'course'">
+                {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
               </v-icon>
-            </v-btn>
-            <v-btn v-if="item.file != 'folder'" icon @click="handleDownload(item)">
-              <v-icon>
-                mdi-download
+              <v-icon v-else-if="files.hasOwnProperty(item.file)">
+                {{ files[item.file] }}
               </v-icon>
-            </v-btn>
-          </template>
-        </v-treeview>
+              <v-icon v-else>
+                {{ files["unknown"] }}
+              </v-icon>
+            </template>
+            <template v-slot:append="{ item }">
+              <v-btn color="indigo lighten-2" icon v-if="item.file != 'folder'" @click="handlePreview(item)">
+                <v-icon>
+                  mdi-eye
+                </v-icon>
+              </v-btn>
+              <v-btn color="blue" icon v-if="item.file != 'folder'" @click="handleDownload(item)">
+                <v-icon>
+                  mdi-download
+                </v-icon>
+              </v-btn>
+            </template>
+          </v-treeview>
         </v-col>
       </v-row>
     </v-card>
@@ -93,12 +93,14 @@ export default {
       filterText: '',
       loading: true,
       downloading: false,
+      width: 1000,
+      height: 2000,
     }
   },
   name: 'Resource',
   components: {},
   created() {
-    this.refresh();
+    this.getResources();
   },
   watch: {
     filterText(val) {
@@ -139,9 +141,22 @@ export default {
       if (!value) return true;
       return data.name.indexOf(value) !== -1;
     },
-    refresh() {
+    getResources() {
       this.loading = true;
       this.$http.get("/api/resources").then(
+        (res) => {
+          console.log(res.data);
+          this.resources = res.data;
+          this.loading = false;
+        },
+        (res) => {
+          this.redirectToLogin();
+        }
+      )
+    },
+    refresh() {
+      this.loading = true;
+      this.$http.get("/api/refresh_resources").then(
         (res) => {
           console.log(res.data);
           this.resources = res.data;

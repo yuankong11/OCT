@@ -1,9 +1,4 @@
-require 'icalendar'
-require 'openuri'
-
 class ApiController < ApplicationController
-
-  # before_action :check_logged_in, only: [:courses, :resources, :file, :files]
   protect_from_forgery :only => [:login]
 
   @@user_hash_map = Hash.new
@@ -28,6 +23,10 @@ class ApiController < ApplicationController
     return @@user_hash_map[session[:username]]
   end
 
+  def current_user
+    session[:username]
+  end
+
   def file
     file_name = params[:name]
     file_url = params[:address]
@@ -43,7 +42,7 @@ class ApiController < ApplicationController
     stream = Zip::OutputStream.write_buffer do |zos|
       file_objs = urls.each do |url|
         name = URI.decode(url.scan(/\/([^\/]*?)$/)[0][0])
-        path = from_url_to_path(url)
+        path = FileRecord.path_to_full_path(FileRecord.address_to_path(url))
         spider.download_file(url, path)
         zos.put_next_entry(name)
         zos.print(File.read(path))
@@ -75,16 +74,33 @@ class ApiController < ApplicationController
       cal = Icalendar.parse(open(ics_url).read).first
       return cal.events
     end
+    render json: @@user_hash_map[current_user].get_courses
+  end
+
+  def resources
+    render json: find_resources(current_user)
+  end
+
+  def read_resources
+
+  end
+
+  def refresh_resources
+    resources_update(current_user, @@user_hash_map[current_user].get_resources)
+    resources
   end
 
   def login
-    spider = Spider.new(params[:username], params[:password])
+    username = params[:username]
+    password = params[:password]
+
+    spider = Spider.new(username, password)
     if spider.login_sep == :success
-      session[:username] = params[:username]
-      @@user_hash_map[session[:username]] = spider
-      user = User.find_by(email: params[:username])
+      session[:username] = username
+      @@user_hash_map[username] = spider
+      user = User.find_by(email: username)
       if user.nil?
-        User.new_user(params[:username])
+        User.new_user(username)
       end
       render json: "success"
     else
