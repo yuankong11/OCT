@@ -16,19 +16,21 @@
         v-for="element in list1"
         :key="element.component"
       >
-        <el-card style="height: 320px; margin-bottom: 18px">
-          <div slot="header">
-            <keep-alive>
-              <component v-bind:is="element.component"></component>
-            </keep-alive>
-          </div>
-        </el-card>
+        <el-col :span="22">
+          <el-card style="height: 320px; margin-bottom: 18px">
+            <div slot="header">
+              <keep-alive>
+                <component v-bind:is="element.component"></component>
+              </keep-alive>
+            </div>
+          </el-card>
+        </el-col>
       </el-row>
     </draggable>
     <el-row :gutter="20">
       <draggable class="list-group" :list="list2" group="cards">
         <el-col
-          :span="12"
+          :span="11"
           class="list-group-item"
           v-for="element in list2"
           :key="element.component"

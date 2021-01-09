@@ -73,6 +73,7 @@ export default {
             } else {
               localStorage.clear()
             }
+            sessionStorage.setItem("logged", true)
             this.$router.push({ name: 'Dashboard' })
           } else {
             this.$notify.error({
