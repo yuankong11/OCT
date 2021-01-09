@@ -48,5 +48,8 @@ yarn.lock
 .vscode/*
 !.vscode/settings.json
 
+# rubymine
+.idea
+
 # resources
 /app/assets/resources/**
