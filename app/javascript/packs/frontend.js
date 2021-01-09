@@ -17,12 +17,12 @@ Vue.use(VueResource)
 Vue.component(App)
 
 router.beforeEach((to, from, next) => {
-    if (to.path === '/app/login') {
+    if (to.path === '/login') {
         sessionStorage.removeItem('logged')
     }
     let user = sessionStorage.getItem('logged')
-    if (!user && to.path !== '/app/login') {
-        next({ path: '/app/login' })
+    if (!user && to.path !== '/login') {
+        next({ path: '/login' })
     } else {
         next()
     }
