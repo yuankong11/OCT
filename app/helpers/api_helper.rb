@@ -1,11 +1,37 @@
 module ApiHelper
-  def from_url_to_path(url)
-    resource_path = "./app/assets/resources/"
-    return (resource_path + URI.decode(url)).gsub("https://course.ucas.ac.cn/access/content/group/", "")
+  def resources_update(username, resources_list)
+    user = User.find_by(email: username)
+    resources_list.each do |obj|
+      path = FileRecord.address_to_path(obj["address"])
+      is_course = obj["file"] == "course"
+      name = obj["name"]
+      has_children = obj["file"] == "folder" || is_course
+      f = FileRecord.find_by(user: user, path: path)
+      if f
+        if f.has_children != has_children
+          f.update_attributes(has_children: has_children)
+        end
+      else
+        FileRecord.create(user: user, has_children: has_children, unread: true, path: path, course: is_course, name: name)
+      end
+      if has_children
+        resources_update(username, obj["children"])
+      end
+    end
+  end
+
+  def find_resources(username)
+    user = User.find_by(email: username)
+    records = FileRecord.where(user: user)
+    records.select do |r|
+      r.course
+    end.map do |f|
+      FileRecord.record_to_hash(f, records)
+    end
   end
 
   class Spider
-    require 'mechanize'
+    # require 'mechanize'
 
     include HomeworkSpider
     include ResourceSpider
@@ -38,7 +64,7 @@ module ApiHelper
     end
 
     def logout
-
+      # todo: 退出登录
     end
 
     def logged_in?
@@ -47,8 +73,8 @@ module ApiHelper
           "Identity" => @identity,
           "roleId" => 801
         }
-        res = @agent.get(LOGIN_COURSE_URL_S, params, ONESTOP_URL_S, HEADER)
-        return res.title != "SEP 教育业务接入平台"
+        res = @agent.get(COURSE_INFO_URL, params, ONESTOP_URL_S, HEADER)
+        return res.title != "Course : Gateway : Welcome"
       else
         return false
       end
@@ -56,6 +82,7 @@ module ApiHelper
 
     def quit
       logout
+      # todo: 销毁spider
     end
   end
 end

@@ -1,10 +1,18 @@
+require 'icalendar'
 module TimetableSpider
   include SpiderBase
 
-  def generate_ical
-    if logged_in?
-
-    else
-      return :false
+  def get_ics_url
+    params = {
+      "Identity" => @identity,
+      "roleId" => 801
+    }
+    @agent.get(LOGIN_COURSE_URL_S, params, ONESTOP_URL_S, HEADER) do |page|
+      # 进入日程页面
+      main_schdl = @agent.click(page.link_with(:text => /^日程/, :dom_class => "Mrphs-toolsNav__menuitem--link"))
+      # 选择私有发布
+      ics_schedl = @agent.click(main_schdl.link_with(:text => "发布（私有）"))
+      ics_url = ics_schedl.link_with(:href => /^https:\/\//).text
+      return ics_url
     end
   end

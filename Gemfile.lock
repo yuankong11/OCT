@@ -90,6 +90,9 @@ GEM
       domain_name (~> 0.5)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    icalendar (2.7.0)
+      ice_cube (~> 0.16)
+    ice_cube (0.16.3)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
     listen (3.3.3)
@@ -136,6 +139,7 @@ GEM
     nokogiri (1.10.10-x86-mingw32)
       mini_portile2 (~> 2.4.0)
     ntlm-http (0.1.1)
+    open-uri (0.1.0)
     public_suffix (4.0.6)
     puma (4.3.7)
       nio4r (~> 2.0)
@@ -256,9 +260,11 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  icalendar
   jbuilder (~> 2.7)
   listen (~> 3.2)
   mechanize
+  open-uri
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
   sass-rails (>= 6)

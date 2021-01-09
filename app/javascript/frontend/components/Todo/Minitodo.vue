@@ -1,6 +1,6 @@
 <template>
 <v-app>
-  <v-container style="max-width: 500px">
+  <v-container style="max-width: 320px">
     <v-text-field
       v-model="newTask"
       label="What are you working on?"

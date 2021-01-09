@@ -26,7 +26,7 @@
           placeholder="密码"
         ></el-input>
       </el-form-item>
-      <el-checkbox v-model="checked" class="rememberme">记住密码</el-checkbox>
+      <el-checkbox v-model="remember_me" class="remember-me">记住我</el-checkbox>
       <el-form-item style="width: 100%">
         <el-button
           type="primary"
@@ -46,14 +46,14 @@ export default {
     return {
       logining: false,
       loginForm: {
-        username: '',
-        password: '',
+        username: localStorage.getItem("username"),
+        password: localStorage.getItem("password")
       },
       rules: {
         username: [{ required: true, message: '请输入你的SEP账号', trigger: 'blur' }],
         password: [{ required: true, message: '请输入你的SEP密码', trigger: 'blur' }]
       },
-      checked: false
+      remember_me: true
     }
   },
   methods: {
@@ -63,11 +63,16 @@ export default {
         (res) => {
           this.logining = false
           if(res.bodyText == "success") {
-            sessionStorage.setItem('user', this.loginForm.username)
             this.$notify.info({
               title: "信息",
               message: "登录成功",
             })
+            if (this.remember_me) {
+              localStorage.setItem("username", loginInfo.username)
+              localStorage.setItem("password", loginInfo.password)
+            } else {
+              localStorage.clear()
+            }
             this.$router.push({ name: 'Dashboard' })
           } else {
             this.$notify.error({
@@ -112,7 +117,7 @@ export default {
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;
 }
-label.el-checkbox.rememberme {
+label.el-checkbox.remember-me {
   margin: 0px 0px 15px;
   text-align: left;
 }
