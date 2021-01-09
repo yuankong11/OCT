@@ -1,3 +1,4 @@
+require 'icalendar'
 class ApiController < ApplicationController
   protect_from_forgery :only => [:login]
 
@@ -15,10 +16,12 @@ class ApiController < ApplicationController
   # end
 
   def current_spider
-    if session[:username].nil? ||
-       @@user_hash_map[session[:username]].nil? ||
-       !@@user_hash_map[session[:username]].logged_in?
-      raise StandardError, "current_spider not found"
+    if session[:username].nil?
+      raise StandardError, "current_spider not found #1"
+    elsif @@user_hash_map[session[:username]].nil?
+      raise StandardError, "current_spider not found #2"
+    elsif @@user_hash_map[session[:username]].logged_in?
+      raise StandardError, "current_spider not found #3"
     end
     return @@user_hash_map[session[:username]]
   end
@@ -61,20 +64,16 @@ class ApiController < ApplicationController
     render json: current_spider.get_resources
   end
 
-
-  def save_ics_to_user
+  def timetable
+    #puts current_user
+    @user = User.find_by(email: current_user)
     # 把每个人的ics链接存放到模型中方便之后读取
-  end
-
-  def ics_analyze
-    ics_url = get_ics_url
-    if ics_url.nil?
-      return false
-    else
-      cal = Icalendar.parse(open(ics_url).read).first
-      return cal.events
+    ics_url = current_spider.get_ics_url
+    if !ics_url.nil?
+      @user.update(timetable_ics: ics_url)
+      cal = Icalendar.parse(open(ics_url).read).first #ics解析
+      render json: cal.events
     end
-    render json: @@user_hash_map[current_user].get_courses
   end
 
   def resources

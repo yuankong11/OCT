@@ -1,3 +1,4 @@
+require 'icalendar'
 module TimetableSpider
   include SpiderBase
 

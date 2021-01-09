@@ -114,6 +114,7 @@
 <script>
   export default {
     data: () => ({
+      timetable: [],
       focus: '',
       type: 'week',
       typeToLabel: {
@@ -144,6 +145,7 @@
       this.ready = true
       this.scrollToTime()
       this.updateTime()
+      this.fetchTimetable()
     },
     methods: {
       getCurrentTime () {
@@ -229,6 +231,20 @@
       rnd(a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
       },
+      fetchTimetable() {
+      //var uid = this.todolist[this.todolist.length - 1]["id"] + 1
+      this.$http.get("/api/timetable").then(
+        (res) => {
+          this.timetable = res.data;
+        },
+        (res) => {
+          this.$notify.error({
+            title: "错误",
+            message: "获取课程表失败",
+          });
+        }
+      );
+    },
     },
   }
 
