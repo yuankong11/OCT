@@ -1,5 +1,6 @@
 <template>
   <div class="login-container">
+    <h1 class="login-logo">OCT</h1>
     <el-form
       :model="loginForm"
       :rules="rules"
@@ -9,7 +10,7 @@
       label-width="0px"
       class="login-page"
     >
-      <h3 class="title">登录</h3>
+      <h2 class="login-title">登录</h2>
       <el-form-item prop="username">
         <el-input
           type="text"
@@ -104,6 +105,27 @@ export default {
 </script>
 
 <style>
+/* TODO: 添加背景图片及透明效果 */
+/* body{
+  z-index: 0;
+}
+
+body::before {
+   content: '';
+   position: absolute;
+   left: 0; right: 0; top: 0; bottom: 0;
+   background: url('../../../assets/images/background.jpg') no-repeat cover;
+   z-index: -1;
+   opacity: .5;
+} */
+
+.login-logo{
+  text-align: center;
+    color: #409eff;
+    padding-top: 50px;
+    font-size: xxx-large;
+}
+
 .login-container {
   width: 100%;
   height: 100%;
@@ -111,7 +133,7 @@ export default {
 .login-page {
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  margin: 180px auto;
+  margin: 50px auto;
   width: 700px;
   padding: 35px 35px 15px;
   background: #fff;
@@ -121,5 +143,9 @@ export default {
 label.el-checkbox.remember-me {
   margin: 0px 0px 15px;
   text-align: left;
+}
+.login-title{
+  text-align: center;
+  padding-bottom: 20px;
 }
 </style>
