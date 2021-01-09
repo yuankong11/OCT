@@ -1,54 +1,63 @@
 <template>
-  <el-container>
-    <el-header class="calendar-header">日程管理</el-header>
-    <el-main>
-      <el-row :gutter="18">
-        <el-col :span="18">
-          <el-card class="box-card-cal">
-            <Timetable />
-          </el-card>
-        </el-col>
-        <el-col :span="5">
+  <v-app>
+    <v-container fluid>
+      <v-row class="calendar-main">
+        <v-card class="box-card-cal">
+          <Timetable />
+        </v-card>
+        </v-col>
+        <v-col>
+          <v-card class="box-card">
             <Minicalendar />
-        </el-col>
-        <el-col :span="5">
-          <el-card class="box-card">
+          </v-card>
+        </v-col>
+        <v-col>
+          <v-card class="box-card">
             <Minitodo />
-          </el-card>
-        </el-col>
-      </el-row>
-    </el-main>
-  </el-container>
+          </v-card>
+      </v-row>
+    </v-container>
+  </v-app>
 </template>
 
 <style>
-.box-card-cal {
-  height: 820px;
-}
-.calendar-header {
-  background-color: #e9eef3;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
-}
+  .calendar-main {
+    height: 850px;
+  }
+
+  .box-card-cal {
+    height: 850px;
+  }
+
+  .calendar-header {
+    background-color: #e9eef3;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+  }
+
+  .box-card {
+    height: 425px;
+  }
+
 </style>
 
 <script>
-/* eslint-disable */
-import Minicalendar from '../components/Calendar/Minicalendar'
-import Minitodo from "../components/Todo/Minitodo"
-import Timetable from "../components/Calendar/Timetable"
+  /* eslint-disable */
+  import Minicalendar from '../components/Calendar/Minicalendar'
+  import Minitodo from "../components/Todo/Minitodo"
+  import Timetable from "../components/Calendar/Timetable"
 
-export default {
-  components: {
-    Minitodo,
-    Minicalendar,
-    Timetable
-  },
-  data () {
-    return {
-    }
-  },
+  export default {
+    components: {
+      Minitodo,
+      Minicalendar,
+      Timetable
+    },
+    data() {
+      return {}
+    },
 
-};
+  };
+
 </script>
