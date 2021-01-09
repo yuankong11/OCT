@@ -38,7 +38,7 @@ module ApiHelper
     end
 
     def logout
-
+      # todo: 退出登录
     end
 
     def logged_in?
@@ -56,6 +56,7 @@ module ApiHelper
 
     def quit
       logout
+      # todo: 销毁spider
     end
   end
 end
