@@ -76,6 +76,10 @@ class ApiController < ApplicationController
     render json: find_resources(current_user)
   end
 
+  def homework
+    render json: current_spider.get_homework
+  end
+
   def read_resources
 
   end
