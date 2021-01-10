@@ -28,16 +28,16 @@ module ApiHelper
     end.map do |f|
       FileRecord.record_to_hash(f, records)
     end
-  end
+end
 
 
   def available_ics_url(url)
     rule_https = /^https?:\/\//
     rule_ics = /.ics$/
-    if url.nil? || (url =~ rule_https).nil? || (url =~ rule_ics).nil?
+    if (url.nil? || (url =~ rule_https).nil? || (url =~ rule_ics).nil?)
       return false
+    end
     return true
-
   end
 
   class Spider
