@@ -1,6 +1,3 @@
-require 'icalendar'
-require 'open-uri'
-
 module TimetableSpider
   include SpiderBase
 

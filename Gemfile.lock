@@ -264,6 +264,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.2)
   mechanize
+  nokogiri
   open-uri
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
