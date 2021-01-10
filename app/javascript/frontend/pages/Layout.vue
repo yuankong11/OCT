@@ -3,7 +3,7 @@
   <div :class="[{ root: true, sidebarClose, sidebarStatic }]">
     <Sidebar />
     <!-- <el-container class="content" :style="'height:' + fullHeight - 60 + 'px;'"> -->
-    <el-container class="wrap">
+    <div class="wrap">
       <!-- header必须和container在一个文件里，否则会布局错误。 -->
       <el-header class="layout-header" :height="'60'">
         <Header />
@@ -18,7 +18,7 @@
         2020 &copy; OCT: A Better SEP - Made by Hongbin Zeng, Lianwei Yu, Huimin
         Ye, Zhengyu Lei.
       </el-footer>
-    </el-container>
+    </div>
   </div>
 </template>
 
