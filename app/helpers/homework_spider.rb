@@ -36,10 +36,15 @@ module HomeworkSpider
         homework_list_url = node.parent['href']
       end
     end
-    puts 'homework_link: ' + homework_list_url
 
-    # 进入作业列表页面获取当前课程的所有作业
-    get_homework_from_url(homework_list_url)
+    if homework_list_url != nil
+      puts 'homework_link: ' + homework_list_url
+      # 进入作业列表页面获取当前课程的所有作业
+      get_homework_from_url(homework_list_url)
+    else
+      puts 'no homework!'
+    end
+
   end
 
   # 对课程的作业页面获取所有作业并形成数组
