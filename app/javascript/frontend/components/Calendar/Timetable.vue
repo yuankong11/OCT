@@ -48,12 +48,12 @@
     </v-sheet>
     <v-sheet height="600">
       <v-calendar ref="calendar" v-model="focus" color="primary" :events="events" :event-color="getEventColor"
-        :type="type" @click:event="showEvent" @click:more="viewDay" @click:date="viewDay" @change="updateRange">
-        <v-sheet v-if="type!='month'">
+        :type="type" @click:event="showEvent" @click:more="viewDay" @click:date="viewDay" @change="getEvents">
+        <div v-if="type!='month'"></div>
         <template v-slot:day-body="{ date, week }">
           <div class="v-current-time" :class="{ first: date === week[0].date }" :style="{ top: nowY }"></div>
         </template>
-        </v-sheet>
+        </div>
       </v-calendar>
       <v-menu v-model="selectedOpen" :close-on-content-click="false" :activator="selectedElement" offset-x>
         <v-card color="grey lighten-4" min-width="350px" flat>
@@ -71,39 +71,40 @@
             </v-btn>
           </v-toolbar>
           <v-card-text>
-            <!--<span v-html="selectedEvent.details"></span> -->
+            <!--<span v-html="selectedEvent.details"></span>-->
             <v-simple-table>
               <template v-slot:default>
                 <thead>
-                <tr>
-                  <th class="text-left">
-                    事件属性
-                  </th>
-                  <th class="text-left">
-                    信息值
-                  </th>
-                </tr>
+                  <tr>
+                    <th class="text-left">
+                      日程属性
+                    </th>
+                    <th class="text-right">
+                      具体信息
+                    </th>
+                  </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>课程/日程名</td>
-                    <td>{{ selectedEvent.name }}}</td>
+                    <td>{{ selectedEvent.name }}</td>
                   </tr>
                   <tr>
                     <td>地点</td>
-                    <td>{{ selectedEvent.location }}}</td>
+                    <td>{{ selectedEvent.location }}</td>
                   </tr>
                   <tr>
                     <td>开始时间</td>
-                    <td>{{ selectedEvent.start }}}</td>
+                    <td>{{ selectedEvent.start }}</td>
                   </tr>
                   <tr>
                     <td>结束时间</td>
-                    <td>{{ selectedEvent.end }}}</td>
+                    <td>{{ selectedEvent.end }}</td>
                   </tr>
                 </tbody>
               </template>
             </v-simple-table>
+
           </v-card-text>
           <v-card-actions>
             <v-btn text color="secondary" @click="selectedOpen = false">
@@ -160,17 +161,10 @@
       selectedEvent: {},
       selectedElement: null,
       selectedOpen: false,
-      events: [
-        {
-          "name": "CherryMaho",
-          "start": "2021-01-12 11:35:02 +0800",
-          "end": "2021-01-12 15:35:02 +0800",
-          "location": "TV东",
-          "uid": "1"
-        },
-      ],
+      events: [],
+      timetable: [],
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-      //names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
+      names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
     }),
     computed: {
       cal() {
@@ -181,11 +175,10 @@
       },
     },
     mounted() {
-      this.$refs.calendar.checkChange()
+      this.getEvents(null, null)
       this.ready = true
       this.scrollToTime()
       this.updateTime()
-      //this.fetchTimetable()
     },
     methods: {
       getCurrentTime() {
@@ -207,7 +200,7 @@
         this.type = 'day'
       },
       getEventColor(event) {
-        return this.colors[this.rnd(0, this.colors.length - 1)]
+        return event.color
       },
       setToday() {
         this.focus = ''
@@ -225,7 +218,6 @@
         const open = () => {
           this.selectedEvent = event
           this.selectedElement = nativeEvent.target
-          //this.detailEvent(event)//渲染detail页
           setTimeout(() => {
             this.selectedOpen = true
           }, 10)
@@ -240,33 +232,31 @@
 
         nativeEvent.stopPropagation()
       },
-      updateRange({
+      getEvents({
         start,
         end
       }) {
-        var timetable = []
-        const min = `${start.date}T00:00:00`
-        const max = `${end.date}T23:59:59`
-        //const days = (max.getTime() - min.getTime()) / 86400000
-        //const eventCount = this.rnd(days, days + 20)
+        const events = []
 
-        //for (let i = 0; i < eventCount; i++) {
-        //  const allDay = this.rnd(0, 3) === 0
-        //  const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-        //  const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-        //  const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-        //  const second = new Date(first.getTime() + secondTimestamp)
-        //}
-        this.$http.get("/api/timetable", {
-          params: {
-            day_start: min,
-            day_end: max
-          },
-          responseType: 'arraybuffer',
-          }
-        ).then(
+        this.$http.get("/api/timetable").then(
           (res) => {
-            timetable = res.data;
+            this.timetable = res.data; //正常
+            //console.log(this.timetable)
+            for (let i = 0; i < this.timetable.length; i++) {
+              let tem_event = {
+                name: this.timetable[i].name,
+                start: new Date(this.timetable[i].start),
+                end: new Date(this.timetable[i].end),
+                location: this.timetable[i].location,
+                color: this.colors[this.rnd(0, this.colors.length - 1)],
+                timed: true,
+                uid: this.timetable[i].uid,
+              }
+              //console.log(tem_event)
+              events.push(tem_event)
+              tem_event = {}
+            }
+            this.events = events
           },
           (res) => {
             this.$notify.error({
@@ -275,7 +265,27 @@
             });
           }
         );
-        this.events = timetable
+        // const min = new Date(`${start.date}T00:00:00`)
+        // const max = new Date(`${end.date}T23:59:59`)
+        // const days = (max.getTime() - min.getTime()) / 86400000
+        // const eventCount = this.rnd(days, days + 20)
+
+        // for (let i = 0; i < eventCount; i++) {
+        //   const allDay = this.rnd(0, 3) === 0
+        //   const firstTimestamp = this.rnd(min.getTime(), max.getTime())
+        //   const first = new Date(firstTimestamp - (firstTimestamp % 900000))
+        //   const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
+        //   const second = new Date(first.getTime() + secondTimestamp)
+        //   let tmp = {
+        //     name: this.names[this.rnd(0, this.names.length - 1)],
+        //     start: first,
+        //     end: second,
+        //     location: "somewhere",
+        //     color: this.colors[this.rnd(0, this.colors.length - 1)],
+        //     timed: !allDay,
+        //   }
+        //   events.push(tmp)
+        // }
       },
       rnd(a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a

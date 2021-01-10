@@ -62,8 +62,12 @@ class ApiController < ApplicationController
     #puts current_user
     # ISO格式时间：Time.strptime('20190522T11:34:50', "%Y%m%dT%H:%M:%S")
     # yyyy/mm/dd hh:mm:ss格式：Time.strptime('2019-05-22 11:34:50', "%Y-%m-%d %H:%M:%S")
-    #day_start = Time.strptime(params[:day_start],"%Y%m%dT%H:%M:%S")# 需要解析的events范围
-    #day_end = Time.strptime(params[:day_end],"%Y%m%dT%H:%M:%S")
+    if !params["day_start"].nil?
+      day_start = Time.strptime(params["day_start"],"%Y-%m-%dT%H:%M:%S")# 需要解析的events范围
+    end
+    if !params["day_end"].nil?
+      day_end = Time.strptime(params["day_end"],"%Y-%m-%dT%H:%M:%S")
+    end
     user = User.find_by(email: current_user)
     ics_url = ""
     # 把每个人的ics链接存放到模型中方便之后读取
