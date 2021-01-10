@@ -7,6 +7,18 @@ module TimetableSpider
       "roleId" => 801
     }
     main_page = @agent.get(LOGIN_COURSE_URL_S, params, ONESTOP_URL_S, HEADER)
+
+    other_users = main_page.links
+      .select { |link| link.href =~ /anotherUser/ }
+      .map { |link| link.text }
+    unless other_users.empty?
+      another_user = other_users[0]
+      params = {
+        "anotherUser" => another_user
+      }
+      main_page = @agent.get(COURSE_INFO_URL_S, params, COURSE_INFO_URL_S, HEADER)
+    end
+
     schdl_link = main_page.search('//a[@title="日程 - 发布和查看事件，截止日期等"]')[0]
     schdl_page = @agent.get(schdl_link.attributes["href"].value)
     #puts schdl_page.body

@@ -71,9 +71,10 @@ class ApiController < ApplicationController
       ics_url = current_spider.get_ics_url
       user.update(timetable_ics: ics_url)
     else
-      ics_url = user[:timetable_ics]
+      ics_url = user.timetable_ics
     #TODO: 判断用户手动更新ics_url时要同步更新
     end
+    puts ics_url
     cal = Icalendar::Calendar.parse(URI.open(ics_url).read).first #ics解析
 
     timetable = cal.events

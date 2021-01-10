@@ -28,8 +28,7 @@ module ApiHelper
     end.map do |f|
       FileRecord.record_to_hash(f, records)
     end
-end
-
+  end
 
   def available_ics_url(url)
     rule_https = /^https?:\/\//
