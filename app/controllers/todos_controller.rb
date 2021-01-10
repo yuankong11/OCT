@@ -21,20 +21,20 @@ class TodosController < ApplicationController
     end
 
     def update
-        @task = Task.all.find(params[:uid])
-        if @task.update(task_params)
-            render json: @task
+        @todo = Todo.all.find(params[:uid])
+        if @todo.update(todo_params)
+            render json: @todo
         end
     end
 
     def destroy
-        task = Task.find(params[:uid])
-        task.destroy
+        todo = Todo.find(params[:uid])
+        todo.destroy
         render json: {}
     end
 
     private
-    def task_params
+    def todo_params
         params.require(:todo).permit(:title, :done)
     end
 
