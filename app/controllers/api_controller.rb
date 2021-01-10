@@ -1,9 +1,7 @@
-require 'icalendar'
 class ApiController < ApplicationController
   protect_from_forgery :only => [:login]
 
   @@user_hash_map = Hash.new
-
   include ApiHelper
 
   def function_dispatch
@@ -61,15 +59,7 @@ class ApiController < ApplicationController
   end
 
   def timetable
-    #puts current_user
-    @user = User.find_by(email: current_user)
-    # 把每个人的ics链接存放到模型中方便之后读取
-    ics_url = current_spider.get_ics_url
-    if !ics_url.nil?
-      @user.update(timetable_ics: ics_url)
-      cal = Icalendar.parse(open(ics_url).read).first #ics解析
-      render json: cal.events
-    end
+    render json: analyze_timetable
   end
 
   def resources

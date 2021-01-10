@@ -1,3 +1,6 @@
+require 'icalendar'
+require 'open-uri'
+
 module ApiHelper
   def resources_update(username, resources_list)
     user = User.find_by(email: username)
@@ -27,6 +30,22 @@ module ApiHelper
       r.course
     end.map do |f|
       FileRecord.record_to_hash(f, records)
+    end
+  end
+
+  def analyze_timetable
+    #puts current_user
+    @user = User.find_by(email: current_user)
+    # 把每个人的ics链接存放到模型中方便之后读取
+    ics_url = current_spider.get_ics_url
+    if !ics_url.nil?
+      @user.update(timetable_ics: ics_url)
+      cal = Icalendar.parse(open(ics_url,:ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE).read) #ics解析
+      puts "-----------cal.first------------"
+      puts cal.first
+      puts "-----------cal.first.event------------"
+      puts cal.first.event
+      return cal.first.events
     end
   end
 
