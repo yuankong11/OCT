@@ -100,7 +100,7 @@ export default {
         title: "错误",
         message: "请重新登录",
       });
-      this.$router.push('/app/login');
+      this.$router.push('/login');
     }
   },
 };
