@@ -4,7 +4,7 @@
     <el-main>
       <Workpad ref="workpad"/>
       <el-row :gutter="20">
-        <el-col :span="12">
+        <!-- <el-col :span="12">
           <el-card class="box-card">
             <div slot="header">
               <span>新的作业</span>
@@ -19,13 +19,13 @@
             </div>
             <Sorted :handleEdit="handleEdit" />
           </el-card>
-        </el-col>
+        </el-col> -->
         <el-col :span="24">
-          <el-card class="box-card">
+          <el-card>
             <div slot="header">
               <span>所有作业</span>
             </div>
-            <Allwork :handleEdit="handleEdit" />
+            <Allwork :works="works"/>
           </el-card>
         </el-col>
       </el-row>
@@ -34,12 +34,14 @@
 </template>
 
 <script>
+import Allwork from '../components/Homework/Allwork.vue'
 import Workpad from "../components/Homework/Workpad"
 
 export default {
   name: "Homework",
   components: {
     Workpad,
+    Allwork
   },
   created() {
     this.refresh();
@@ -61,7 +63,7 @@ export default {
       this.$http.get("/api/homework").then(
         (res) => {
           console.log(res.data);
-          this.resources = res.data;
+          this.works = res.data;
         },
         (res) => {
           this.redirectToLogin();
@@ -94,4 +96,5 @@ export default {
   line-height: 60px;
   text-align: center;
 }
+
 </style>
