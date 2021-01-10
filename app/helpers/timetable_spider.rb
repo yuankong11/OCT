@@ -10,12 +10,12 @@ module TimetableSpider
       "roleId" => 801
     }
     main_page = @agent.get(LOGIN_COURSE_URL_S, params, ONESTOP_URL_S, HEADER)
-    schdl_link = main_page.search('//span[@class='Mrphs-toolsNav__menuitem--icon icon-sakai--sakai-schedule']/..')
+    schdl_link = main_page.search("//span[@class='Mrphs-toolsNav__menuitem--icon icon-sakai--sakai-schedule']/..")
     schdl_page = @agent.click(schdl_link)
     puts schdl_page.body
-    ics_link = schdl_page.search('//a[@title='生成在其他日程应用中使用的私有链接']')
+    ics_link = schdl_page.search("//a[@title='生成在其他日程应用中使用的私有链接']")
     ics_click = @agent.click(ics_link)
-    ics_url = ics_click.search('//div[@class='portletBody']/p[@class='shorttext indnt2' and position()>1]/a[@target='_new_']').attributes["href"]
+    ics_url = ics_click.search("//div[@class='portletBody']/p[@class='shorttext indnt2' and position()>1]/a[@target='_new_']").attributes["href"]
     return ics_url
   end
 
