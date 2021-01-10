@@ -1,83 +1,43 @@
 <template>
-  <div>
-    <!-- <el-row :gutter="20">
-          <el-col :span="24">
-            <el-card style="height: 320px; margin-bottom: 18px">
-              <div slot="header">
-                <Files />
-              </div>
-            </el-card>
-          </el-col>
-        </el-row> -->
-    <draggable class="list-group" :list="list1" group="cards">
-      <el-row
-        :gutter="20"
-        class="list-group-item"
-        v-for="element in list1"
-        :key="element.component"
-      >
-        <el-col :span="22">
-          <el-card style="height: 320px; margin-bottom: 18px">
-            <div slot="header">
-              <keep-alive>
-                <component v-bind:is="element.component"></component>
-              </keep-alive>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
+<v-app>
+  <v-main>
+    <draggable :list="list1" class="list-group row" group="cards">
+      <v-col v-for="element in list1" :key="element.id" class="list-group-item">
+        <dashboard-card height="400" width="600" :component="element.component">
+        </dashboard-card>
+      </v-col>
     </draggable>
-    <el-row :gutter="20">
-      <draggable class="list-group" :list="list2" group="cards">
-        <el-col
-          :span="11"
-          class="list-group-item"
-          v-for="element in list2"
-          :key="element.component"
-        >
-          <el-card style="height: 320px">
-            <keep-alive>
-              <component v-bind:is="element.component"></component>
-            </keep-alive>
-          </el-card>
-        </el-col>
-      </draggable>
-      <!-- <el-col :span="12"> -->
-      <!-- <el-card style="height: 320px"> -->
-      <!-- <div slot="header">新的作业</div>
-              <Newwork /> -->
-      <!-- </el-card>
-          </el-col> -->
-      <!-- <el-col :span="12">
-            <el-card style="height: 320px">
-              <CurrentLesson />
-            </el-card>
-          </el-col> -->
-    </el-row>
-  </div>
+  </v-main>
+</v-app>
 </template>
 
 <style>
 body {
-  margin: 0 !important; /* 去掉body的默认margin */
+  margin: 0 !important;
+  /* 去掉body的默认margin */
 }
 </style>
 
 <script>
-import CurrentLesson from '../components/LiveLesson/CurrentLesson'
-import Newwork from '../components/Homework/Newwork.vue'
-import Files from '../components/LessonResource/Files.vue'
+import DashboardCard from './DashboardCard.vue'
+// import Resource from './Resource.vue'
+// import CurrentLesson from '../components/LiveLesson/CurrentLesson'
+// import Newwork from '../components/Homework/Newwork.vue'
+// import Files from '../components/LessonResource/Files.vue'
 import draggable from 'vuedraggable'
 export default {
   name: "Dashboard",
   components: {
-    CurrentLesson,
-    Newwork,
-    Files,
+    DashboardCard,
+    // Resource
+    // CurrentLesson,
+    // Newwork,
+    // Files,
     draggable,
   },
+  created() {},
   methods: {
-    get_bodyHeight () {//动态获取浏览器高度
+    get_bodyHeight() { //动态获取浏览器高度
       const that = this
       window.onresize = () => {
         return (() => {
@@ -86,24 +46,26 @@ export default {
         })()
       }
     },
-    handleSelect (key, keyPath) {
+    handleSelect(key, keyPath) {
       console.log(key, keyPath)
     },
-    handleOpen (key, keyPath) {
+    handleOpen(key, keyPath) {
       console.log(key, keyPath)
     },
-    handleClose (key, keyPath) {
+    handleClose(key, keyPath) {
       console.log(key, keyPath)
     },
-    handleRightSubMenu () {
+    handleRightSubMenu() {
       isRightSubMenuCollapse = !isRightSubMenuCollapse
     },
-    toHomework (e) {
-      this.$router.push({ name: "Homework" })
+    toHomework(e) {
+      this.$router.push({
+        name: "Homework"
+      })
     }
   },
   watch: {
-    fullHeight (val) {//监控浏览器高度变化
+    fullHeight(val) { //监控浏览器高度变化
       if (!this.timer) {
         this.fullHeight = val
         this.timer = true
@@ -114,10 +76,10 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.get_bodyHeight()
   },
-  data () {
+  data() {
     return {
       circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
       fullHeight: document.documentElement.clientHeight,
@@ -131,22 +93,19 @@ export default {
         activeIndex: '1',
         activeIndex2: '1'
       }],
-      list1: [
-        {
-          id: 0,
-          component: 'Files'
-        },
-      ],
-      list2: [
-        {
-          id: 0,
-          component: 'Newwork'
-        },
-        {
-          id: 1,
-          component: 'CurrentLesson'
-        }
-      ]
+      list1: [{
+        id: 0,
+        component: 'Resource'
+      }, {
+        id: 1,
+        component: 'Resource'
+      }, {
+        id: 2,
+        component: 'Resource'
+      }, {
+        id: 3,
+        component: 'Resource'
+      }, ],
     }
   }
 }
