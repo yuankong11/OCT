@@ -41,7 +41,7 @@ module CourseSpider
           "name" => link.attributes['title'],
           "id" => link.text.scan(/[a-zA-Z0-9-]{10,20}/)[0]
         }
-      }
+      }.uniq
     return course_infos
   end
 end

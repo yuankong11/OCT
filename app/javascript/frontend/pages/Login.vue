@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     login () {
-      var loginInfo = {username: this.loginForm.username, password: this.loginForm.password}
+      let loginInfo = {username: this.loginForm.username, password: this.loginForm.password}
       this.$http.put("/api/login", loginInfo).then(
         (res) => {
           this.logining = false
