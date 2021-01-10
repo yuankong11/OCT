@@ -36,6 +36,7 @@ module ApiHelper
     rule_ics = /.ics$/
     if url.nil? || (url =~ rule_https).nil? || (url =~ rule_ics).nil?
       return false
+    end
     return true
 
   end
