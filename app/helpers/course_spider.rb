@@ -8,13 +8,7 @@ module CourseSpider
   #   "name"=>"中国特色社会主义理论与实践研究（西区）20-21秋季",
   #   "id"=>"030500MGB001H-21"
   # }
-  def get_courses
-    params = {
-      "Identity" => @identity,
-      "roleId" => 801
-    }
-    res = @agent.get(LOGIN_COURSE_URL_S, params, ONESTOP_URL_S, HEADER)
-
+  def switch_identity(res)
     other_users = res.links
       .select { |link| link.href =~ /anotherUser/ }
       .map { |link| link.text }
@@ -25,6 +19,17 @@ module CourseSpider
       }
       res = @agent.get(COURSE_INFO_URL_S, params, COURSE_INFO_URL_S, HEADER)
     end
+    return res
+  end
+
+  def get_courses
+    params = {
+      "Identity" => @identity,
+      "roleId" => 801
+    }
+    res = @agent.get(LOGIN_COURSE_URL_S, params, ONESTOP_URL_S, HEADER)
+
+    res = switch_identity(res)
 
     find_data_site_id = /site\/(\d{6})$/
     course_infos = res.links

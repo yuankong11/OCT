@@ -98,7 +98,7 @@ export default {
         component: 'Resource'
       }, {
         id: 1,
-        component: 'Resource'
+        component: 'Timetable'
       }, {
         id: 2,
         component: 'Resource'

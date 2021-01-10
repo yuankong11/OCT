@@ -28,6 +28,8 @@ module HomeworkSpider
     # 进入课程页面
     res = @agent.get(course_link)
 
+    res = switch_identity(res)
+
     # 寻找作业列表页面的链接
     res.search("nav#toolMenu ul li a span").each do |node|
       if node.content == "作业"
@@ -50,6 +52,7 @@ module HomeworkSpider
   # attachments: 作业附件链接列表
   def get_homework_from_url(url)
     res = @agent.get(url)
+    res = switch_identity(res)
     homework_infos = res.search("form[name=listAssignmentsForm] tr")
     homework_infos
       .reject { |node| node.content =~ /作业标题/ } # 删除表头
@@ -81,6 +84,7 @@ module HomeworkSpider
 
   def get_homework_detail_from_url(url)
     res = @agent.get(url)
+    res = switch_identity(res)
     homework_summary = res.search("table.itemSummary")[0]
     puts res.search("h4+ul.attachList a")
 
