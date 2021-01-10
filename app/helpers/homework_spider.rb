@@ -4,8 +4,6 @@ module HomeworkSpider
   ATTACH_URL = "https://course.ucas.ac.cn/access/content/attachment/"
   COURSE_URL_S = "https://course.ucas.ac.cn/portal/site/"
 
-  require 'nokogiri'
-
   def get_homework
     puts 'hi'
     get_courses.map do |course|

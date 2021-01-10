@@ -1,6 +1,3 @@
-require 'icalendar'
-require 'open-uri'
-
 module ApiHelper
   def resources_update(username, resources_list)
     user = User.find_by(email: username)
