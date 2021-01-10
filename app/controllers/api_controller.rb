@@ -16,14 +16,14 @@ class ApiController < ApplicationController
   # end
 
   def current_spider
-    if session[:username].nil?
+    if current_user.nil?
       raise StandardError, "current_spider not found #1"
-    elsif @@user_hash_map[session[:username]].nil?
+    elsif @@user_hash_map[current_user].nil?
       raise StandardError, "current_spider not found #2"
-    elsif @@user_hash_map[session[:username]].logged_in?
+    elsif !@@user_hash_map[current_user].logged_in?
       raise StandardError, "current_spider not found #3"
     end
-    return @@user_hash_map[session[:username]]
+    return @@user_hash_map[current_user]
   end
 
   def current_user
@@ -81,7 +81,7 @@ class ApiController < ApplicationController
   end
 
   def refresh_resources
-    resources_update(current_user, @@user_hash_map[current_user].get_resources)
+    resources_update(current_user, current_spider.get_resources)
     resources
   end
 
@@ -105,7 +105,7 @@ class ApiController < ApplicationController
 
   def logout
     current_spider.quit
-    @@user_hash_map.delete(session[:username])
+    @@user_hash_map.delete(current_user)
     session[:username] = nil
     render json: "success"
   end

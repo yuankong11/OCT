@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <v-content>
-    <v-card :max-width="width">
+    <v-card>
       <v-row>
         <v-col>
           <v-btn outlined color="blue" v-show="!treeIsEmpty" @click="handleDownloadZip()">
@@ -201,7 +201,7 @@ export default {
         title: "错误",
         message: "请重新登录",
       });
-      this.$router.push('/app/login');
+      this.$router.push('/login');
     },
     handlePreview(file) {
       this.$http.get("/api/file", {
