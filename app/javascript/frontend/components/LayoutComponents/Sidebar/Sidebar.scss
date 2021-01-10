@@ -72,7 +72,7 @@
 }
 
 .navTitle {
-  margin: 35px 0 5px 11px;
+  margin: 35px 0 5px 15px;
   font-size: $font-size-larger;
   transition: opacity $sidebar-transition-time ease-in-out;
   color: var(--sidebar-nav-title-color);
@@ -123,8 +123,7 @@
 
 .sidebarLabels {
   list-style-type: none;
-  padding: 11px;
-  padding-right: 15px;
+  padding: 11px 15px;
 
   > li + li {
     margin-top: 10px;

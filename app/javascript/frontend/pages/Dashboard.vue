@@ -1,5 +1,5 @@
 <template>
-  <el-main>
+  <div>
     <!-- <el-row :gutter="20">
           <el-col :span="24">
             <el-card style="height: 320px; margin-bottom: 18px">
@@ -54,7 +54,7 @@
             </el-card>
           </el-col> -->
     </el-row>
-  </el-main>
+  </div>
 </template>
 
 <style>
