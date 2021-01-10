@@ -117,6 +117,14 @@ class ApiController < ApplicationController
     resources
   end
 
+  def science_lectures
+    render json: current_spider.get_science_lecture_info
+  end
+
+  def humanity_lectures
+    render json: current_spider.get_humanity_lecture_info
+  end
+
   def login
     username = params[:username]
     password = params[:password]

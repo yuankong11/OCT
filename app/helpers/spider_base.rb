@@ -24,6 +24,7 @@ module SpiderBase
   ONESTOP_URL = 'http://onestop.ucas.ac.cn'
   LOGIN_URL = 'http://onestop.ucas.ac.cn/Ajax/Login/0'
   SEP_URL = 'http://sep.ucas.ac.cn'
+  LOGIN_SEP_URL = 'http://sep.ucas.ac.cn//login'
   COURSE_INFO_URL = 'http://sep.ucas.ac.cn/portal/site/16/801'
   LOGIN_COURSE_URL = 'http://course.ucas.ac.cn/portal/plogin'
   APPSTORE_URL = 'http://sep.ucas.ac.cn/appStore'
