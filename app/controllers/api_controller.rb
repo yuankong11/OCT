@@ -58,6 +58,22 @@ class ApiController < ApplicationController
     render json: current_spider.get_courses
   end
 
+  def analyze_timetable
+    #puts current_user
+    user = User.find_by(email: current_user)
+    ics_url = ""
+    # 把每个人的ics链接存放到模型中方便之后读取
+    if !available_ics_url(user[:timetable_ics])
+      ics_url = current_spider.get_ics_url
+      user.update(timetable_ics: ics_url)
+    else
+      ics_url = user[:timetable_ics]
+    #TODO: 判断用户手动更新ics_url时要同步更新
+    end
+    cal = Icalendar::Calendar.parse(URI.open(ics_url,:ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE).read).first #ics解析
+    cal.events
+  end
+
   def timetable
     render json: analyze_timetable
   end

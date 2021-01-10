@@ -16,10 +16,10 @@ module TimetableSpider
     ics_link = schdl_page.search('//a[@title="生成在其他日程应用中使用的私有链接"]')[0]
     ics_click_link = ics_link.attributes["onclick"].value.scan(/location \= \'([^>]*)\';return false;/)[0][0]
     ics_click = @agent.get(ics_click_link)
-    puts ics_click.body
+    #puts ics_click.body
     ics_url = ics_click.link_with(:text => /^https/).href
-    puts "！！！ics_url是"
-    puts ics_url
+    #puts "！！！ics_url是"
+    #puts ics_url
     return ics_url
   end
 

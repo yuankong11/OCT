@@ -33,20 +33,14 @@ module ApiHelper
     end
   end
 
-  def analyze_timetable
-    #puts current_user
-    @user = User.find_by(email: current_user)
-    # 把每个人的ics链接存放到模型中方便之后读取
-    ics_url = current_spider.get_ics_url
-    if !ics_url.nil?
-      @user.update(timetable_ics: ics_url)
-      cal = Icalendar.parse(open(ics_url,:ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE).read) #ics解析
-      puts "-----------cal.first------------"
-      puts cal.first
-      puts "-----------cal.first.event------------"
-      puts cal.first.event
-      return cal.first.events
-    end
+
+  def available_ics_url(url)
+    rule_https = /^https?:\/\//
+    rule_ics = /.ics$/
+    if url.nil? || (url =~ rule_https).nil? || (url =~ rule_ics).nil?
+      return false
+    return true
+
   end
 
   class Spider
