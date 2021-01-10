@@ -9,7 +9,7 @@
         <router-link
           :style="{ color: '#409eff', textDecoration: 'none' }"
           to="/app/dashboard"
-          ><span class="primary-word">OCT</span> App</router-link
+          ><span class="primary-word">OCT</span>&nbsp;&nbsp;App</router-link
         >
       </header>
       <ul class="nav">
@@ -88,7 +88,7 @@
           </a>
         </li>
       </ul>
-      <h5 class="navTitle">--------------------</h5>
+      <h5 class="navTitle"></h5>
       <div class="sidebarAdd">
         <el-button type="primary" icon="el-icon-circle-plus" circle></el-button>
       </div>

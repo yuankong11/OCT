@@ -8,13 +8,13 @@
       <el-header class="layout-header" :height="'60'">
         <Header />
       </el-header>
-      <el-main class="content">
+      <div class="content">
         <BreadcrumbHistory />
         <transition name="router-animation">
           <router-view />
         </transition>
-      </el-main>
-      <el-footer class="contentFooter">
+      </div>
+      <el-footer class="contentFooter" :height="'30'">
         2020 &copy; OCT: A Better SEP - Made by Hongbin Zeng, Lianwei Yu, Huimin
         Ye, Zhengyu Lei.
       </el-footer>
