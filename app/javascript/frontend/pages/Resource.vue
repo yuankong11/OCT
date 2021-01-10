@@ -93,8 +93,6 @@ export default {
       filterText: '',
       loading: true,
       downloading: false,
-      width: 1000,
-      height: 2000,
     }
   },
   name: 'Resource',
@@ -116,6 +114,9 @@ export default {
     }
   },
   methods: {
+    onScroll() {
+
+    },
     handleDownloadZip() {
       const files = this.tree;
       console.log(files);

@@ -1,6 +1,3 @@
-require 'icalendar'
-require 'open-uri'
-
 module TimetableSpider
   include SpiderBase
 
@@ -10,12 +7,28 @@ module TimetableSpider
       "roleId" => 801
     }
     main_page = @agent.get(LOGIN_COURSE_URL_S, params, ONESTOP_URL_S, HEADER)
-    schdl_link = main_page.search("//span[@class='Mrphs-toolsNav__menuitem--icon icon-sakai--sakai-schedule']/..")
-    schdl_page = @agent.click(schdl_link)
-    puts schdl_page.body
-    ics_link = schdl_page.search("//a[@title='生成在其他日程应用中使用的私有链接']")
-    ics_click = @agent.click(ics_link)
-    ics_url = ics_click.search("//div[@class='portletBody']/p[@class='shorttext indnt2' and position()>1]/a[@target='_new_']").attributes["href"]
+
+    other_users = main_page.links
+      .select { |link| link.href =~ /anotherUser/ }
+      .map { |link| link.text }
+    unless other_users.empty?
+      another_user = other_users[0]
+      params = {
+        "anotherUser" => another_user
+      }
+      main_page = @agent.get(COURSE_INFO_URL_S, params, COURSE_INFO_URL_S, HEADER)
+    end
+
+    schdl_link = main_page.search('//a[@title="日程 - 发布和查看事件，截止日期等"]')[0]
+    schdl_page = @agent.get(schdl_link.attributes["href"].value)
+    #puts schdl_page.body
+    ics_link = schdl_page.search('//a[@title="生成在其他日程应用中使用的私有链接"]')[0]
+    ics_click_link = ics_link.attributes["onclick"].value.scan(/location \= \'([^>]*)\';return false;/)[0][0]
+    ics_click = @agent.get(ics_click_link)
+    #puts ics_click.body
+    ics_url = ics_click.link_with(:text => /^https/).href
+    #puts "！！！ics_url是"
+    #puts ics_url
     return ics_url
   end
 

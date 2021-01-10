@@ -1,9 +1,7 @@
-require 'icalendar'
 class ApiController < ApplicationController
   protect_from_forgery :only => [:login]
 
   @@user_hash_map = Hash.new
-
   include ApiHelper
 
   def function_dispatch
@@ -60,16 +58,42 @@ class ApiController < ApplicationController
     render json: current_spider.get_courses
   end
 
-  def timetable
+  def analyze_timetable
     #puts current_user
-    @user = User.find_by(email: current_user)
+    # ISO格式时间：Time.strptime('20190522T11:34:50', "%Y%m%dT%H:%M:%S")
+    # yyyy/mm/dd hh:mm:ss格式：Time.strptime('2019-05-22 11:34:50', "%Y-%m-%d %H:%M:%S")
+    #day_start = Time.strptime(params[:day_start],"%Y%m%dT%H:%M:%S")# 需要解析的events范围
+    #day_end = Time.strptime(params[:day_end],"%Y%m%dT%H:%M:%S")
+    user = User.find_by(email: current_user)
+    ics_url = ""
     # 把每个人的ics链接存放到模型中方便之后读取
-    ics_url = current_spider.get_ics_url
-    if !ics_url.nil?
-      @user.update(timetable_ics: ics_url)
-      cal = Icalendar.parse(open(ics_url).read).first #ics解析
-      render json: cal.events
+    if !available_ics_url(user[:timetable_ics])
+      ics_url = current_spider.get_ics_url
+      user.update(timetable_ics: ics_url)
+    else
+      ics_url = user.timetable_ics
+    #TODO: 判断用户手动更新ics_url时要同步更新
     end
+    puts ics_url
+    cal = Icalendar::Calendar.parse(URI.open(ics_url).read).first #ics解析
+
+    timetable = cal.events
+    #.select{|event| event.dtstart > day_start && event.dtstart+event.duration.seconds < day_end} # 筛选在范围内的事件
+    .map do |event|{
+        "uid" => event.uid,
+        "name" => event.summary,
+        "start" => event.dtstart,
+        "end" => event.dtstart + event.duration.seconds,
+        "duration" => event.duration.seconds,
+        "location" => event.location,
+        "timed" => true}
+    end
+    #}
+    return timetable
+  end
+
+  def timetable
+    render json: analyze_timetable
   end
 
   def resources
