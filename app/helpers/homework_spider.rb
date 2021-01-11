@@ -15,6 +15,8 @@ module HomeworkSpider
         "children" => get_homework_from_course(course["code"])
       }
     end
+
+    course_homeworks = course_homeworks.reject{|course| course["children"].empty? || course["children"].nil? }
     puts course_homeworks
     course_homeworks
   end
