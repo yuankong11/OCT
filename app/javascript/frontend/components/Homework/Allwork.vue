@@ -6,8 +6,6 @@
   row-key="name"
   :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
   default-expand-all>
-  <!-- <el-table-column prop="name" label="作业">
-  </el-table-column> -->
   <el-table-column prop="name" label="名称" sortable>
   </el-table-column>
   <el-table-column prop="due" label="截止日期" sortable>
