@@ -101,10 +101,10 @@ export default {
         component: 'Timetable'
       }, {
         id: 2,
-        component: 'Resource'
+        component: 'Homework'
       }, {
         id: 3,
-        component: 'Resource'
+        component: 'LectureInfo'
       }, ],
     }
   }
