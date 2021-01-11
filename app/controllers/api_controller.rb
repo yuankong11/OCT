@@ -102,7 +102,12 @@ class ApiController < ApplicationController
 
 
   def resources
-    render json: find_resources(current_user)
+    data = find_resources(current_user)
+    if data.empty?
+      resources_update(current_user, current_spider.get_resources)
+    end
+    data = find_resources(current_user)
+    render json: data
   end
 
   def homework
