@@ -112,6 +112,27 @@ class ApiController < ApplicationController
 
   def homework
     render json: current_spider.get_homework
+    # TODO: 存入数据库
+    # user = User.find_by(email: current_user)
+    # homework_info_db = user.homework_info
+    # if homework_info_db.nil?
+    #   homework_info = current_spider.get_homework
+    #   user.homework_info = JSON[homework_info.to_json]
+    #   # user.homework_info = homework_info.to_s
+    #   user.save
+    # else
+    #   homework_info = JSON.parse(homework_info_db)
+    # end
+    # render json: homework_info
+  end
+
+  def refresh_homework
+    user = User.find_by(email: current_user)
+    homework_info = current_spider.get_homework
+    user.homework_info = JSON[homework_info.to_json]
+    # user.homework_info = homework_info.to_s
+    user.save
+    render json: homework_info
   end
 
   def read_resources
