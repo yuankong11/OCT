@@ -1,146 +1,205 @@
 <template>
-  <el-tabs v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane label="今日任务" name="first">
-      <el-input
-        placeholder="回车添加待办事项"
-        class="todoinput"
-        @keyup.enter.native="add"
-        v-model="newtodo.title"
-      ></el-input>
-      <p>
-        进行中：{{ ingnum }} 已完成：{{ donenum
-        }}<el-progress :percentage="50"></el-progress>
-      </p>
-      <el-row
-        v-for="(item, index) in todolist"
-        class="list-row"
-        v-bind:key="item.id"
-      >
-        <el-col
-          :xs="2"
-          :sm="1"
-          :md="1"
-          :lg="1"
-          :xl="1"
-          class="check"
-          :class="{
-            red: !todolist[index].done,
-            green: todolist[index].done,
-          }"
-        >
-          <el-checkbox size="mini" v-model="item.done"></el-checkbox>
-        </el-col>
-        <el-col :xs="20" :sm="22" :md="22" :lg="22" :xl="22">
-          <input
-            type="text"
-            v-model="item.title"
-            class="ipcont"
-            :class="{ done: todolist[index].done }"
-          />
-        </el-col>
-        <el-col :xs="2" :sm="1" :md="1" :lg="1" :xl="1" class="close">
-          <i class="el-icon-close" @click="del(index)"></i>
-        </el-col>
-      </el-row>
-    </el-tab-pane>
-    <el-tab-pane label="重要" name="second">重要</el-tab-pane>
-    <el-tab-pane label="已规划日程" name="third">已规划日程</el-tab-pane>
-    <el-tab-pane label="已完成" name="fourth">已完成</el-tab-pane>
-  </el-tabs>
+  <v-card>
+    <v-toolbar
+      flat
+      color="primary"
+      dark
+    >
+      <v-toolbar-title>任务清单 TodoList</v-toolbar-title>
+    </v-toolbar>
+    <v-tabs v-model="tab" vertical icons-and-text>
+      <v-tab>
+        <v-icon left>
+          mdi-account
+        </v-icon>
+        Option 1
+      </v-tab>
+      <v-tab>
+        <v-icon left>
+          mdi-lock
+        </v-icon>
+        Option 2
+      </v-tab>
+      <v-tab>
+        <v-icon left>
+          mdi-access-point
+        </v-icon>
+        Option 3
+      </v-tab>
+
+      <v-tab-item>
+        <v-card flat>
+          <v-card-text>
+            <p>
+              Sed aliquam ultrices mauris. Donec posuere vulputate arcu. Morbi ac felis. Etiam feugiat lorem non metus. Sed a libero.
+            </p>
+
+            <p>
+              Nam ipsum risus, rutrum vitae, vestibulum eu, molestie vel, lacus. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Aliquam lobortis. Aliquam lobortis. Suspendisse non nisl sit amet velit hendrerit rutrum.
+            </p>
+
+            <p class="mb-0">
+              Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Phasellus blandit leo ut odio.
+            </p>
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card flat>
+          <v-card-text>
+            <p>
+              Morbi nec metus. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Nunc sed turpis.
+            </p>
+
+            <p>
+              Suspendisse feugiat. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In hac habitasse platea dictumst. Fusce ac felis sit amet ligula pharetra condimentum.
+            </p>
+
+            <p>
+              Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Nam commodo suscipit quam. In consectetuer turpis ut velit. Sed cursus turpis vitae tortor. Aliquam eu nunc.
+            </p>
+
+            <p>
+              Etiam ut purus mattis mauris sodales aliquam. Ut varius tincidunt libero. Aenean viverra rhoncus pede. Duis leo. Fusce fermentum odio nec arcu.
+            </p>
+
+            <p class="mb-0">
+              Donec venenatis vulputate lorem. Aenean viverra rhoncus pede. In dui magna, posuere eget, vestibulum et, tempor auctor, justo. Fusce commodo aliquam arcu. Suspendisse enim turpis, dictum sed, iaculis a, condimentum nec, nisi.
+            </p>
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card flat>
+          <v-card-text>
+            <p>
+              Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.
+            </p>
+
+            <p class="mb-0">
+              Cras sagittis. Phasellus nec sem in justo pellentesque facilisis. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nam at tortor in tellus interdum sagittis.
+            </p>
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+    </v-tabs>
+  </v-card>
 </template>
-
-<style>
-.todoinput {
-  margin-bottom: 40px;
-}
-
-.list-row {
-  height: 40px;
-  background-color: #fbfbfb;
-  margin-bottom: 5px;
-}
-
-.check {
-  text-align: center;
-  line-height: 40px;
-}
-
-.red {
-  border-left: #ef5f65 2px solid;
-}
-
-.green {
-  border-left: #b9e1dc 2px solid;
-}
-
-.ipcont {
-  width: 90%;
-  margin-top: 8px;
-  border: 0;
-  line-height: 24px;
-  background-color: transparent;
-  font-size: 16px;
-  color: #756c83;
-}
-
-.close {
-  text-align: center;
-  line-height: 40px;
-}
-
-.el-icon-close {
-  cursor: pointer;
-}
-
-.el-icon-close:hover {
-  color: #ef5f65;
-}
-
-.done {
-  text-decoration: line-through;
-}
-</style>
 
 <script>
 export default {
-  mounted: function () {
-    //this.fetch_all()
+  data() {
+    return {
+      todolist: [
+        {
+          todolistName: "Study",
+          todoItem: [
+            {
+              todoName: "看算法第7章ppt",
+              uid: 593304528,
+              done: false,
+              duedate: new Date(`20210112T21:12:10`),
+              flag: true,
+            },
+            {
+              todoName: "模式识别课件复习",
+              uid: 593304529,
+              done: false,
+              duedate: new Date(`20210110T21:12:10`),
+              flag: false,
+            },
+            {
+              todoName: "Mooc",
+              uid: 593304530,
+              done: false,
+              flag: false,
+            },
+          ]
+        },
+        {
+          todolistName: "Work",
+          todoItem: [
+            {
+              todoName: "任务管理模块",
+              uid: 593304528,
+              done: false,
+              flag: true,
+            },
+            {
+              todoName: "讲座展示模块",
+              uid: 593304529,
+              done: false,
+              flag: false,
+            },
+            {
+              todoName: "Mooc",
+              uid: 593304530,
+              done: false,
+              flag: false,
+            },
+          ]
+        },
+        {
+          todolistName: "DailyLife",
+          todoItem: [
+            {
+              todoName: "吃饭",
+              uid: 593304528,
+              done: false,
+              flag: true,
+            },
+            {
+              todoName: "b站签到",
+              uid: 593304529,
+              done: false,
+              flag: false,
+            },
+            {
+              todoName: "Mooc",
+              uid: 593304530,
+              done: false,
+              flag: false,
+            },
+          ]
+        }
+      ],
+      //formLabelWidth: "160px",
+    };
   },
   methods: {
-    handleClick (tab, event) {
-      console.log(tab, event)
+    fetchTodoList(){
+      let todolist = []
+        this.$http.get("/api/todolist").then(
+          (res) => {
+            let tem_list = res.data;
+            for (let i = 0; i < tem_list.length; i++) {//每个list
+              let tlist = {}
+              tlist["todolistName"] = tem_list[i].todolistName
+              tlist["todoItem"] = []
+              for(let j = 0; j<tem_list.todoItem.length; j++)//每个todo
+              {
+                tlist["todoItem"].push(
+                  {
+                    todoName: tem_list[i].todoItem[j].todoName,
+                    uid: tem_list[i].todoItem[j].uid,
+                    done: tem_list[i].todoItem[j].done,
+                    flag: tem_list[i].todoItem[j].flag,
+                    duedate: new Date(`tem_list[i].todoItem[j].duedate`),
+                  }
+                )
+              }
+              todolist.push(tlist)
+            }
+            this.todolist = todolist
+          },
+          (res) => {
+            this.$notify.error({
+              title: "错误",
+              message: "获取任务清单失败",
+            });
+          }
+        );
     },
-    add: function () {
-      if (this.newtodo.title) {
-        this.todolist.push(this.newtodo)
-        this.newtodo = { title: "", done: false }
-      }
-    },
-    del: function (index) {
-      this.todolist.splice(index, 1)
-    },
-  },
-  data () {
-    return {
-      activeName: "first",
-      newtodo: {
-        title: "",
-        done: false,
-      },
-      todolist: [],
-      ingnum: 3,
-      donenum: 3,
-    }
-  },
-  watch: {
-    todolist: {
-      handler (items) {
-        save(items)
-      },
-      // 深度监听：属性值的变化{{ todolist.length -  donenum}}  已完成：{{ donenum }}
-      // 给所有属性添加监听器，开销较大
-      deep: true,
-    },
-  },
+  }
 }
 </script>

@@ -18,6 +18,7 @@
 export default {
   data: () => ({
     date2: new Date().toISOString().substr(0, 10),
+    colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
   }),
 
   mounted () {

@@ -100,6 +100,7 @@ class ApiController < ApplicationController
     render json: analyze_timetable
   end
 
+
   def resources
     render json: find_resources(current_user)
   end
