@@ -18,6 +18,17 @@ module TimetableSpider
     ics_click = @agent.get(ics_click_link)
     #puts ics_click.body
     ics_url = ics_click.link_with(:text => /^https/).href
+    if ics_url.nil? # 未生成，需要post
+      csrf_token = ics_click.search('//input[@name='sakai_csrf_token']')[0].attributes["value"].value
+      state = ics_click.search('//input[@name='state']')[0].attributes["value"].value
+      generate_ics_form = ics_click.form_with((:method => 'post') do |form|
+                form.eventSubmit_doOpaqueUrlGenerate = '生成'
+                form.state = state
+                form.sakai_csrf_token = csrf_token
+              end.submit
+        ics_click = @agent.get(ics_click_link)
+        ics_url = ics_click.link_with(:text => /^https/).href
+    end
     #puts "！！！ics_url是"
     #puts ics_url
     return ics_url

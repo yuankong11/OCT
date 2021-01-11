@@ -3,8 +3,8 @@
     <el-header class="calendar-header">日程管理</el-header>
     <el-main>
       <el-row :gutter="20">
-        <el-col :span="22">
-        <el-col :span="18">
+        <el-col :span="24">
+        <el-col :span="17">
           <el-card class="box-card-cal">
             <div slot="header">
               <span>日程表</span>
