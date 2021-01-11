@@ -85,6 +85,7 @@ module ApiHelper
     end
 
     def get_lecture_info
+      login_sep
       params = {
         "Identity" => @identity,
       }
@@ -107,7 +108,6 @@ module ApiHelper
       if JSON.parse(res.body)["f"]
         msg = JSON.parse(res.body)["msg"]
         @identity = msg.scan(/Identity=(.*?)$/)[0]
-        get_lecture_info
         return :success
       else
         return :fail
