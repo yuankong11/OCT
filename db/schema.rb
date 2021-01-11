@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_11_125729) do
+ActiveRecord::Schema.define(version: 2021_01_11_172741) do
 
   create_table "c_calendars", force: :cascade do |t|
     t.string "summary"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2021_01_11_125729) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "timetable_ics"
     t.string "lecture_info"
+    t.text "homework_info"
   end
 
   add_foreign_key "file_records", "users"
