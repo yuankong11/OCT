@@ -12,10 +12,10 @@
     <el-main>
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-card><HumanityLecture v-bind:table="table[0]"></HumanityLecture></el-card>
+          <el-card><ScienceLecture v-bind:table="table[0]"></ScienceLecture></el-card>
         </el-col>
         <el-col :span="12">
-          <el-card><ScienceLecture v-bind:table="table[1]"></ScienceLecture></el-card>
+          <el-card><HumanityLecture v-bind:table="table[1]"></HumanityLecture></el-card>
         </el-col>
       </el-row>
     </el-main>
