@@ -1,9 +1,9 @@
 <template>
 <v-app>
-  <v-container style="max-width: 320px">
+  <v-container style="max-width: 350px">
     <v-text-field
       v-model="newTask"
-      label="What are you working on?"
+      label="接下来你需要添加什么新任务？"
       solo
       @keydown.enter="create"
     >
@@ -19,14 +19,14 @@
       </template>
     </v-text-field>
 
-    <h2 class="display-1 success--text pl-4">
-      Tasks:&nbsp;
+    <h3 class="display-1 success--text pl-4">
+      当前待办任务数:&nbsp;
       <v-fade-transition leave-absolute>
         <span :key="`tasks-${tasks.length}`">
           {{ tasks.length }}
         </span>
       </v-fade-transition>
-    </h2>
+    </h3>
 
     <v-divider class="mt-4"></v-divider>
 
@@ -35,13 +35,13 @@
       align="center"
     >
       <strong class="mx-4 info--text text--darken-2">
-        Remaining: {{ remainingTasks }}
+        未完成: {{ remainingTasks }}
       </strong>
 
       <v-divider vertical></v-divider>
 
       <strong class="mx-4 success--text text--darken-2">
-        Completed: {{ completedTasks }}
+        已完成: {{ completedTasks }}
       </strong>
 
       <v-spacer></v-spacer>
@@ -79,6 +79,24 @@
                     v-text="task.text"
                   ></div>
                 </template>
+                <div class="my-2">
+            <v-btn
+              color="primary"
+              fab
+              small
+              dark
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn
+              color="error"
+              fab
+              small
+              dark
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </div>
               </v-checkbox>
             </v-list-item-action>
 

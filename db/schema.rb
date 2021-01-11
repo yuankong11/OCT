@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_09_114047) do
+ActiveRecord::Schema.define(version: 2021_01_11_125729) do
 
   create_table "c_calendars", force: :cascade do |t|
     t.string "summary"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 2021_01_09_114047) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_tasklists_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -48,12 +50,13 @@ ActiveRecord::Schema.define(version: 2021_01_09_114047) do
 
   create_table "todos", force: :cascade do |t|
     t.string "title"
-    t.string "belongto"
     t.boolean "done"
     t.boolean "flag"
     t.datetime "duetime"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "tasklist_id", null: false
+    t.index ["tasklist_id"], name: "index_todos_on_tasklist_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -61,7 +64,10 @@ ActiveRecord::Schema.define(version: 2021_01_09_114047) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "timetable_ics"
+    t.string "lecture_info"
   end
 
   add_foreign_key "file_records", "users"
+  add_foreign_key "tasklists", "users"
+  add_foreign_key "todos", "tasklists"
 end

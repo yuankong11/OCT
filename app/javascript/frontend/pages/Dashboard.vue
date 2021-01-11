@@ -95,20 +95,20 @@ export default {
       }],
       list1: [{
           id: 0,
-          component: 'Resource'
+          component: 'Files'
         },
-        // {
-        //   id: 1,
-        //   component: 'Timetable'
-        // },
-        // {
-        //   id: 2,
-        //   component: 'Homework'
-        // },
-        // {
-        //   id: 3,
-        //   component: 'LectureInfo'
-        // },
+        {
+          id: 1,
+          component: 'Timetable'
+        },
+        {
+          id: 2,
+          component: 'Allwork'
+        },
+        {
+          id: 3,
+          component: 'ScienceLecture'
+        },
       ],
     }
   }
