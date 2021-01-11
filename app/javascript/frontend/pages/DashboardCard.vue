@@ -6,6 +6,9 @@
 
 <script>
 import Timetable from '../components/Calendar/Timetable.vue';
+import Allwork from '../components/Homework/Allwork.vue';
+import ScienceLecture from '../components/LectureInfo/ScienceLecture.vue';
+import Files from '../components/LessonResource/Files.vue';
 import Homework from './Homework.vue';
 import LectureInfo from './LectureInfo.vue';
 import Resource from "./Resource.vue";
@@ -15,7 +18,10 @@ export default {
     Resource,
     Timetable,
     LectureInfo,
-    Homework
+    Homework,
+    Allwork,
+    ScienceLecture,
+    Files
   },
   data() {
     return {
