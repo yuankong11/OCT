@@ -60,7 +60,12 @@ module HomeworkSpider
     res = @agent.get(url)
     res = switch_identity(res)
     res = @agent.get(url)
+    puts "===================res======================="
+    puts res
     homework_infos = res.search("form[name=listAssignmentsForm] tr")
+    puts "===================homework_infos======================="
+    puts homework_infos
+
     homework_infos
       .reject { |node| node.content =~ /作业标题/ } # 删除表头
       .map do |node|
@@ -93,7 +98,14 @@ module HomeworkSpider
     res = @agent.get(url)
     res = switch_identity(res)
     res = @agent.get(url)
-    homework_summary = res.search("table.itemSummary")[0]
+
+
+    if (homework_summary = res.search("table.itemSummary")[0])
+      homework_name = homework_summary.search("tr td")[0].content.strip
+    else
+      homework_summary = res.search("div.itemSummary")[0]
+      homework_name = homework_summary.search(".itemSummaryValue")[0].content.strip
+    end
     puts res.search("h4+ul.attachList a")
 
     # 获得附件
@@ -115,7 +127,7 @@ module HomeworkSpider
 
     # 返回作业详情信息字典
     {
-      "name" => homework_summary.search("tr td")[0].content.strip,
+      "name" => homework_name,
       "info" => homework_description,
       "attachments" => homework_attachments
     }
