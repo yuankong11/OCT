@@ -23,12 +23,14 @@ module CourseSpider
   end
 
   def get_courses
+    if login_sep == :fail
+      raise StandardError, "get courses failed"
+    end
     params = {
       "Identity" => @identity,
       "roleId" => 801
     }
     res = @agent.get(LOGIN_COURSE_URL_S, params, ONESTOP_URL_S, HEADER)
-
     res = switch_identity(res)
 
     find_data_site_id = /site\/(\d{6})$/

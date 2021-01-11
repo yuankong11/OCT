@@ -103,7 +103,6 @@ module HomeworkSpider
       }
     end
 
-
     homework_description = res.search(".textPanel")[0]
     if homework_description != nil
       homework_description = res.search(".textPanel")[0].content.strip

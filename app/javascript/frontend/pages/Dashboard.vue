@@ -94,18 +94,22 @@ export default {
         activeIndex2: '1'
       }],
       list1: [{
-        id: 0,
-        component: 'Resource'
-      }, {
-        id: 1,
-        component: 'Timetable'
-      }, {
-        id: 2,
-        component: 'Homework'
-      }, {
-        id: 3,
-        component: 'LectureInfo'
-      }, ],
+          id: 0,
+          component: 'Resource'
+        },
+        // {
+        //   id: 1,
+        //   component: 'Timetable'
+        // },
+        // {
+        //   id: 2,
+        //   component: 'Homework'
+        // },
+        // {
+        //   id: 3,
+        //   component: 'LectureInfo'
+        // },
+      ],
     }
   }
 }
