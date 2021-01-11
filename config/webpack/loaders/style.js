@@ -11,12 +11,6 @@ module.exports = {
         // indentedSyntax: true // optional
       },
       // Requires sass-loader@^8.0.0
-      options: {
-        implementation: require('sass'),
-        sassOptions: {
-          // indentedSyntax: true // optional
-        },
-      },
     },
     // {
     //   loader: "postcss-loader",
