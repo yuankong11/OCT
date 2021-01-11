@@ -61,11 +61,7 @@ export default {
       this.$http.get("/api/homework").then(
         (res) => {
           console.log(res.data);
-          this.works = res.data.map((x) => {
-            x.due = "";
-            x.start = "";
-            x.status = "";
-          });
+          this.works = res.data;
         },
         (res) => {
           this.redirectToLogin();
