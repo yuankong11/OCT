@@ -42,12 +42,7 @@ export default {
     // },
   },
   created(){
-    console.log(this.works);
-    this.works.map((x) => {
-      x.due = "";
-      x.start = "";
-      x.status = "";
-    })
+    // console.log(this.works);
   }
 };
 </script>

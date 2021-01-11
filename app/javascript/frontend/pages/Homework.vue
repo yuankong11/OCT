@@ -1,10 +1,10 @@
 <template>
-  <el-container id="Homework">
-    <el-header class="homework-header">作业</el-header>
-    <el-main>
-      <Workpad ref="workpad"/>
-      <el-row :gutter="20">
-        <!-- <el-col :span="12">
+<el-container id="Homework">
+  <el-header class="homework-header">作业</el-header>
+  <el-main>
+    <Workpad ref="workpad" />
+    <el-row :gutter="20">
+      <!-- <el-col :span="12">
           <el-card class="box-card">
             <div slot="header">
               <span>新的作业</span>
@@ -20,17 +20,17 @@
             <Sorted :handleEdit="handleEdit" />
           </el-card>
         </el-col> -->
-        <el-col :span="24">
-          <el-card>
-            <div slot="header">
-              <span>所有作业</span>
-            </div>
-            <Allwork :works="works"/>
-          </el-card>
-        </el-col>
-      </el-row>
-    </el-main>
-  </el-container>
+      <el-col :span="24">
+        <el-card>
+          <div slot="header">
+            <span>所有作业</span>
+          </div>
+          <Allwork :works="works" />
+        </el-card>
+      </el-col>
+    </el-row>
+  </el-main>
+</el-container>
 </template>
 
 <script>
@@ -49,13 +49,11 @@ export default {
   },
   data() {
     return {
-      works: {
-
-      }
+      works: []
     }
   },
   methods: {
-    handleEdit () {
+    handleEdit() {
       // console.log(this)
       this.$refs.workpad.dialogTableVisible = true
     },
@@ -63,7 +61,11 @@ export default {
       this.$http.get("/api/homework").then(
         (res) => {
           console.log(res.data);
-          this.works = res.data;
+          this.works = res.data.map((x) => {
+            x.due = "";
+            x.start = "";
+            x.status = "";
+          });
         },
         (res) => {
           this.redirectToLogin();
@@ -90,11 +92,11 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 .homework-header {
   background-color: #e9eef3;
   color: #333;
   line-height: 60px;
   text-align: center;
 }
-
 </style>

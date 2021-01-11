@@ -6,12 +6,16 @@
 
 <script>
 import Timetable from '../components/Calendar/Timetable.vue';
+import Homework from './Homework.vue';
+import LectureInfo from './LectureInfo.vue';
 import Resource from "./Resource.vue";
 
 export default {
   components: {
     Resource,
-    Timetable
+    Timetable,
+    LectureInfo,
+    Homework
   },
   data() {
     return {
