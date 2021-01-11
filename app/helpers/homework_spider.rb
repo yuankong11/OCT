@@ -27,7 +27,6 @@ module HomeworkSpider
     puts 'course_link: ' + course_link
     # 进入课程页面
     res = @agent.get(course_link)
-
     res = switch_identity(res)
     res = @agent.get(course_link)
 
@@ -58,8 +57,8 @@ module HomeworkSpider
   # attachments: 作业附件链接列表
   def get_homework_from_url(url)
     res = @agent.get(url)
-    res = switch_identity(res)
-    res = @agent.get(url)
+    # res = switch_identity(res)
+    # res = @agent.get(url)
     homework_infos = res.search("form[name=listAssignmentsForm] tr")
     homework_infos
       .reject { |node| node.content =~ /作业标题/ } # 删除表头
@@ -93,7 +92,7 @@ module HomeworkSpider
     res = @agent.get(url)
     res = switch_identity(res)
     res = @agent.get(url)
-    homework_summary = res.search("table.itemSummary")[0]
+    homework_summary = res.search(".itemSummary")[0]
     puts res.search("h4+ul.attachList a")
 
     # 获得附件
