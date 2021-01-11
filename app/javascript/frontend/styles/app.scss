@@ -2,8 +2,8 @@
 @import '../../../../node_modules/bootstrap/scss/functions';
 @import 'variables';
 @import 'theme-variables';
-@import '../../../../node_modules/bootstrap/scss/bootstrap';
-// @import '../../../../node_modules/bootstrap-vue/dist/bootstrap-vue.css';
+// @import '../../../../node_modules/bootstrap/scss/bootstrap';
+@import 'modified-bootstrap';  // 因为需要对上面文件做修改，因此引用一份本地修改过的拷贝
 @import '../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../node_modules/bootstrap/scss/mixins';
 // @import '../../../../node_modules/font-awesome/css/font-awesome.css';

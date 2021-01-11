@@ -10,7 +10,7 @@
       </el-header> -->
       <Header />
       <div class="content">
-        <BreadcrumbHistory />
+        <!-- <BreadcrumbHistory /> -->
         <transition name="router-animation">
           <router-view />
         </transition>

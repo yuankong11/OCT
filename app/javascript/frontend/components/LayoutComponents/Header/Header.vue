@@ -5,10 +5,14 @@
         <b-navbar-brand href="#">OCT</b-navbar-brand>
       </b-nav-item> -->
       <b-nav-item class="d-none d-md-block">
-        <a href="#" class="px-2">我的课程</a>
+        <router-link to="/app/dashboard">
+          <span class="px-2">我的课程</span></router-link
+        >
       </b-nav-item>
       <b-nav-item class="d-none d-md-block">
-        <a href="#" class="px-2">课后学习</a>
+        <router-link to="/app/dashboard">
+          <span class="px-2">课后学习</span></router-link
+        >
       </b-nav-item>
     </b-nav>
     <a class="navbarBrand d-md-none">

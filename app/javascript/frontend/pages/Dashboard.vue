@@ -1,5 +1,5 @@
 <template>
-<v-app>
+<v-app style="background-color: inherit;">
   <v-main>
     <draggable :list="list1" class="list-group row" group="cards">
       <v-col v-for="element in list1" :key="element.id" class="list-group-item">
