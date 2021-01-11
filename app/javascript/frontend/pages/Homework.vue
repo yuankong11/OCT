@@ -45,7 +45,7 @@ export default {
   },
   created() {
     this.refresh();
-    console.log(this.works);
+    // console.log(this.works);
   },
   data() {
     return {
