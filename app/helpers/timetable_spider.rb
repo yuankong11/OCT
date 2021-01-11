@@ -7,10 +7,15 @@ module TimetableSpider
       "roleId" => 801
     }
     main_page = @agent.get(LOGIN_COURSE_URL_S, params, ONESTOP_URL_S, HEADER)
-
+    schdl_link = nil
     main_page = switch_identity(main_page)
-
     schdl_link = main_page.search('//a[@title="日程 - 发布和查看事件，截止日期等"]')[0]
+    if schdl_link.nil?
+      schdl_link = main_page.search('//nav[@id="toolMenu"]/ul/li[4]/a[@class="Mrphs-toolsNav__menuitem--link "]')[0]
+    end
+    if schdl_link.nil?
+      schdl_link = main_page.search('//span[@class="Mrphs-toolsNav__menuitem--icon icon-sakai--sakai-schedule "]/..')[0]
+    end
     schdl_page = @agent.get(schdl_link.attributes["href"].value)
     #puts schdl_page.body
     ics_link = schdl_page.search('//a[@title="生成在其他日程应用中使用的私有链接"]')[0]
@@ -19,14 +24,14 @@ module TimetableSpider
     #puts ics_click.body
     ics_url = ics_click.link_with(:text => /^https/).href
     if ics_url.nil? # 未生成，需要post
-      csrf_token = ics_click.search('//input[@name='sakai_csrf_token']')[0].attributes["value"].value
-      state = ics_click.search('//input[@name='state']')[0].attributes["value"].value
-      generate_ics_form = ics_click.form_with((:method => 'post') do |form|
-                form.eventSubmit_doOpaqueUrlGenerate = '生成'
+      csrf_token = ics_click.search('//input[@name="sakai_csrf_token"]')[0].attributes["value"].value
+      state = ics_click.search('//input[@name="state"]')[0].attributes["value"].value
+      generate_ics = ics_click.form_with(:action => /^https:\/\/course.ucas.ac.cn\//) do |form|
+                form.eventSubmit_doOpaqueUrlGenerate = "生成"
                 form.state = state
                 form.sakai_csrf_token = csrf_token
-              end.submit
-        ics_click = @agent.get(ics_click_link)
+      end.submit
+        ics_click = @agent.get(generate_ics)
         ics_url = ics_click.link_with(:text => /^https/).href
     end
     #puts "！！！ics_url是"
