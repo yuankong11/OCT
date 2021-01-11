@@ -12,7 +12,7 @@
   </el-table-column>
   <el-table-column prop="due" label="截止日期" sortable>
   </el-table-column>
-  <el-table-column prop="start" label="开始日期" sortable>
+  <el-table-column prop="begin" label="开始日期" sortable>
   </el-table-column>
   <el-table-column prop="status" label="提交状态" sortable>
   </el-table-column>
