@@ -14,10 +14,13 @@ module CourseSpider
       .map { |link| link.text }
     unless other_users.empty?
       another_user = other_users[0]
-      params = {
-        "anotherUser" => another_user
-      }
-      res = @agent.get(COURSE_INFO_URL_S, params, COURSE_INFO_URL_S, HEADER)
+      user = res.search(".Mrphs-userNav__submenuitem--displayid").text.gsub(" ", "")
+      if user < another_user
+        params = {
+          "anotherUser" => another_user
+        }
+        res = @agent.get(COURSE_INFO_URL_S, params, COURSE_INFO_URL_S, HEADER)
+      end
     end
     return res
   end
