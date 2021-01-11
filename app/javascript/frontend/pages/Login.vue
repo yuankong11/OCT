@@ -64,7 +64,7 @@ export default {
         (res) => {
           this.logining = false
           if(res.bodyText == "success") {
-            this.$notify.info({
+            this.$notify.success({
               title: "信息",
               message: "登录成功",
             })

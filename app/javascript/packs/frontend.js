@@ -3,6 +3,7 @@ import ElementUI from 'element-ui'
 import Vuetify from 'vuetify/lib'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueResource from 'vue-resource'
+import BootstrapVue from 'bootstrap-vue'
 // import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
@@ -14,6 +15,7 @@ import App from '../frontend/App.vue'
 Vue.use(Vuetify)
 Vue.use(ElementUI)
 Vue.use(VueResource)
+Vue.use(BootstrapVue)
 Vue.component(App)
 
 router.beforeEach((to, from, next) => {

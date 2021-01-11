@@ -5,9 +5,10 @@
     <!-- <el-container class="content" :style="'height:' + fullHeight - 60 + 'px;'"> -->
     <div class="wrap">
       <!-- header必须和container在一个文件里，否则会布局错误。 -->
-      <el-header class="layout-header" :height="'60'">
+      <!-- <el-header class="layout-header" :height="'60'">
         <Header />
-      </el-header>
+      </el-header> -->
+      <Header />
       <div class="content">
         <BreadcrumbHistory />
         <transition name="router-animation">
@@ -27,7 +28,7 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('layout')
 
 import Sidebar from '../components/LayoutComponents/Sidebar/Sidebar'
-import Header from '../components/LayoutComponents/Header'
+import Header from '../components/LayoutComponents/Header/Header'
 import BreadcrumbHistory from '../components/LayoutComponents/BreadcrumbHistory'
 
 
