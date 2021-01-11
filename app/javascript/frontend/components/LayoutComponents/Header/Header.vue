@@ -50,8 +50,8 @@
           <span class="avatar rounded-circle thumb-sm float-left mr-2">
             <img class="rounded-circle" :src="avatarUrl" alt="..." />
           </span>
-          <span class="small">202028015059032</span>
-          <span class="ml-1 mr-3 circle bg-primary text-white fw-bold">13</span>
+          <span class="small">{{username}}</span>
+          <!-- <span class="ml-1 mr-3 circle bg-primary text-white fw-bold">13</span> -->
         </template>
         <Notifications />
       </b-nav-item-dropdown>
@@ -81,7 +81,8 @@ export default {
   },
   data() {
     return{
-      avatarUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+      avatarUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+      username: localStorage.getItem("username")
     }
   },
   methods: {
