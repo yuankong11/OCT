@@ -1,6 +1,6 @@
 <!-- 周视图 -->
 <template>
-  <v-app :class="card">
+  <v-app style="margin-top: 0px;">
     <v-sheet height="64">
       <v-toolbar flat>
         <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
@@ -55,7 +55,7 @@
         </template>
         </div>
       </v-calendar>
-      <v-menu v-model="selectedOpen" :close-on-content-click="false" :activator="selectedElement" offset-x>
+      <v-menu v-model="selectedOpen" :close-on-content-click="false" :activator="selectedElement" offset-y>
         <v-card color="grey lighten-4" min-width="350px" flat>
           <v-toolbar :color="selectedEvent.color" dark>
             <v-btn icon>
@@ -120,10 +120,6 @@
 
 
 <style lang="scss">
-  .card {
-    margin-top: 0px;
-  }
-
   .v-current-time {
     height: 2px;
     background-color: #ea4335;

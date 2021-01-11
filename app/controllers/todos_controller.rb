@@ -4,8 +4,8 @@ class TodosController < ApplicationController
     protect_from_forgery :only => [:create]
 
     def index
-        @tasklist_all = Tasklist.all
-        render json: @tasklist_all
+        @todo_all = Todo.all
+        render json: @todo_all
     end
 
     def show
@@ -35,7 +35,7 @@ class TodosController < ApplicationController
 
     private
     def todo_params
-        params.require(:todo).permit(:title, :done)
+        params.require(:todo).permit(:title, :done, :flag, :duetime)
     end
 
 end

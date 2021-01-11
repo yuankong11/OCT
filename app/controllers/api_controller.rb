@@ -100,6 +100,7 @@ class ApiController < ApplicationController
     render json: analyze_timetable
   end
 
+
   def resources
     render json: find_resources(current_user)
   end
@@ -117,12 +118,27 @@ class ApiController < ApplicationController
     resources
   end
 
-  def science_lectures
-    render json: current_spider.get_science_lecture_info
+  def lectures
+    user = User.find_by(email: current_user)
+    lecture_info_db = user.lecture_info
+    if lecture_info_db.nil?
+      current_spider.get_lecture_info
+      lecture_info = current_spider.lecture
+      user.lecture_info = lecture_info.to_s
+      user.save
+    else
+      lecture_info = JSON.parse(lecture_info_db)
+    end
+    render json: lecture_info
   end
 
-  def humanity_lectures
-    render json: current_spider.get_humanity_lecture_info
+  def refresh_lectures
+    user = User.find_by(email: current_user)
+    current_spider.get_lecture_info
+    lecture_info = current_spider.lecture
+    user.lecture_info = lecture_info.to_s
+    user.save
+    render json: lecture_info
   end
 
   def login

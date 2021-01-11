@@ -9,12 +9,7 @@
             <div slot="header">
               <span>Todo List</span>
             </div>
-            <el-col :span="6">
-              <Sidemenu />
-            </el-col>
-            <el-col :span="17">
               <Todolist />
-            </el-col>
           </el-card>
         </el-col>
 
@@ -54,9 +49,8 @@
 
 <script>
 /* eslint-disable */
-  import Minicalendar from '../components/Calendar/Minicalendar'
+import Minicalendar from '../components/Calendar/Minicalendar'
 import Minitodo from "../components/Todo/Minitodo"
-import Sidemenu from "../components/Todo/Sidemenu"
 import Todolist from "../components/Todo/Todolist"
 export default {
   methods: {
@@ -70,7 +64,6 @@ export default {
   components: {
     Minicalendar,
     Minitodo,
-    Sidemenu,
     Todolist
   },
 };

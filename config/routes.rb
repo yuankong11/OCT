@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'frontend#home'
-  resources :tasks
+  resources :todos
+  resources :tasklists
   get 'login', to: 'frontend#show'
   get 'app/:postfix', to: 'frontend#show'
   get 'api/:function', to: 'api#function_dispatch'
