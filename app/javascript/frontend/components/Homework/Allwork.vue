@@ -28,21 +28,34 @@
 <script>
 export default {
   name: "Allwork",
-  props: [
-    "works"
-    ],
+  created() {
+    this.refresh();
+  },
   data() {
     return {
-      dialogVisible: true
+      dialogVisible: true,
+      works: []
     }
   },
   methods: {
-    // handleEdit(index, row) {
-    //   console.log(index, row);
-    // },
-  },
-  created(){
-    // console.log(this.works);
+    refresh() {
+      this.$http.get("/api/homework").then(
+        (res) => {
+          console.log(res.data);
+          this.works = res.data;
+        },
+        (res) => {
+          this.redirectToLogin();
+        }
+      )
+    },
+    redirectToLogin() {
+      this.$notify.error({
+        title: "错误",
+        message: "请重新登录",
+      });
+      this.$router.push('/login');
+    }
   }
 };
 </script>

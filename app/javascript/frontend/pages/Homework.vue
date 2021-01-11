@@ -25,7 +25,7 @@
           <div slot="header">
             <span>所有作业</span>
           </div>
-          <Allwork :works="works" />
+          <Allwork />
         </el-card>
       </el-col>
     </el-row>
@@ -45,11 +45,10 @@ export default {
   },
   created() {
     this.refresh();
-    // console.log(this.works);
   },
   data() {
     return {
-      works: []
+      // works: []
     }
   },
   methods: {
@@ -58,15 +57,15 @@ export default {
       this.$refs.workpad.dialogTableVisible = true
     },
     refresh() {
-      this.$http.get("/api/homework").then(
-        (res) => {
-          console.log(res.data);
-          this.works = res.data;
-        },
-        (res) => {
-          this.redirectToLogin();
-        }
-      )
+      // this.$http.get("/api/homework").then(
+      //   (res) => {
+      //     console.log(res.data);
+      //     this.works = res.data;
+      //   },
+      //   (res) => {
+      //     this.redirectToLogin();
+      //   }
+      // )
     },
     redirectToLogin() {
       this.$notify.error({
@@ -75,7 +74,7 @@ export default {
       });
       this.$router.push('/login');
     }
-  },
+  }
 };
 </script>
 
