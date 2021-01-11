@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< Updated upstream
-ActiveRecord::Schema.define(version: 2021_01_11_111320) do
-=======
 ActiveRecord::Schema.define(version: 2021_01_11_125729) do
->>>>>>> Stashed changes
 
   create_table "c_calendars", force: :cascade do |t|
     t.string "summary"
@@ -54,7 +50,6 @@ ActiveRecord::Schema.define(version: 2021_01_11_125729) do
 
   create_table "todos", force: :cascade do |t|
     t.string "title"
-    t.string "belongto"
     t.boolean "done"
     t.boolean "flag"
     t.datetime "duetime"

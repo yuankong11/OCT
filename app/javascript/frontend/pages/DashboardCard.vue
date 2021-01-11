@@ -7,7 +7,7 @@
 <script>
 import Timetable from '../components/Calendar/Timetable.vue';
 import Allwork from '../components/Homework/Allwork.vue';
-import ScienceLecture from '../components/LectureInfo/ScienceLecture.vue';
+//import ScienceLecture from '../components/LectureInfo/ScienceLecture.vue';
 import Files from '../components/LessonResource/Files.vue';
 import Homework from './Homework.vue';
 import LectureInfo from './LectureInfo.vue';
@@ -20,7 +20,7 @@ export default {
     LectureInfo,
     Homework,
     Allwork,
-    ScienceLecture,
+    //ScienceLecture,
     Files
   },
   data() {
