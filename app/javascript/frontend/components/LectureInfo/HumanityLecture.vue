@@ -29,7 +29,7 @@ export default {
       this.$http.get("/api/lectures").then(
         (res) => {
           let t = res.body
-          let i = 0
+          let i = 1
           this.table = []
           for(let j = 0; j < t[i].length; ++j) {
             this.table.push({
